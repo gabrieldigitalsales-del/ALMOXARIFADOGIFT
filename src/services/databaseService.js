@@ -23,14 +23,17 @@ export async function loadCollection(collection) {
   return (data || []).map(row => ({ id: row.id, ...(row.data || {}) }));
 }
 
+const isUuid = value => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ''));
+const payloadFor = row => isUuid(row?.id) ? { id: row.id, data: row } : { data: { ...row, id: undefined } };
+
 export async function replaceCollection(collection, rows) {
   ensure();
   const table = tableNames[collection];
   const safeRows = Array.isArray(rows) ? rows : [];
-  const { error: deleteError } = await supabase.from(table).delete().neq('id', '__never__');
+  const { error: deleteError } = await supabase.from(table).delete().neq('id', '00000000-0000-0000-0000-000000000000');
   if (deleteError) throw deleteError;
   if (!safeRows.length) return [];
-  const payload = safeRows.map(row => ({ id: row.id, data: row }));
+  const payload = safeRows.map(payloadFor);
   const { data, error } = await supabase.from(table).insert(payload).select('id,data');
   if (error) throw error;
   return (data || []).map(row => ({ id: row.id, ...(row.data || {}) }));
@@ -39,7 +42,9 @@ export async function replaceCollection(collection, rows) {
 export async function upsertCollectionItem(collection, item) {
   ensure();
   const table = tableNames[collection];
-  const { data, error } = await supabase.from(table).upsert({ id: item.id, data: item }).select('id,data').single();
+  const payload = payloadFor(item);
+  const request = payload.id ? supabase.from(table).upsert(payload) : supabase.from(table).insert(payload);
+  const { data, error } = await request.select('id,data').single();
   if (error) throw error;
   return { id: data.id, ...(data.data || {}) };
 }

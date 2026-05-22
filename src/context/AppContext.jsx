@@ -6,7 +6,7 @@ import{deleteCollectionItem,loadAllCollections,replaceCollection,upsertCollectio
 import{availableOf,calcMachineCost,num,statusOf,today}from'../utils/costs';
 import{downloadJson}from'../utils/exporters';
 
-const Ctx=createContext(null);const rid=p=>`${p}-${crypto.randomUUID().slice(0,8)}`;
+const Ctx=createContext(null);const rid=()=>crypto.randomUUID();
 const collections=['stock','machines','bom','suppliers','movements','purchases','ops','maintenance'];
 
 export function AppProvider({children}){
