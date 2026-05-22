@@ -1,6 +1,6 @@
 {
-  "installCommand": "npm ci --legacy-peer-deps --no-audit --no-fund",
-  "buildCommand": "npm run build",
+  "installCommand": "corepack enable && corepack prepare yarn@1.22.22 --activate && yarn install --non-interactive --network-timeout 100000 --ignore-engines",
+  "buildCommand": "yarn build",
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
