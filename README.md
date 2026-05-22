@@ -105,3 +105,21 @@ Depois envie o projeto para o GitHub e importe na Vercel.
 ## Observação de segurança
 
 O sistema mantém a senha simples `asd123`, conforme solicitado. As políticas do Supabase liberam CRUD com a anon key para facilitar o uso interno. Para uso público ou multiusuário, o ideal é trocar por autenticação Supabase Auth e políticas por usuário.
+
+## Correção para Vercel
+
+Esta versão usa pnpm na Vercel para evitar o erro do npm: `Exit handler never called!`.
+
+Configurações já incluídas:
+
+- `packageManager`: `pnpm@9.15.4`
+- `vercel.json` com `installCommand`: `pnpm install --no-frozen-lockfile`
+- dependências fixadas, sem `latest`
+- removido `package-lock.json`
+
+No deploy da Vercel, confirme:
+
+- Install Command: `pnpm install --no-frozen-lockfile`
+- Build Command: `pnpm run build`
+- Output Directory: `dist`
+
