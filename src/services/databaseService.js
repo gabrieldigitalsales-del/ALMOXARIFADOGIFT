@@ -15,38 +15,69 @@ const ensure = () => {
   if (!isSupabaseConfigured || !supabase) throw new Error('Supabase não configurado');
 };
 
+const isUuid = value => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ''));
+
+const cleanData = row => {
+  const data = { ...(row || {}) };
+  delete data.id;
+  return data;
+};
+
+const payloadFor = row => {
+  const data = cleanData(row);
+  return isUuid(row?.id) ? { id: row.id, data } : { data };
+};
+
+const mapRow = row => ({ id: row.id, ...(row.data || {}) });
+
 export async function loadCollection(collection) {
   ensure();
   const table = tableNames[collection];
-  const { data, error } = await supabase.from(table).select('id,data,created_at,updated_at').order('created_at', { ascending: false });
+  const { data, error } = await supabase
+    .from(table)
+    .select('id,data,created_at,updated_at')
+    .order('created_at', { ascending: false });
   if (error) throw error;
-  return (data || []).map(row => ({ id: row.id, ...(row.data || {}) }));
+  return (data || []).map(mapRow);
 }
-
-const isUuid = value => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ''));
-const payloadFor = row => isUuid(row?.id) ? { id: row.id, data: row } : { data: { ...row, id: undefined } };
 
 export async function replaceCollection(collection, rows) {
   ensure();
   const table = tableNames[collection];
   const safeRows = Array.isArray(rows) ? rows : [];
-  const { error: deleteError } = await supabase.from(table).delete().neq('id', '00000000-0000-0000-0000-000000000000');
+
+  // Primeiro tenta limpar a coleção para refletir remoções/reset.
+  // Depois usa UPSERT, não INSERT, para evitar erro de chave duplicada caso
+  // alguma limpeza falhe, rode em paralelo, ou o mesmo item já exista no banco.
+  const { error: deleteError } = await supabase
+    .from(table)
+    .delete()
+    .neq('id', '00000000-0000-0000-0000-000000000000');
   if (deleteError) throw deleteError;
+
   if (!safeRows.length) return [];
+
   const payload = safeRows.map(payloadFor);
-  const { data, error } = await supabase.from(table).insert(payload).select('id,data');
+  const { data, error } = await supabase
+    .from(table)
+    .upsert(payload, { onConflict: 'id' })
+    .select('id,data');
   if (error) throw error;
-  return (data || []).map(row => ({ id: row.id, ...(row.data || {}) }));
+  return (data || []).map(mapRow);
 }
 
 export async function upsertCollectionItem(collection, item) {
   ensure();
   const table = tableNames[collection];
   const payload = payloadFor(item);
-  const request = payload.id ? supabase.from(table).upsert(payload) : supabase.from(table).insert(payload);
-  const { data, error } = await request.select('id,data').single();
+
+  const { data, error } = await supabase
+    .from(table)
+    .upsert(payload, { onConflict: 'id' })
+    .select('id,data')
+    .single();
   if (error) throw error;
-  return { id: data.id, ...(data.data || {}) };
+  return mapRow(data);
 }
 
 export async function deleteCollectionItem(collection, id) {
