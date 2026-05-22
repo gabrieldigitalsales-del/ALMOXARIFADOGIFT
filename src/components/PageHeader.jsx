@@ -1,0 +1,1 @@
+export default function PageHeader({title,subtitle,actions}){return <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end"><div><h2 className="text-3xl font-semibold tracking-tight">{title}</h2><p className="text-brand-steel dark:text-white/60">{subtitle}</p></div><div className="flex flex-wrap gap-2">{actions}</div></div>}

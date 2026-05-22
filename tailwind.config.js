@@ -1,0 +1,1 @@
+export default { darkMode:'class', content:['./index.html','./src/**/*.{js,jsx}'], theme:{ extend:{ colors:{brand:{turquoise:'#ef2f2f',yellow:'#ef2f2f',red:'#ef2f2f',black:'#151515',graphite:'#242424',steel:'#565656',light:'#f5f5f5',line:'#e6e6e6'}}, boxShadow:{industrial:'0 20px 50px rgba(0,0,0,.22)'}}}, plugins:[] };
