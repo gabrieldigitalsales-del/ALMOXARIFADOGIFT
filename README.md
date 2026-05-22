@@ -108,18 +108,24 @@ O sistema mantém a senha simples `asd123`, conforme solicitado. As políticas d
 
 ## Correção para Vercel
 
-Esta versão usa pnpm na Vercel para evitar o erro do npm: `Exit handler never called!`.
+Esta versão força o uso do Node 20 na Vercel para evitar os erros de instalação vistos com Node 24, como:
+
+```txt
+npm error Exit handler never called!
+ERR_INVALID_THIS / URLSearchParams
+```
 
 Configurações já incluídas:
 
-- `packageManager`: `pnpm@9.15.4`
-- `vercel.json` com `installCommand`: `pnpm install --no-frozen-lockfile`
+- `engines.node`: `20.x`
+- `.nvmrc`: `20`
+- `.node-version`: `20`
+- `vercel.json` com install via npm
 - dependências fixadas, sem `latest`
-- removido `package-lock.json`
+- `package-lock.json` gerado
 
 No deploy da Vercel, confirme:
 
-- Install Command: `pnpm install --no-frozen-lockfile`
-- Build Command: `pnpm run build`
+- Install Command: `npm install --legacy-peer-deps --no-audit --no-fund`
+- Build Command: `npm run build`
 - Output Directory: `dist`
-
