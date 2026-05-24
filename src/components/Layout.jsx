@@ -80,22 +80,26 @@ function LowStockNotifications({ items }) {
 
 export default function Layout() {
   const { settings, setSettings, toast, totals, setAuth, dbStatus } = useApp();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navg = useNavigate();
-  const logout = () => { setAuth({ logged: false }); navg('/login'); };
+  const logout = () => { setMobileMenuOpen(false); setAuth({ logged: false }); navg('/login'); };
 
   return (
     <main className="min-h-screen bg-brand-light text-brand-black dark:bg-brand-black dark:text-white">
-      <aside className="fixed inset-y-0 left-0 z-20 hidden w-72 flex-col border-r border-brand-line bg-white dark:border-white/10 dark:bg-[#101010] lg:flex">
-        <div className="flex items-center gap-3 border-b border-brand-line p-5 dark:border-white/10">
-          <img src="/logo-gift.png" className="h-14 w-20 object-contain" />
-          <div>
-            <p className="text-xs font-semibold text-brand-turquoise">GIFT EXCELLENCE</p>
-            <h1 className="text-sm font-semibold leading-tight">ALMOXARIFADO</h1>
+      <aside className={`fixed inset-y-0 left-0 z-30 flex w-72 max-w-[86vw] flex-col border-r border-brand-line bg-white transition-transform duration-300 dark:border-white/10 dark:bg-[#101010] lg:z-20 lg:translate-x-0 ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="flex items-center justify-between gap-3 border-b border-brand-line p-5 dark:border-white/10">
+          <div className="flex items-center gap-3">
+            <img src="/logo-gift.png" className="h-14 w-20 object-contain" />
+            <div>
+              <p className="text-xs font-semibold text-brand-turquoise">GIFT EXCELLENCE</p>
+              <h1 className="text-sm font-semibold leading-tight">ALMOXARIFADO</h1>
+            </div>
           </div>
+          <button className="btn-ghost p-2 lg:hidden" onClick={() => setMobileMenuOpen(false)} title="Fechar menu"><X size={18} /></button>
         </div>
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
           {nav.map(([to, label, Icon]) => (
-            <NavLink key={to} to={to} end={to === '/'} className={({ isActive }) => `flex items-center gap-3 rounded-none px-4 py-3 text-sm font-semibold transition ${isActive ? 'bg-brand-turquoise text-brand-black shadow-industrial' : 'hover:bg-brand-light dark:hover:bg-white/10'}`}>
+            <NavLink key={to} to={to} end={to === '/'} onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => `flex items-center gap-3 rounded-none px-4 py-3 text-sm font-semibold transition ${isActive ? 'bg-brand-turquoise text-brand-black shadow-industrial' : 'hover:bg-brand-light dark:hover:bg-white/10'}`}>
               <Icon size={18} />{label}
             </NavLink>
           ))}
@@ -107,10 +111,18 @@ export default function Layout() {
         </div>
       </aside>
 
+      {mobileMenuOpen && (
+        <button
+          className="fixed inset-0 z-20 bg-black/45 lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-label="Fechar menu"
+        />
+      )}
+
       <section className="lg:pl-72">
         <header className="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-brand-line bg-white/85 px-4 glass dark:border-white/10 dark:bg-[#101010]/85 lg:px-8">
           <div className="flex items-center gap-3">
-            <Menu className="lg:hidden" />
+            <button className="btn-ghost p-2 lg:hidden" onClick={() => setMobileMenuOpen(true)} aria-label="Abrir menu" title="Abrir menu"><Menu size={20} /></button>
             <img src="/logo-gift.png" className="h-12 w-20 object-contain lg:hidden" />
             <div>
               <h2 className="text-lg font-semibold tracking-tight lg:text-2xl">ALMOXARIFADO GIFT EXCELLENCE</h2>
