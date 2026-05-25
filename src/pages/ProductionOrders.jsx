@@ -35,7 +35,7 @@ export default function ProductionOrders(){
   });
   const missing=lines.filter(l=>l.missing>0);
   const reservedMissing=lines.filter(l=>l.reservedMissing>0);
-  return {...o,machineName:machine?.name||'Máquina não encontrada',machineCode:machine?.code||'',costing,lines,materialsCount:lines.length,missingCount:missing.length,reservedMissingCount:reservedMissing.length,cost:costing.total,price:costing.price};
+  return {...o,machineName:machine?.name||'Máquina não encontrada',machineModel:machine?.model||'',machineClient:machine?.client||'',machineCode:machine?.code||'',machineLabel:machine?`${machine.name}${machine.model?` - ${machine.model}`:''}`:'Máquina não encontrada',costing,lines,materialsCount:lines.length,missingCount:missing.length,reservedMissingCount:reservedMissing.length,cost:costing.total,price:costing.price};
  }),[ops,machines,bom,stock]);
 
  const kpis=useMemo(()=>({
@@ -70,7 +70,7 @@ export default function ProductionOrders(){
 
   <DataTable rows={enriched} empty="Nenhuma OP cadastrada" columns={[
    {key:'number',label:'OP',render:r=><div><strong>{r.number}</strong><p className="text-xs text-brand-steel">{r.priority||'Normal'} • {r.createdAt||r.plannedAt||'-'}</p></div>},
-   {key:'machineName',label:'Máquina',render:r=><div><strong>{r.machineName}</strong><p className="text-xs text-brand-steel">{r.machineCode}</p></div>},
+   {key:'machineName',label:'Máquina / Modelo',render:r=><div><strong>{r.machineName}</strong><p className="text-xs font-semibold text-brand-red">Modelo: {r.machineModel||'Sem modelo'}</p><p className="text-xs text-brand-steel">Código: {r.machineCode||'-'}{r.machineClient?` • Cliente: ${r.machineClient}`:''}</p></div>},
    {key:'status',label:'Status',render:r=><span className={`inline-flex whitespace-nowrap px-2 py-1 text-xs font-bold ${statusClass(r.status)}`}>{r.status}</span>},
    {key:'materials',label:'Materiais',render:r=><div className="text-sm"><strong>{r.materialsCount}</strong> itens{r.missingCount>0?<p className="mt-1 flex items-center gap-1 text-xs font-bold text-brand-red"><AlertTriangle size={13}/>{r.missingCount} com falta</p>:<p className="mt-1 text-xs text-emerald-600">Disponível</p>}</div>},
    {key:'dates',label:'Datas',render:r=><div className="text-sm"><p className="flex items-center gap-1"><CalendarDays size={14}/>{r.plannedAt||'-'}</p><p className="text-xs text-brand-steel">Prazo: {r.dueAt||'-'}</p></div>},
@@ -82,7 +82,7 @@ export default function ProductionOrders(){
   <Modal open={!!edit} title={edit?.id?'Alterar OP':'Adicionar OP'} onClose={()=>setEdit(null)} size="max-w-4xl">
    <FormGrid>
     {edit?.number&&<Field label="Número da OP" value={edit.number} onChange={v=>setEdit({...edit,number:v})}/>} 
-    <Field label="Máquina" value={edit?.machineId} options={machines.map(m=>({value:m.id,label:`${m.code} - ${m.name}`}))} onChange={v=>setEdit({...edit,machineId:v})}/>
+    <Field label="Máquina / modelo" value={edit?.machineId} options={machines.map(m=>({value:m.id,label:`${m.code||'S/C'} - ${m.name}${m.model?` - Modelo ${m.model}`:' - Sem modelo'}`}))} onChange={v=>setEdit({...edit,machineId:v})}/>
     <Field label="Status" value={edit?.status} options={opStatus} onChange={v=>setEdit({...edit,status:v})}/>
     <Field label="Prioridade" value={edit?.priority} options={priorities} onChange={v=>setEdit({...edit,priority:v})}/>
     <Field label="Data planejada" type="date" value={edit?.plannedAt} onChange={v=>setEdit({...edit,plannedAt:v})}/>
@@ -97,7 +97,7 @@ export default function ProductionOrders(){
   <Modal open={!!view} title={`Detalhes ${view?.number||''}`} onClose={()=>setView(null)} size="max-w-6xl">
    {view&&<div className="space-y-5">
     <div className="grid gap-3 md:grid-cols-4">
-     <div className="card-premium"><p className="text-xs uppercase text-brand-steel">Máquina</p><strong>{view.machineName}</strong></div>
+     <div className="card-premium"><p className="text-xs uppercase text-brand-steel">Máquina</p><strong>{view.machineName}</strong><p className="mt-1 text-sm font-semibold text-brand-red">Modelo: {view.machineModel||'Sem modelo'}</p><p className="text-xs text-brand-steel">Código: {view.machineCode||'-'}</p></div>
      <div className="card-premium"><p className="text-xs uppercase text-brand-steel">Status</p><strong>{view.status}</strong></div>
      <div className="card-premium"><p className="text-xs uppercase text-brand-steel">Custo previsto</p><strong>{currency(view.cost)}</strong></div>
      <div className="card-premium"><p className="text-xs uppercase text-brand-steel">Preço sugerido</p><strong>{currency(view.price)}</strong></div>
