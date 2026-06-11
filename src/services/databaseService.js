@@ -8,7 +8,8 @@ export const tableNames = {
   movements: 'giftx_almox_siqueira_2026_stock_movements',
   purchases: 'giftx_almox_siqueira_2026_purchase_orders',
   ops: 'giftx_almox_siqueira_2026_production_orders',
-  maintenance: 'giftx_almox_siqueira_2026_maintenance_records'
+  maintenance: 'giftx_almox_siqueira_2026_maintenance_records',
+  warranties: 'giftx_almox_siqueira_2026_warranty_reminders'
 };
 
 const ensure = () => {
@@ -29,6 +30,7 @@ const payloadFor = row => {
 };
 
 const mapRow = row => ({ id: row.id, ...(row.data || {}) });
+const optionalCollections = new Set(['warranties']);
 
 export async function loadCollection(collection) {
   ensure();
@@ -37,7 +39,10 @@ export async function loadCollection(collection) {
     .from(table)
     .select('id,data,created_at,updated_at')
     .order('created_at', { ascending: false });
-  if (error) throw error;
+  if (error) {
+    if (optionalCollections.has(collection) && (error.code === '42P01' || String(error.message || '').includes('does not exist'))) return [];
+    throw error;
+  }
   return (data || []).map(mapRow);
 }
 
