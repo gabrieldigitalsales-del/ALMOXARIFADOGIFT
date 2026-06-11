@@ -9,8 +9,24 @@ const TABLE = 'giftx_almox_siqueira_2026_warranty_reminders';
 const today = () => new Date().toISOString().slice(0, 10);
 const onlyDigits = (value: unknown) => String(value ?? '').replace(/\D/g, '');
 
+function getCustomerName(row: Record<string, any>) {
+  return String(row.customerName || row.customer_name || row.clientName || row.cliente || '').trim();
+}
+
+function getMachineName(row: Record<string, any>) {
+  return String(row.machineName || row.machine_name || row.machine || row.maquina || '').trim();
+}
+
 function defaultMessage(row: Record<string, any>) {
-  return `Olá, ${row.customerName || 'tudo bem'}? Aqui é da GIFT Excellence. Passando para avisar que a garantia da máquina ${row.machineName || ''}${row.serialNumber ? ` / série ${row.serialNumber}` : ''} está próxima do fim. Caso precise de suporte, estamos à disposição.`;
+  const customer = getCustomerName(row) || 'tudo bem';
+  const machine = getMachineName(row);
+  const serial = String(row.serialNumber || row.serial_number || '').trim();
+  const machineText = machine ? ` da máquina ${machine}${serial ? ` / série ${serial}` : ''}` : ' da sua máquina';
+  return `Olá, ${customer}! Aqui é da GIFT Excellence. Passando para avisar que a garantia${machineText} está próxima do fim. Caso precise de suporte, estamos à disposição.`;
+}
+
+function isAutoMessage(message: unknown, row: Record<string, any>) {
+  return !message || message === defaultMessage(row) || String(message).includes('Olá, S?');
 }
 
 async function sendWithZapi(phone: string, message: string) {
@@ -57,7 +73,7 @@ async function sendWithTwilio(phone: string, message: string) {
 async function sendWhatsApp(row: Record<string, any>) {
   const provider = (Deno.env.get('WHATSAPP_PROVIDER') || row.provider || 'ZAPI').toUpperCase();
   const phone = onlyDigits(row.customerPhone);
-  const message = row.message || defaultMessage(row);
+  const message = isAutoMessage(row.message, row) ? defaultMessage(row) : row.message;
   if (!phone) throw new Error('Registro sem telefone do cliente.');
   if (provider.includes('TWILIO')) return sendWithTwilio(phone, message);
   return sendWithZapi(phone, message);

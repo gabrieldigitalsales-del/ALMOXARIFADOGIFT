@@ -70,3 +70,13 @@ curl -X POST 'https://SEU_PROJETO.supabase.co/functions/v1/warranty-whatsapp-rem
 ## Observação importante
 
 O navegador não deve guardar token de WhatsApp, Twilio ou Z-API. Por isso, o disparo automático fica na Edge Function do Supabase, não dentro do React.
+
+## Atualização solicitada
+
+- Corrigida a geração da mensagem para usar o nome completo do cliente cadastrado. Exemplo: `Olá, Carlos! ...`.
+- Se algum registro antigo ficou salvo com `Olá, S?`, a tela e a Edge Function regeneram a mensagem automaticamente usando o cliente do cadastro.
+- No formulário, o campo de garantia agora é uma seleção fixa com as opções: 3 meses, 6 meses e 12 meses.
+- Ao informar ou alterar a data de entrega, a garantia escolhida ou os dias de aviso, o sistema calcula automaticamente:
+  - data final da garantia;
+  - data do aviso.
+- Foi adicionado o botão `Regerar mensagem com nome do cliente` dentro do formulário.

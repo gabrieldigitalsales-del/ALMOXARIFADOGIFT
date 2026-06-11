@@ -9,13 +9,23 @@ import {today} from '../utils/costs';
 
 const statuses=['Ativa','Mensagem enviada','Concluída','Cancelada'];
 const providers=['Z-API','Twilio','Meta Cloud API','Manual'];
+const warrantyMonthOptions=[{value:3,label:'3 meses'},{value:6,label:'6 meses'},{value:12,label:'12 meses'}];
 
 const addMonths=(date,months=6)=>{const d=new Date(`${date||today()}T12:00:00`);d.setMonth(d.getMonth()+Number(months||0));return d.toISOString().slice(0,10)};
 const addDays=(date,days)=>{const d=new Date(`${date||today()}T12:00:00`);d.setDate(d.getDate()+Number(days||0));return d.toISOString().slice(0,10)};
 const diffDays=date=>Math.ceil((new Date(`${date}T12:00:00`)-new Date(`${today()}T12:00:00`))/86400000);
 const onlyDigits=v=>String(v||'').replace(/\D/g,'');
 const whatsappHref=(phone,message)=>`https://wa.me/${onlyDigits(phone)}?text=${encodeURIComponent(message||'')}`;
-const defaultMessage=r=>`Olá, ${r.customerName||'tudo bem'}? Aqui é da GIFT Excellence. Passando para avisar que a garantia da máquina ${r.machineName||''}${r.serialNumber?` / série ${r.serialNumber}`:''} está próxima do fim. Caso precise de suporte, estamos à disposição.`;
+const getCustomerName=r=>String(r?.customerName||r?.customer_name||r?.clientName||r?.cliente||'').trim();
+const getMachineName=r=>String(r?.machineName||r?.machine_name||r?.machine||r?.maquina||'').trim();
+const defaultMessage=r=>{
+ const customer=getCustomerName(r)||'tudo bem';
+ const machine=getMachineName(r);
+ const serial=String(r?.serialNumber||r?.serial_number||'').trim();
+ const machineText=machine?` da máquina ${machine}${serial?` / série ${serial}`:''}`:' da sua máquina';
+ return `Olá, ${customer}! Aqui é da GIFT Excellence. Passando para avisar que a garantia${machineText} está próxima do fim. Caso precise de suporte, estamos à disposição.`;
+};
+const isAutoMessage=(message,row)=>!message||message===defaultMessage(row)||String(message).includes('Olá, S?');
 function statusClass(status,days){
  if(status==='Cancelada')return 'bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-200';
  if(status==='Concluída'||status==='Mensagem enviada')return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-200';
@@ -31,7 +41,7 @@ export default function WarrantyReminders(){
  const opOptions=useMemo(()=>ops.map(o=>({value:o.id,label:`${o.number||'OP'} - ${machines.find(m=>m.id===o.machineId)?.name||'Máquina'}`})),[ops,machines]);
  const rows=useMemo(()=>warranties.map(w=>{
   const days=diffDays(w.reminderDate||w.warrantyEndDate||today());
-  return {...w,daysToReminder:days,message:w.message||defaultMessage(w)};
+  return {...w,daysToReminder:days,message:isAutoMessage(w.message,w)?defaultMessage(w):w.message};
  }).sort((a,b)=>(a.reminderDate||'').localeCompare(b.reminderDate||'')),[warranties]);
  const kpis=useMemo(()=>({
   total:rows.length,
@@ -39,7 +49,10 @@ export default function WarrantyReminders(){
   sent:rows.filter(r=>r.status==='Mensagem enviada'||r.reminderSentAt).length,
   canceled:rows.filter(r=>r.status==='Cancelada').length
  }),[rows]);
- const newWarranty=()=>setEdit({customerName:'',customerPhone:'55',machineId:'',opId:'',machineName:'',serialNumber:'',deliveryDate:today(),warrantyMonths:6,reminderDaysBefore:7,status:'Ativa',provider:'Z-API'});
+ const buildWarrantyDates=(deliveryDate=today(),warrantyMonths=6,reminderDaysBefore=7)=>{const warrantyEndDate=addMonths(deliveryDate,warrantyMonths);return{warrantyEndDate,reminderDate:addDays(warrantyEndDate,-Number(reminderDaysBefore||7))}};
+ const normalizeWarranty=row=>{const base={...row};const dates=buildWarrantyDates(base.deliveryDate||today(),base.warrantyMonths||6,base.reminderDaysBefore||7);if(!base.warrantyEndDate)base.warrantyEndDate=dates.warrantyEndDate;if(!base.reminderDate)base.reminderDate=dates.reminderDate;if(isAutoMessage(base.message,base))base.message=defaultMessage(base);return base};
+ const newWarranty=()=>setEdit(normalizeWarranty({customerName:'',customerPhone:'55',machineId:'',opId:'',machineName:'',serialNumber:'',deliveryDate:today(),warrantyMonths:6,reminderDaysBefore:7,status:'Ativa',provider:'Z-API'}));
+ const openEdit=row=>setEdit(normalizeWarranty(row));
  const updateEdit=(patch)=>setEdit(prev=>{
   const next={...prev,...patch};
   if('machineId'in patch){const m=machines.find(x=>x.id===patch.machineId);if(m)next.machineName=m.name;}
@@ -48,15 +61,18 @@ export default function WarrantyReminders(){
    const end=addMonths(next.deliveryDate,next.warrantyMonths||6);next.warrantyEndDate=end;next.reminderDate=addDays(end,-Number(next.reminderDaysBefore||7));
   }
   if(!next.warrantyEndDate){const end=addMonths(next.deliveryDate,next.warrantyMonths||6);next.warrantyEndDate=end;next.reminderDate=addDays(end,-Number(next.reminderDaysBefore||7));}
-  if(!next.message)next.message=defaultMessage(next);
+  const shouldRefreshMessage=isAutoMessage(prev?.message,prev)||['customerName','machineName','serialNumber','machineId','opId'].some(key=>key in patch);
+  if(shouldRefreshMessage)next.message=defaultMessage(next);
   return next;
  });
+ const regenerateMessage=()=>setEdit(prev=>prev?{...prev,message:defaultMessage(prev)}:prev);
  const save=()=>{
   if(!edit.customerName)return notify('Informe o nome do cliente','error');
   if(!onlyDigits(edit.customerPhone))return notify('Informe o WhatsApp do cliente','error');
   if(!edit.deliveryDate)return notify('Informe a data de entrega','error');
   const end=edit.warrantyEndDate||addMonths(edit.deliveryDate,edit.warrantyMonths||6);
-  const clean={...edit,customerPhone:onlyDigits(edit.customerPhone),warrantyMonths:Number(edit.warrantyMonths||6),reminderDaysBefore:Number(edit.reminderDaysBefore||7),warrantyEndDate:end,reminderDate:edit.reminderDate||addDays(end,-Number(edit.reminderDaysBefore||7)),status:edit.status||'Ativa',message:edit.message||defaultMessage(edit),updatedAt:new Date().toISOString()};
+  const finalRow={...edit,warrantyEndDate:end,reminderDate:edit.reminderDate||addDays(end,-Number(edit.reminderDaysBefore||7))};
+  const clean={...finalRow,customerPhone:onlyDigits(finalRow.customerPhone),warrantyMonths:Number(finalRow.warrantyMonths||6),reminderDaysBefore:Number(finalRow.reminderDaysBefore||7),status:finalRow.status||'Ativa',message:isAutoMessage(finalRow.message,edit)?defaultMessage(finalRow):(finalRow.message||defaultMessage(finalRow)),updatedAt:new Date().toISOString()};
   setWarranties(ws=>clean.id?ws.map(w=>w.id===clean.id?clean:w):[{...clean,id:rid('gar'),createdAt:new Date().toISOString()},...ws]);
   setEdit(null);notify('Garantia salva');
  };
@@ -65,7 +81,7 @@ export default function WarrantyReminders(){
  const copyMessage=async r=>{await navigator.clipboard?.writeText(r.message||defaultMessage(r));notify('Mensagem copiada')};
 
  return <>
-  <PageHeader title="Garantias e WhatsApp" subtitle="Controle pós-entrega: 6 meses de garantia e aviso automático 7 dias antes do vencimento" actions={<button className="btn-primary" onClick={newWarranty}><Plus size={18}/>Nova garantia</button>}/>
+  <PageHeader title="Garantias e WhatsApp" subtitle="Controle pós-entrega: escolha 3, 6 ou 12 meses e avise automaticamente antes do vencimento" actions={<button className="btn-primary" onClick={newWarranty}><Plus size={18}/>Nova garantia</button>}/>
   <div className="mb-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
    <div className="card-premium"><p className="text-xs uppercase text-brand-steel">Garantias</p><strong className="text-2xl">{kpis.total}</strong></div>
    <div className="card-premium"><p className="text-xs uppercase text-brand-steel">A vencer / disparar</p><strong className="text-2xl text-brand-yellow">{kpis.due}</strong></div>
@@ -81,7 +97,7 @@ export default function WarrantyReminders(){
    {key:'dates',label:'Datas',render:r=><div className="text-sm"><p className="flex items-center gap-1"><CalendarDays size={14}/>Entrega: {r.deliveryDate||'-'}</p><p className="text-xs text-brand-steel">Fim: {r.warrantyEndDate||'-'} • Aviso: {r.reminderDate||'-'}</p></div>},
    {key:'status',label:'Status',render:r=><span className={`inline-flex whitespace-nowrap px-2 py-1 text-xs font-bold ${statusClass(r.status,r.daysToReminder)}`}>{r.status||'Ativa'}</span>},
    {key:'send',label:'WhatsApp',render:r=><div className="flex flex-wrap gap-2"><a className="btn-primary p-2" href={whatsappHref(r.customerPhone,r.message)} target="_blank" rel="noreferrer"><MessageCircle size={15}/>Abrir</a><button className="btn-ghost p-2" onClick={()=>copyMessage(r)}><Copy size={15}/></button><button className="btn-warning p-2" onClick={()=>markSent(r)}><CheckCircle size={15}/>Enviado</button></div>}
-  ]} onView={setView} onEdit={setEdit} onDelete={remove}/>
+  ]} onView={setView} onEdit={openEdit} onDelete={remove}/>
   <Modal open={!!edit} title={edit?.id?'Alterar garantia':'Nova garantia'} onClose={()=>setEdit(null)} size="max-w-5xl">
    <FormGrid>
     <Field label="Cliente" value={edit?.customerName} onChange={v=>updateEdit({customerName:v})}/>
@@ -91,7 +107,7 @@ export default function WarrantyReminders(){
     <Field label="Nome da máquina" value={edit?.machineName} onChange={v=>updateEdit({machineName:v})}/>
     <Field label="Número de série / identificação" value={edit?.serialNumber} onChange={v=>updateEdit({serialNumber:v})}/>
     <Field label="Data de entrega" type="date" value={edit?.deliveryDate} onChange={v=>updateEdit({deliveryDate:v})}/>
-    <Field label="Garantia em meses" type="number" min="1" value={edit?.warrantyMonths} onChange={v=>updateEdit({warrantyMonths:v})}/>
+    <Field label="Garantia" value={edit?.warrantyMonths} options={warrantyMonthOptions} onChange={v=>updateEdit({warrantyMonths:Number(v)})}/>
     <Field label="Avisar quantos dias antes" type="number" min="1" value={edit?.reminderDaysBefore} onChange={v=>updateEdit({reminderDaysBefore:v})}/>
     <Field label="Fim da garantia" type="date" value={edit?.warrantyEndDate} onChange={v=>updateEdit({warrantyEndDate:v})}/>
     <Field label="Data do aviso" type="date" value={edit?.reminderDate} onChange={v=>updateEdit({reminderDate:v})}/>
@@ -100,6 +116,7 @@ export default function WarrantyReminders(){
     <Field label="Observações internas" textarea value={edit?.notes} onChange={v=>updateEdit({notes:v})}/>
     <Field label="Mensagem do WhatsApp" textarea value={edit?.message} onChange={v=>updateEdit({message:v})}/>
    </FormGrid>
+   <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-brand-steel dark:text-white/60"><button className="btn-ghost" onClick={regenerateMessage}>Regerar mensagem com nome do cliente</button><span>Ao trocar cliente, máquina, garantia ou data de entrega, o sistema recalcula as datas automaticamente.</span></div>
    <div className="mt-5 flex flex-wrap gap-2"><button className="btn-primary" onClick={save}>Salvar garantia</button>{edit?.customerPhone&&<a className="btn-warning" href={whatsappHref(edit.customerPhone,edit.message||defaultMessage(edit))} target="_blank" rel="noreferrer"><ExternalLink size={16}/>Testar mensagem</a>}{edit?.id&&<button className="btn-danger" onClick={()=>remove(edit)}><Trash2 size={16}/>Remover</button>}</div>
   </Modal>
   <Modal open={!!view} title={`Garantia - ${view?.customerName||''}`} onClose={()=>setView(null)} size="max-w-3xl">
