@@ -9,7 +9,8 @@ export const tableNames = {
   purchases: 'giftx_almox_siqueira_2026_purchase_orders',
   ops: 'giftx_almox_siqueira_2026_production_orders',
   maintenance: 'giftx_almox_siqueira_2026_maintenance_records',
-  warranties: 'giftx_almox_siqueira_2026_warranty_reminders'
+  warranties: 'giftx_almox_siqueira_2026_warranty_reminders',
+  soldMachines: 'giftx_almox_siqueira_2026_sold_machines'
 };
 
 const ensure = () => {
@@ -30,7 +31,7 @@ const payloadFor = row => {
 };
 
 const mapRow = row => ({ id: row.id, ...(row.data || {}) });
-const optionalCollections = new Set(['warranties']);
+const optionalCollections = new Set(['warranties','soldMachines']);
 
 export async function loadCollection(collection) {
   ensure();

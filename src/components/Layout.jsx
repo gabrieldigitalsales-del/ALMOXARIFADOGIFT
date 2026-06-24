@@ -17,6 +17,7 @@ const nav = [
   ['/ops', 'Ordens de Produção', Hammer],
   ['/manutencao', 'Manutenção', Wrench],
   ['/garantias', 'Garantias / WhatsApp', ShieldCheck],
+  ['/maquinas-vendidas', 'Máquinas Vendidas', Factory],
   ['/relatorios', 'Relatórios', FileBarChart],
   ['/configuracoes', 'Configurações', Cog],
 ];
