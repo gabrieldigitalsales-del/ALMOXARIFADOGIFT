@@ -1,0 +1,1 @@
+import FreightModule from '../modules/FreightModule'; import '../modules/FreightModule.css'; export default function Freight(){return <FreightModule/>}

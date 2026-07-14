@@ -1,0 +1,1 @@
+import ServiceOrderModule from '../modules/ServiceOrderModule'; import '../modules/ServiceOrderModule.css'; export default function ServiceOrders(){return <ServiceOrderModule/>}

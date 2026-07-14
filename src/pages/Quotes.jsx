@@ -1,0 +1,1 @@
+import QuoteModule from '../modules/QuoteModule'; import '../modules/QuoteModule.css'; export default function Quotes(){return <QuoteModule/>}
