@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { deleteModuleRow, loadModuleRows, moduleTables, saveModuleRow } from '../services/moduleDataService'
 import { Printer, Save, RotateCcw, Plus, Trash2, Settings2, History, FilePlus2, Copy } from 'lucide-react'
 
 const COMPANY = {
@@ -101,15 +102,7 @@ export default function ServiceOrderModule() {
       return createBlankOrder()
     }
   })
-  const [history, setHistory] = useState(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem('gift-os-history-v1')) || []
-      const custom = saved.filter(entry => !DEFAULT_HISTORY.some(item => item.id === entry.id))
-      return [...DEFAULT_HISTORY, ...custom]
-    } catch {
-      return DEFAULT_HISTORY
-    }
-  })
+  const [history, setHistory] = useState(DEFAULT_HISTORY)
   const [preset, setPreset] = useState(localStorage.getItem('gift-os-size') || '20x15')
   const [customWidth, setCustomWidth] = useState('20')
   const [customHeight, setCustomHeight] = useState('15')
@@ -125,7 +118,13 @@ export default function ServiceOrderModule() {
     : PRESETS[preset]
 
   useEffect(() => localStorage.setItem('gift-os-v4', JSON.stringify(data)), [data])
-  useEffect(() => localStorage.setItem('gift-os-history-v1', JSON.stringify(history)), [history])
+  useEffect(() => {
+    let active = true
+    loadModuleRows(moduleTables.serviceOrders)
+      .then(rows => { if (active) setHistory([...DEFAULT_HISTORY, ...rows]) })
+      .catch(error => window.alert(`Erro ao carregar histórico de OS: ${error.message}`))
+    return () => { active = false }
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('gift-os-size', preset)
@@ -154,10 +153,16 @@ export default function ServiceOrderModule() {
     items: prev.items.filter(item => item.id !== id)
   }))
 
-  const save = () => {
-    localStorage.setItem('gift-os-v4', JSON.stringify(data))
-    setSaved(true)
-    setTimeout(() => setSaved(false), 1500)
+  const save = async () => {
+    try {
+      const persisted = await saveModuleRow(moduleTables.serviceOrders, { ...data, title: data.client ? `OS — ${data.client}` : `OS — ${data.orderNumber}`, createdAt: new Date().toLocaleString('pt-BR'), locked: false })
+      setData(prev => ({ ...prev, id: persisted.id }))
+      setHistory(prev => [...DEFAULT_HISTORY, persisted, ...prev.filter(item => item.locked || item.id !== persisted.id).filter(item => !DEFAULT_HISTORY.some(model => model.id === item.id))])
+      setSaved(true)
+      setTimeout(() => setSaved(false), 1500)
+    } catch (error) {
+      window.alert(`Erro ao salvar OS no Supabase: ${error.message}`)
+    }
   }
 
   const newOrder = () => {
@@ -169,25 +174,34 @@ export default function ServiceOrderModule() {
   }
 
   const loadHistory = entry => {
-    setData(createBlankOrder(entry.items.map(item => Array.isArray(item) ? item : [item.qty || '', item.description || ''])))
+    if (entry.orderNumber) {
+      setData({ ...entry, items: (entry.items || []).map(item => Array.isArray(item) ? { id: crypto.randomUUID(), qty: item[0], description: item[1], value: '' } : { ...item, id: item.id || crypto.randomUUID() }) })
+    } else {
+      setData(createBlankOrder(entry.items.map(item => Array.isArray(item) ? item : [item.qty || '', item.description || ''])))
+    }
     window.scrollTo({ top: document.querySelector('.sheet')?.offsetTop || 0, behavior: 'smooth' })
   }
 
-  const saveToHistory = () => {
+  const saveToHistory = async () => {
     const title = window.prompt('Nome para salvar no histórico:', data.client ? `OS — ${data.client}` : `OS — ${data.orderNumber}`)
     if (!title?.trim()) return
-    const entry = {
-      id: crypto.randomUUID?.() || `${Date.now()}-${Math.random()}`,
-      title: title.trim(),
-      createdAt: new Date().toLocaleString('pt-BR'),
-      locked: false,
-      items: data.items.map(item => [item.qty, item.description])
+    try {
+      const entry = await saveModuleRow(moduleTables.serviceOrders, { ...data, title: title.trim(), createdAt: new Date().toLocaleString('pt-BR'), locked: false })
+      setData(prev => ({ ...prev, id: entry.id }))
+      setHistory(prev => [...DEFAULT_HISTORY, entry, ...prev.filter(item => !item.locked && item.id !== entry.id)])
+    } catch (error) {
+      window.alert(`Erro ao salvar no histórico: ${error.message}`)
     }
-    setHistory(prev => [...prev, entry])
   }
 
-  const deleteHistory = id => {
-    if (window.confirm('Remover este item do histórico?')) setHistory(prev => prev.filter(item => item.id !== id))
+  const deleteHistory = async id => {
+    if (!window.confirm('Remover este item do histórico?')) return
+    try {
+      await deleteModuleRow(moduleTables.serviceOrders, id)
+      setHistory(prev => prev.filter(item => item.id !== id))
+    } catch (error) {
+      window.alert(`Erro ao remover histórico: ${error.message}`)
+    }
   }
 
   return (

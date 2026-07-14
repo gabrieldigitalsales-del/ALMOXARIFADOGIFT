@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { loadModuleRows, moduleTables, replaceModuleRows } from '../services/moduleDataService';
 import { Building2, Truck, ClipboardList, History, Settings, Plus, Send, Search, Package, FileText, Download, Lock, LogOut, CheckCircle2, Pencil, Trash2, Save, X, Database, Menu, Copy, MessageCircle, ArrowRight, RotateCcw, Star, Timer, DollarSign, Upload, CheckSquare, Square, ExternalLink } from 'lucide-react';
 
 const FIXED_DESTINATION = {
@@ -26,10 +26,7 @@ const DEFAULT_CARRIERS = [
   { id:'car_total_express', name:'Total Express', whatsapp:'', email:'', city:'Nacional', cargo_type:'Encomendas / e-commerce', quote_mode:'Site / API futura', api_status:'API futura/contrato', website:'', notes:'Mais indicada para encomendas/e-commerce.', active:true, created_at:'2026-06-22T00:00:00.000Z' }
 ];
 const STORAGE_KEYS = { auth:'gift_log_auth', suppliers:'gift_log_suppliers', carriers:'gift_log_carriers', quotes:'gift_log_quotes', destination:'gift_log_destination' };
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnon = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = supabaseUrl && supabaseAnon ? createClient(supabaseUrl, supabaseAnon) : null;
-const usingSupabase = Boolean(supabase);
+const usingSupabase = Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
 function safeRead(key, fallback){ try{return JSON.parse(localStorage.getItem(key)) ?? fallback}catch{return fallback} }
 function safeWrite(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
 function uid(prefix='id'){ return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`; }
@@ -38,8 +35,8 @@ function onlyDigits(v=''){ return String(v).replace(/\D/g,''); }
 function encodeWhats(text){ return encodeURIComponent(text).replace(/%20/g,'+'); }
 function formatDate(d){ return new Date(d).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}); }
 function calcCubage({length,width,height,volumes}){ const l=Number(String(length||'').replace(',','.')); const w=Number(String(width||'').replace(',','.')); const h=Number(String(height||'').replace(',','.')); const v=Number(String(volumes||1).replace(',','.'))||1; if(!l||!w||!h) return 0; return ((l*w*h)/1000000)*v; }
-async function dbSelect(table, fallbackKey){ if(!supabase) return safeRead(fallbackKey,[]); const {data,error}=await supabase.from(table).select('*').order('created_at',{ascending:false}); return error?safeRead(fallbackKey,[]):(data||[]); }
-async function dbUpsert(table, fallbackKey, rows){ safeWrite(fallbackKey, rows); if(!supabase) return; await supabase.from(table).delete().neq('id','never-match-this-id'); if(rows.length) await supabase.from(table).insert(rows); }
+async function dbSelect(table, fallbackKey){ try { return await loadModuleRows(table); } catch(error) { console.error(error); return safeRead(fallbackKey,[]); } }
+async function dbUpsert(table, fallbackKey, rows){ safeWrite(fallbackKey, rows); const saved = await replaceModuleRows(table, rows); return saved; }
 function Field({label,value,onChange,placeholder,type='text',textarea=false,disabled=false}){ return <label className="field"><span>{label}</span>{textarea?<textarea disabled={disabled} value={value||''} placeholder={placeholder} onChange={e=>onChange(e.target.value)}/>:<input disabled={disabled} type={type} value={value||''} placeholder={placeholder} onChange={e=>onChange(e.target.value)}/>}</label>; }
 function SelectField({label,value,onChange,children}){ return <label className="field"><span>{label}</span><select value={value||''} onChange={e=>onChange(e.target.value)}>{children}</select></label>; }
 function Toggle({label,checked,onChange}){ return <button className={`toggle ${checked?'on':''}`} type="button" onClick={()=>onChange(!checked)}><span></span>{label}</button>; }
@@ -51,10 +48,10 @@ export default function FreightModule(){
  const auth=true; const [screen,setScreen]=useState('dashboard'); const [mobileMenu,setMobileMenu]=useState(false);
  const [destination,setDestinationState]=useState(safeRead(STORAGE_KEYS.destination,FIXED_DESTINATION)); const [suppliers,setSuppliers]=useState([]); const [carriers,setCarriers]=useState([]); const [quotes,setQuotes]=useState([]);
  useEffect(()=>{ loadAll(); },[]);
- async function loadAll(){ setSuppliers(await dbSelect('gift_log_suppliers', STORAGE_KEYS.suppliers)); const loaded=await dbSelect('gift_log_carriers', STORAGE_KEYS.carriers); if(!loaded.length){setCarriers(DEFAULT_CARRIERS); safeWrite(STORAGE_KEYS.carriers,DEFAULT_CARRIERS)}else setCarriers(loaded); setQuotes(await dbSelect('gift_log_quotes', STORAGE_KEYS.quotes)); }
- async function syncSuppliers(rows){ setSuppliers(rows); await dbUpsert('gift_log_suppliers', STORAGE_KEYS.suppliers, rows); }
- async function syncCarriers(rows){ setCarriers(rows); await dbUpsert('gift_log_carriers', STORAGE_KEYS.carriers, rows); }
- async function syncQuotes(rows){ setQuotes(rows); await dbUpsert('gift_log_quotes', STORAGE_KEYS.quotes, rows); }
+ async function loadAll(){ setSuppliers(await dbSelect(moduleTables.suppliers, STORAGE_KEYS.suppliers)); const loaded=await dbSelect(moduleTables.carriers, STORAGE_KEYS.carriers); if(!loaded.length){setCarriers(DEFAULT_CARRIERS); safeWrite(STORAGE_KEYS.carriers,DEFAULT_CARRIERS)}else setCarriers(loaded); setQuotes(await dbSelect(moduleTables.freightQuotes, STORAGE_KEYS.quotes)); }
+ async function syncSuppliers(rows){ setSuppliers(rows); await dbUpsert(moduleTables.suppliers, STORAGE_KEYS.suppliers, rows); }
+ async function syncCarriers(rows){ setCarriers(rows); const saved = await dbUpsert(moduleTables.carriers, STORAGE_KEYS.carriers, rows); if(saved?.length) setCarriers(saved); }
+ async function syncQuotes(rows){ setQuotes(rows); const saved = await dbUpsert(moduleTables.freightQuotes, STORAGE_KEYS.quotes, rows); if(saved?.length || rows.length === 0) setQuotes(saved); }
  function setDestination(v){ setDestinationState(v); safeWrite(STORAGE_KEYS.destination,v); }
 
  const content = {dashboard:<Dashboard setScreen={setScreen} destination={destination} suppliers={suppliers} carriers={carriers} quotes={quotes}/>, quote:<QuoteForm destination={destination} suppliers={suppliers} carriers={carriers} setSuppliers={syncSuppliers} quotes={quotes} setQuotes={syncQuotes} setScreen={setScreen}/>, suppliers:<Suppliers suppliers={suppliers} setSuppliers={syncSuppliers}/>, carriers:<Carriers carriers={carriers} setCarriers={syncCarriers}/>, history:<HistoryPage quotes={quotes} setQuotes={syncQuotes} carriers={carriers}/>, settings:<SettingsPage destination={destination} setDestination={setDestination}/>}[screen];

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { deleteModuleRow, loadModuleRows, moduleTables, saveModuleRow } from '../services/moduleDataService';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import {
@@ -79,14 +80,20 @@ export default function QuoteModule() {
     return { ...initialCompany, ...saved, district: String(saved.district || initialCompany.district).toUpperCase() };
   });
   const [quote, setQuote] = useState(initialQuote);
-  const [history, setHistory] = useState(() => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+  const [history, setHistory] = useState([]);
   const [tab, setTab] = useState('editor');
   const [search, setSearch] = useState('');
   const [showCompany, setShowCompany] = useState(false);
   const [toast, setToast] = useState('');
 
   useEffect(() => localStorage.setItem(COMPANY_KEY, JSON.stringify(company)), [company]);
-  useEffect(() => localStorage.setItem(STORAGE_KEY, JSON.stringify(history)), [history]);
+  useEffect(() => {
+    let active = true;
+    loadModuleRows(moduleTables.quotes)
+      .then(rows => { if (active) setHistory(rows); })
+      .catch(error => notify(`Erro ao carregar histórico: ${error.message}`));
+    return () => { active = false; };
+  }, []);
 
 
   const subtotal = useMemo(() => quote.items.reduce((sum, item) => sum + safeNumber(item.quantity) * safeNumber(item.unitPrice), 0), [quote.items]);
@@ -114,9 +121,14 @@ export default function QuoteModule() {
     if (!quote.items.some(i => i.description.trim())) return notify('Adicione pelo menos um item.');
     const saved = { ...quote, updatedAt: new Date().toISOString(), subtotal, total };
 
-    setHistory(list => [saved, ...list.filter(i => i.id !== saved.id)]);
-    setQuote(saved);
-    notify('Orçamento salvo com sucesso.');
+    try {
+      const persisted = await saveModuleRow(moduleTables.quotes, saved);
+      setHistory(list => [persisted, ...list.filter(i => i.id !== persisted.id)]);
+      setQuote(persisted);
+      notify('Orçamento salvo no Supabase.');
+    } catch (error) {
+      notify(`Erro ao salvar: ${error.message}`);
+    }
   };
 
   const newQuote = async () => {
@@ -149,7 +161,13 @@ export default function QuoteModule() {
 
   const deleteHistory = async (id) => {
     if (!confirm('Excluir este orçamento do histórico?')) return;
-    setHistory(list => list.filter(i => i.id !== id));
+    try {
+      await deleteModuleRow(moduleTables.quotes, id);
+      setHistory(list => list.filter(i => i.id !== id));
+      notify('Orçamento excluído.');
+    } catch (error) {
+      notify(`Erro ao excluir: ${error.message}`);
+    }
   };
 
   const generatePdf = async () => {
