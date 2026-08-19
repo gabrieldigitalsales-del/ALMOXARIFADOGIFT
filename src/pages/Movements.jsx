@@ -32,7 +32,7 @@ function QuickEmployeeMovements({movements,stock,quickMove,auth}){
   quickMove({productId:form.productId,type:form.type,qty:form.qty,reason:form.reason});
   setForm(f=>({...f,qty:1,reason:f.reason||'Uso em produção'}));
  };
- const cols=[{key:'date',label:'Data'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'reason',label:'Motivo'}];
+ const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'reason',label:'Motivo'}];
 
  return <>
   <PageHeader title="Movimentação rápida" subtitle="Entrada e saída de ferramentas e materiais no balcão do almoxarifado"/>
@@ -117,7 +117,7 @@ export default function Movements(){
  const{movements,stock,quickMove,auth}=useApp();
  const showAdmin=canSeeCosts(auth);
  const[edit,setEdit]=useState(null);
- const cols=[{key:'date',label:'Data'},{key:'user',label:'Usuário'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Quantidade'},{key:'reason',label:'Motivo'}];
+ const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'user',label:'Usuário'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Quantidade'},{key:'reason',label:'Motivo'}];
  if(showAdmin)cols.push({key:'op',label:'OP'});
  if(!showAdmin)return <QuickEmployeeMovements movements={movements} stock={stock} quickMove={quickMove} auth={auth}/>;
  return <>
