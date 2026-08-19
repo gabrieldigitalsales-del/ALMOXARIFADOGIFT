@@ -1,22 +1,20 @@
 import { useMemo, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Hammer, Home, LogOut, Menu, Package, PackagePlus, ShoppingCart, Truck, Wrench, Moon, Sun, AlertTriangle, X, ShieldCheck, FileText, ReceiptText } from 'lucide-react';
+import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Hammer, Home, LogOut, Menu, Package, PackagePlus, ShoppingCart, Truck, Wrench, Moon, Sun, AlertTriangle, X, ShieldCheck } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { statusOf } from '../utils/costs';
+import { canAccessRoute, isAdmin } from '../utils/permissions';
 
 const nav = [
   ['/', 'Dashboard', Home],
-  ['/orcamentos', 'Orçamentos', FileText],
-  ['/ordens-servico', 'Ordens de Serviço', ReceiptText],
-  ['/fretes', 'Cotações de Frete', Truck],
   ['/estoque', 'Estoque', Boxes],
   ['/produtos', 'Produtos', Package],
-  ['/movimentacoes', 'Movimentações', PackagePlus],
-  ['/compras', 'Ordens de Compra', ShoppingCart],
-  ['/fornecedores', 'Fornecedores', Truck],
   ['/maquinas', 'Máquinas', Factory],
   ['/montagem', 'Montar Máquina', Factory],
   ['/bom', 'BOM / Estrutura', ClipboardList],
+  ['/movimentacoes', 'Movimentações', PackagePlus],
+  ['/compras', 'Compras', ShoppingCart],
+  ['/fornecedores', 'Fornecedores', Truck],
   ['/ops', 'Ordens de Produção', Hammer],
   ['/manutencao', 'Manutenção', Wrench],
   ['/garantias', 'Garantias / WhatsApp', ShieldCheck],
@@ -84,10 +82,11 @@ function LowStockNotifications({ items }) {
 }
 
 export default function Layout() {
-  const { settings, setSettings, toast, totals, setAuth, dbStatus } = useApp();
+  const { settings, setSettings, toast, totals, setAuth, dbStatus, auth } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navg = useNavigate();
-  const logout = () => { setMobileMenuOpen(false); setAuth({ logged: false }); navg('/login'); };
+  const logout = () => { setMobileMenuOpen(false); setAuth({ logged: false, role: null, user: '' }); navg('/login'); };
+  const visibleNav = nav.filter(([to]) => canAccessRoute(auth, to));
 
   return (
     <main className="min-h-screen bg-brand-light text-brand-black dark:bg-brand-black dark:text-white">
@@ -97,20 +96,20 @@ export default function Layout() {
             <img src="/logo-gift.png" className="h-14 w-20 object-contain" />
             <div>
               <p className="text-xs font-semibold text-brand-turquoise">GIFT EXCELLENCE</p>
-              <h1 className="text-sm font-semibold leading-tight">GIFT CONTROL</h1>
+              <h1 className="text-sm font-semibold leading-tight">ALMOXARIFADO</h1>
             </div>
           </div>
           <button className="btn-ghost p-2 lg:hidden" onClick={() => setMobileMenuOpen(false)} title="Fechar menu"><X size={18} /></button>
         </div>
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
-          {nav.map(([to, label, Icon]) => (
+          {visibleNav.map(([to, label, Icon]) => (
             <NavLink key={to} to={to} end={to === '/'} onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => `flex items-center gap-3 rounded-none px-4 py-3 text-sm font-semibold transition ${isActive ? 'bg-brand-turquoise text-brand-black shadow-industrial' : 'hover:bg-brand-light dark:hover:bg-white/10'}`}>
               <Icon size={18} />{label}
             </NavLink>
           ))}
         </nav>
         <div className="m-3 grid gap-2 border border-white/10 bg-brand-black p-4 text-white">
-          <p className="text-xs text-white/60">Alertas de estoque</p>
+          <p className="text-xs text-white/60">{auth?.role==='admin'?'Administrador':'Almoxarifado'}</p><p className="text-xs text-white/60">Alertas de estoque</p>
           <p className="text-2xl font-semibold text-brand-yellow">{totals.low.length}</p>
           <button className="btn-danger py-2" onClick={logout}><LogOut size={16} />Sair</button>
         </div>
@@ -130,8 +129,8 @@ export default function Layout() {
             <button className="btn-ghost p-2 lg:hidden" onClick={() => setMobileMenuOpen(true)} aria-label="Abrir menu" title="Abrir menu"><Menu size={20} /></button>
             <img src="/logo-gift.png" className="h-12 w-20 object-contain lg:hidden" />
             <div>
-              <h2 className="text-lg font-semibold tracking-tight lg:text-2xl">GIFT CONTROL • GIFT EXCELLENCE</h2>
-              <p className="text-xs text-brand-steel dark:text-white/60">Gestão integrada: comercial, serviços, logística, estoque, produção e compras • {dbStatus}</p>
+              <h2 className="text-lg font-semibold tracking-tight lg:text-2xl">ALMOXARIFADO GIFT EXCELLENCE</h2>
+              <p className="text-xs text-brand-steel dark:text-white/60">{isAdmin(auth) ? 'Industrial, estoque, produção, compras e custos' : 'Acesso almoxarifado: estoque e movimentações'} • {dbStatus}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
