@@ -2,7 +2,7 @@ import{createContext,useContext,useEffect,useMemo,useRef,useState}from'react';
 import{bomSeed,machinesSeed,maintenanceSeed,movementsSeed,opsSeed,purchasesSeed,stockSeed,suppliersSeed}from'../data/seed';
 import{useLocalStorage}from'../hooks/useLocalStorage';
 import{isSupabaseConfigured}from'../services/supabaseClient';
-import{deleteCollectionItem,loadAllCollections,replaceCollection,upsertCollectionItem}from'../services/databaseService';
+import{deleteCollectionItem,loadAllCollections,loadCollection,replaceCollection,upsertCollectionItem}from'../services/databaseService';
 import{availableOf,calcMachineCost,num,statusOf,today}from'../utils/costs';
 import{downloadJson}from'../utils/exporters';
 
@@ -37,6 +37,8 @@ export function AppProvider({children}){
  statesRef.current={stock:stockRaw,machines:machinesRaw,bom:bomRaw,suppliers:suppliersRaw,movements:movementsRaw,purchases:purchasesRaw,ops:opsRaw,maintenance:maintenanceRaw,warranties:warrantiesRaw,soldMachines:soldMachinesRaw};
 
  useEffect(()=>{let active=true;if(!isSupabaseConfigured)return;setDbStatus('Conectando ao Supabase');loadAllCollections().then(data=>{if(!active)return;loadedRef.current=false;collections.forEach(key=>{settersRef.current[key](data[key]||[]);statesRef.current[key]=data[key]||[]});loadedRef.current=true;setDbStatus('Supabase conectado')}).catch(e=>{loadedRef.current=true;showDbError(e)});return()=>{active=false}},[]);
+
+ useEffect(()=>{if(!isSupabaseConfigured)return;let active=true;const refresh=async()=>{if(!loadedRef.current)return;try{const [nextStock,nextMovements]=await Promise.all([loadCollection('stock'),loadCollection('movements')]);if(!active)return;settersRef.current.stock(nextStock||[]);settersRef.current.movements(nextMovements||[]);statesRef.current.stock=nextStock||[];statesRef.current.movements=nextMovements||[]}catch(e){console.error('Auto refresh Supabase',e)}};const timer=setInterval(refresh,3000);return()=>{active=false;clearInterval(timer)}},[]);
 
  const stock=stockRaw,machines=machinesRaw,bom=bomRaw,suppliers=suppliersRaw,movements=movementsRaw,purchases=purchasesRaw,ops=opsRaw,maintenance=maintenanceRaw,warranties=warrantiesRaw,soldMachines=soldMachinesRaw;
  const addMovement=m=>{const mv={id:rid('mv'),date:today(),user:settings.user,...m};setMovements(v=>[mv,...v]);if(isSupabaseConfigured&&loadedRef.current)upsertCollectionItem('movements',mv).catch(showDbError)};
