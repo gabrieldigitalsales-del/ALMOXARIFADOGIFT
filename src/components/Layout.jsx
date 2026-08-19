@@ -1,23 +1,23 @@
 import { useMemo, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Hammer, Home, LogOut, Menu, Package, PackagePlus, ShoppingCart, Truck, Wrench, Moon, Sun, AlertTriangle, X, ShieldCheck, UsersRound } from 'lucide-react';
+import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Home, LogOut, Menu, Package, PackagePlus, ShoppingCart, Truck, Moon, Sun, AlertTriangle, X, ShieldCheck, FileText, ReceiptText, UsersRound } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { statusOf } from '../utils/costs';
-import { canAccessRoute, isAdmin } from '../utils/permissions';
+import { canAccessRoute } from '../utils/permissions';
 
 const nav = [
   ['/', 'Dashboard', Home],
+  ['/orcamentos', 'Orçamentos', FileText],
+  ['/ordens-servico', 'Ordens de Serviço', ReceiptText],
+  ['/fretes', 'Cotações de Frete', Truck],
   ['/estoque', 'Estoque', Boxes],
   ['/produtos', 'Produtos', Package],
+  ['/movimentacoes', 'Movimentações', PackagePlus],
+  ['/colaboradores', 'Colaboradores', UsersRound],
+  ['/compras', 'Ordens de Compra', ShoppingCart],
   ['/maquinas', 'Máquinas', Factory],
   ['/montagem', 'Montar Máquina', Factory],
   ['/bom', 'BOM / Estrutura', ClipboardList],
-  ['/movimentacoes', 'Movimentações', PackagePlus],
-  ['/colaboradores', 'Colaboradores', UsersRound],
-  ['/compras', 'Compras', ShoppingCart],
-  ['/fornecedores', 'Fornecedores', Truck],
-  ['/ops', 'Ordens de Produção', Hammer],
-  ['/manutencao', 'Manutenção', Wrench],
   ['/garantias', 'Garantias / WhatsApp', ShieldCheck],
   ['/maquinas-vendidas', 'Máquinas Vendidas', Factory],
   ['/relatorios', 'Relatórios', FileBarChart],
@@ -97,7 +97,7 @@ export default function Layout() {
             <img src="/logo-gift.png" className="h-14 w-20 object-contain" />
             <div>
               <p className="text-xs font-semibold text-brand-turquoise">GIFT EXCELLENCE</p>
-              <h1 className="text-sm font-semibold leading-tight">ALMOXARIFADO</h1>
+              <h1 className="text-sm font-semibold leading-tight">GIFT CONTROL</h1>
             </div>
           </div>
           <button className="btn-ghost p-2 lg:hidden" onClick={() => setMobileMenuOpen(false)} title="Fechar menu"><X size={18} /></button>
@@ -110,7 +110,7 @@ export default function Layout() {
           ))}
         </nav>
         <div className="m-3 grid gap-2 border border-white/10 bg-brand-black p-4 text-white">
-          <p className="text-xs text-white/60">{auth?.role==='admin'?'Administrador':'Almoxarifado'}</p><p className="text-xs text-white/60">Alertas de estoque</p>
+          <p className="text-xs text-white/60">{auth?.role==='almox'?'Almoxarifado':'Administrador'}</p><p className="text-xs text-white/60">Alertas de estoque</p>
           <p className="text-2xl font-semibold text-brand-yellow">{totals.low.length}</p>
           <button className="btn-danger py-2" onClick={logout}><LogOut size={16} />Sair</button>
         </div>
@@ -130,8 +130,8 @@ export default function Layout() {
             <button className="btn-ghost p-2 lg:hidden" onClick={() => setMobileMenuOpen(true)} aria-label="Abrir menu" title="Abrir menu"><Menu size={20} /></button>
             <img src="/logo-gift.png" className="h-12 w-20 object-contain lg:hidden" />
             <div>
-              <h2 className="text-lg font-semibold tracking-tight lg:text-2xl">ALMOXARIFADO GIFT EXCELLENCE</h2>
-              <p className="text-xs text-brand-steel dark:text-white/60">{isAdmin(auth) ? 'Industrial, estoque, produção, compras e custos' : 'Acesso almoxarifado: estoque e movimentações'} • {dbStatus}</p>
+              <h2 className="text-lg font-semibold tracking-tight lg:text-2xl">GIFT CONTROL • GIFT EXCELLENCE</h2>
+              <p className="text-xs text-brand-steel dark:text-white/60">{auth?.role==='almox'?'Acesso almoxarifado: estoque, movimentações e colaboradores':'Gestão integrada: comercial, serviços, logística, estoque, produção e compras'} • {dbStatus}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">

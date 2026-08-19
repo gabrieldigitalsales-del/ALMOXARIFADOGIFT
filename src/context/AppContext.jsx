@@ -21,7 +21,7 @@ export function AppProvider({children}){
  const[warrantiesRaw,setWarrantiesRaw]=useLocalStorage('gift.warranties.v1',[]);
  const[soldMachinesRaw,setSoldMachinesRaw]=useLocalStorage('gift.soldMachines.v1',[]);
  const[settings,setSettings]=useLocalStorage('gift.settings.v4',{dark:false,user:'Administrador',logo:'/logo-gift.png'});
- const[auth,setAuth]=useLocalStorage('gift.auth.v4',{logged:false,role:null,user:''});
+ const[auth,setAuth]=useLocalStorage('gift.auth.v4',{logged:false});
  const[toast,setToast]=useState(null);
  const[dbStatus,setDbStatus]=useState(isSupabaseConfigured?'Conectando ao Supabase':'Modo local');
  const loadedRef=useRef(!isSupabaseConfigured);
