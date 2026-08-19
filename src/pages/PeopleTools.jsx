@@ -1,7 +1,9 @@
 import{useMemo,useState}from'react';
-import{ArrowLeft,Clock3,History,PackageCheck,UserRound}from'lucide-react';
+import{ArrowLeft,Clock3,History,PackageCheck,RotateCcw,UserRound}from'lucide-react';
 import PageHeader from'../components/PageHeader';
 import DataTable from'../components/DataTable';
+import Modal from'../components/Modal';
+import FormGrid,{Field}from'../components/FormGrid';
 import{useApp}from'../context/AppContext';
 import{num}from'../utils/costs';
 import{COLLABORATORS}from'./Movements';
@@ -23,13 +25,25 @@ function buildHoldings(movements){
 }
 
 export default function PeopleTools(){
- const{movements}=useApp();
+ const{movements,stock,quickMove,notify}=useApp();
  const[selected,setSelected]=useState(null);
+ const[returnItem,setReturnItem]=useState(null);
  const holdings=useMemo(()=>buildHoldings(movements),[movements]);
  const totalPeople=COLLABORATORS.filter(p=>holdings[p]?.length).length;
  const totalItems=COLLABORATORS.reduce((a,p)=>a+(holdings[p]||[]).reduce((s,i)=>s+num(i.qty),0),0);
  const recent=movements.filter(m=>COLLABORATORS.includes(m.reason)&&['saída','devolução'].includes(m.type)).slice(0,15);
  const recentCols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'reason',label:'Colaborador'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'}];
+ const findProduct=itemName=>stock.find(s=>(s.name||'')===itemName)||stock.find(s=>(s.name||'').toLowerCase()===(itemName||'').toLowerCase());
+ const doReturn=()=>{
+  if(!returnItem)return;
+  const q=num(returnItem.qty);
+  if(q<=0)return notify?.('Quantidade inválida','error');
+  if(q>num(returnItem.maxQty))return notify?.('Quantidade maior que a quantidade com o colaborador','error');
+  const product=findProduct(returnItem.item);
+  if(!product)return notify?.('Item não encontrado no estoque','error');
+  quickMove({productId:product.id,type:'devolução',qty:q,reason:returnItem.person});
+  setReturnItem(null);
+ };
 
  if(selected){
   const items=holdings[selected]||[];
@@ -48,12 +62,15 @@ export default function PeopleTools(){
     <div className="card">
      <h3 className="mb-4 text-xl font-semibold">Ferramentas com {selected}</h3>
      {items.length?<div className="space-y-2">
-      {items.map(i=><div className="grid gap-1 border border-brand-line p-4 dark:border-white/10" key={i.item}>
-       <div className="flex items-center justify-between gap-3">
-        <span className="font-semibold">{i.item}</span>
+      {items.map(i=><div className="grid gap-3 border border-brand-line p-4 dark:border-white/10" key={i.item}>
+       <div className="flex items-start justify-between gap-3">
+        <div>
+         <span className="font-semibold">{i.item}</span>
+         <p className="mt-1 flex items-center gap-2 text-xs text-brand-steel dark:text-white/60"><Clock3 size={13}/>Última movimentação: {i.lastDate||'-'} {i.lastTime||''}</p>
+        </div>
         <span className="badge bg-brand-red text-white">{i.qty}</span>
        </div>
-       <p className="flex items-center gap-2 text-xs text-brand-steel dark:text-white/60"><Clock3 size={13}/>Última movimentação: {i.lastDate||'-'} {i.lastTime||''}</p>
+       <button className="btn-ghost w-full justify-center" onClick={()=>setReturnItem({person:selected,item:i.item,qty:i.qty,maxQty:i.qty})}><RotateCcw size={16}/>Devolver</button>
       </div>)}
      </div>:<div className="grid place-items-center border border-dashed border-brand-line p-8 text-center text-sm text-brand-steel dark:border-white/10 dark:text-white/60">
       <PackageCheck className="mb-2" size={28}/>
@@ -66,6 +83,18 @@ export default function PeopleTools(){
      <DataTable rows={history} columns={historyCols}/>
     </div>
    </div>
+
+   <Modal open={!!returnItem} title="Devolver ferramenta" onClose={()=>setReturnItem(null)}>
+    <FormGrid>
+     <Field label="Colaborador" value={returnItem?.person||''} onChange={()=>{}}/>
+     <Field label="Ferramenta" value={returnItem?.item||''} onChange={()=>{}}/>
+     <Field label={`Quantidade para devolver / máximo ${returnItem?.maxQty||0}`} type="number" value={returnItem?.qty||1} onChange={v=>setReturnItem({...returnItem,qty:v})}/>
+    </FormGrid>
+    <div className="mt-5 flex flex-wrap gap-2">
+     <button className="btn-primary" onClick={doReturn}><RotateCcw size={18}/>Confirmar devolução</button>
+     <button className="btn-ghost" onClick={()=>setReturnItem(null)}>Cancelar</button>
+    </div>
+   </Modal>
   </>
  }
 
