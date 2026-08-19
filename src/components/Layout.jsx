@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Hammer, Home, LogOut, Menu, Package, PackagePlus, ShoppingCart, Truck, Wrench, Moon, Sun, AlertTriangle, X, ShieldCheck } from 'lucide-react';
+import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Hammer, Home, LogOut, Menu, Package, PackagePlus, ShoppingCart, Truck, Wrench, Moon, Sun, AlertTriangle, X, ShieldCheck, UsersRound } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { statusOf } from '../utils/costs';
 import { canAccessRoute, isAdmin } from '../utils/permissions';
@@ -13,6 +13,7 @@ const nav = [
   ['/montagem', 'Montar Máquina', Factory],
   ['/bom', 'BOM / Estrutura', ClipboardList],
   ['/movimentacoes', 'Movimentações', PackagePlus],
+  ['/colaboradores', 'Colaboradores', UsersRound],
   ['/compras', 'Compras', ShoppingCart],
   ['/fornecedores', 'Fornecedores', Truck],
   ['/ops', 'Ordens de Produção', Hammer],

@@ -8,10 +8,11 @@ import{useApp}from'../context/AppContext';
 import{canSeeCosts}from'../utils/permissions';
 import{availableOf,num}from'../utils/costs';
 
+export const COLLABORATORS=['Vinicius','Luciano','Bruno','Gabriel','Sidney','Hanyel','Robson','Julia','Carla'];
 const today=()=>new Date().toISOString().slice(0,10);
 
 function QuickEmployeeMovements({movements,stock,quickMove,auth}){
- const[form,setForm]=useState({type:'saída',productId:'',qty:1,reason:'Uso em produção'});
+ const[form,setForm]=useState({type:'saída',productId:'',qty:1,reason:COLLABORATORS[0]});
  const[query,setQuery]=useState('');
  const selected=stock.find(s=>s.id===form.productId);
  const filtered=useMemo(()=>{
@@ -26,22 +27,21 @@ function QuickEmployeeMovements({movements,stock,quickMove,auth}){
   {key:'devolução',label:'Voltou para o estoque',icon:<RefreshCcw size={18}/>},
   {key:'perda',label:'Perda',icon:<Minus size={18}/>}
  ];
- const reasons=['Uso em produção','Reposição de estoque','Voltou para o estoque','Perda/Avaria','Empréstimo','Ajuste de contagem','Outro'];
  const register=()=>{
   if(!form.productId)return;
   quickMove({productId:form.productId,type:form.type,qty:form.qty,reason:form.reason});
-  setForm(f=>({...f,qty:1,reason:f.reason||'Uso em produção'}));
+  setForm(f=>({...f,qty:1,reason:f.reason||COLLABORATORS[0]}));
  };
- const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'reason',label:'Motivo'}];
+ const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'reason',label:'Colaborador'}];
 
  return <>
-  <PageHeader title="Movimentação rápida" subtitle="Entrada e saída de ferramentas e materiais no balcão do almoxarifado"/>
+  <PageHeader title="Movimentação rápida" subtitle="Entrada, saída e retorno de ferramentas por colaborador"/>
   <div className="grid gap-5 xl:grid-cols-[1.15fr_.85fr]">
    <div className="card">
     <h3 className="mb-4 text-xl font-semibold">Registrar movimentação</h3>
 
     <div className="mb-5 grid gap-3 sm:grid-cols-4">
-     {typeOptions.map(t=><button key={t.key} type="button" onClick={()=>setForm({...form,type:t.key,reason:t.key==='entrada'?'Reposição de estoque':t.key==='devolução'?'Voltou para o estoque':t.key==='perda'?'Perda/Avaria':'Uso em produção'})} className={`${form.type===t.key?'btn-primary':'btn-ghost'} h-12 w-full`}>
+     {typeOptions.map(t=><button key={t.key} type="button" onClick={()=>setForm({...form,type:t.key})} className={`${form.type===t.key?'btn-primary':'btn-ghost'} h-12 w-full`}>
       {t.icon}{t.label}
      </button>)}
     </div>
@@ -76,9 +76,9 @@ function QuickEmployeeMovements({movements,stock,quickMove,auth}){
       </div>
      </div>
      <div>
-      <label className="mb-2 block font-semibold">Motivo</label>
+      <label className="mb-2 block font-semibold">Colaborador</label>
       <select className="input h-11 text-brand-black dark:text-white" value={form.reason} onChange={e=>setForm({...form,reason:e.target.value})}>
-       {reasons.map(r=><option key={r}>{r}</option>)}
+       {COLLABORATORS.map(r=><option key={r}>{r}</option>)}
       </select>
      </div>
     </div>
@@ -117,18 +117,18 @@ export default function Movements(){
  const{movements,stock,quickMove,auth}=useApp();
  const showAdmin=canSeeCosts(auth);
  const[edit,setEdit]=useState(null);
- const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'user',label:'Usuário'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Quantidade'},{key:'reason',label:'Motivo'}];
+ const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'user',label:'Usuário'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Quantidade'},{key:'reason',label:'Colaborador'}];
  if(showAdmin)cols.push({key:'op',label:'OP'});
  if(!showAdmin)return <QuickEmployeeMovements movements={movements} stock={stock} quickMove={quickMove} auth={auth}/>;
  return <>
-  <PageHeader title="Movimentações" subtitle="Entrada, saída, devolução, perda, transferência e reserva de produção" actions={<button className="btn-primary" onClick={()=>setEdit({productId:stock[0]?.id,type:'entrada',qty:1,reason:''})}><Plus size={18}/>Nova movimentação</button>}/>
+  <PageHeader title="Movimentações" subtitle="Entrada, saída, retorno de ferramenta, perda, transferência e reserva de produção" actions={<button className="btn-primary" onClick={()=>setEdit({productId:stock[0]?.id,type:'entrada',qty:1,reason:COLLABORATORS[0]})}><Plus size={18}/>Nova movimentação</button>}/>
   <DataTable rows={movements} columns={cols}/>
   <Modal open={!!edit} title="Registrar movimentação" onClose={()=>setEdit(null)}>
    <FormGrid>
     <Field label="Item" value={edit?.productId} options={stock.map(s=>({value:s.id,label:`${s.code} - ${s.name}`}))} onChange={v=>setEdit({...edit,productId:v})}/>
     <Field label="Tipo" value={edit?.type} options={['entrada','saída','devolução','perda','transferência','reserva produção']} onChange={v=>setEdit({...edit,type:v})}/>
     <Field label="Quantidade" type="number" value={edit?.qty} onChange={v=>setEdit({...edit,qty:v})}/>
-    <Field label="Motivo" value={edit?.reason} onChange={v=>setEdit({...edit,reason:v})}/>
+    <Field label="Colaborador" value={edit?.reason} options={COLLABORATORS} onChange={v=>setEdit({...edit,reason:v})}/>
     {showAdmin&&<Field label="OP vinculada" value={edit?.op} onChange={v=>setEdit({...edit,op:v})}/>}
    </FormGrid>
    <button className="btn-primary mt-5" onClick={()=>{quickMove(edit);setEdit(null)}}>Registrar</button>
