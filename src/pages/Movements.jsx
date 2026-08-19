@@ -96,10 +96,9 @@ function QuickEmployeeMovements({movements,stock,quickMove,auth}){
       <h4 className="text-lg font-semibold">{selected.name}</h4>
       <p className="text-sm text-brand-steel dark:text-white/60">{selected.code||'Sem código'}</p>
      </div>
-     <div className="grid grid-cols-2 gap-3">
+     <div className="grid gap-3 sm:grid-cols-3">
       <div className="border border-brand-line p-4 dark:border-white/10"><p className="text-sm text-brand-steel dark:text-white/60">Estoque</p><b className="text-2xl">{selected.qty}</b></div>
       <div className="border border-brand-line p-4 dark:border-white/10"><p className="text-sm text-brand-steel dark:text-white/60">Disponível</p><b className="text-2xl">{availableOf(selected)}</b></div>
-      <div className="border border-brand-line p-4 dark:border-white/10"><p className="text-sm text-brand-steel dark:text-white/60">Reservado</p><b className="text-2xl">{selected.reserved||0}</b></div>
       <div className="border border-brand-line p-4 dark:border-white/10"><p className="text-sm text-brand-steel dark:text-white/60">Unidade</p><b className="text-2xl">{selected.unit}</b></div>
      </div>
     </div>:<p className="text-brand-steel dark:text-white/60">Selecione um item para ver o saldo.</p>}
