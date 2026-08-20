@@ -1,0 +1,234 @@
+id,codigo,nome,categoria,subcategoria,quantidade,unidade,valor_unitario
+880525cd-f1b7-43d0-9b67-5a717dbf602a,P3D-001,ABA 1 CALHA PÓ PENEIRA DE 3 DECKS ATU,Estruturas Metálicas,Proteções,0,un,0
+dfcdfa87-6581-4038-b527-7f7180b6f30b,P3D-002,ABA 2 CALHA PÓ PENEIRA DE 3 DECKS ATU,Estruturas Metálicas,Proteções,0,un,0
+e81f138c-4ce0-4216-bb80-53132af14e2f,P3D-003,ABA 3 CALHA PÓ PENEIRA DE 3 DECKS ATU,Estruturas Metálicas,Proteções,0,un,0
+88937cc9-eec7-4ba9-844d-a75ef15fe383,GE-000080,AFERIDOR DE GRAU,Ferramentas,Manuais,1,un,0
+e7cfd161-c898-4670-a05d-ca43bdda0980,GE-000113,AFIADOR DE BROCA VONDER,Consumíveis,Lixas,1,un,0
+55bf1599-4695-471e-8d49-b6df1407df56,GE-000094,ALICATE BICO,Ferramentas,Manuais,2,un,0
+d4f9316d-2888-4d69-943d-3b9ee22e8ae1,GE-000093,ALICATE COMUM,Ferramentas,Manuais,4,un,0
+5c53a14f-7bf6-4349-897d-f0076e1a906e,GE-000086,ALICATE DE PRESSAO,Ferramentas,Manuais,1,un,0
+8c91d8d0-e799-47f6-9125-df92fff968ab,ITEM-AMORTECEDOR-MICRO-I-03,AMORTECEDOR MICRO I,Vibração,Coxins,0,un,0
+f5831685-e449-4b62-9893-e7a91b7406cd,ITEM-AMORTECEDOR-MICRO-I,AMORTECEDOR MICRO II,Vibração,Coxins,0,un,0
+d3033630-4153-477a-92d5-e763e1365cb7,ITEM-AMORTECEDOR-MICRO-I-02,AMORTECEDOR MICRO III,Vibração,Coxins,0,un,0
+253183cf-ed90-43ac-8b1a-72be8347ab61,FIX-316,ARRUELA 3/16,Fixadores,Parafusos,39,un,0
+41cae7e8-40dd-40b3-a71e-db5d972a5d4b,BAR-11-4-316,"BARRA CHATA 1.1/4"" #3/16",Matéria-prima,Cantoneiras,0,barra,0
+d50b18fa-1086-4af4-b964-d278d9e14e53,P3D-044,"BARRA CHATA 1.1/4"" #3/16",Matéria-prima,Barras Chatas,0,barra,0
+2ae49dac-84a5-4ae8-9809-db652794eedf,P3D-047,"BARRA CHATA 1"" #1/8",Matéria-prima,Barras Chatas,0,barra,0
+c49072bf-b236-48f6-be17-e01fc86fc84f,BAR-1-18,"BARRA CHATA 1"" #1/8",Matéria-prima,Cantoneiras,0,barra,0
+5b0857d0-c55f-4a52-a31b-afe22951da70,BAR-3-516,"BARRA CHATA 3""X#5/16",Matéria-prima,Cantoneiras,0,barra,0
+6ba8ca0f-f0fe-405f-8bb8-53268ecad15e,BARR-TERM-TERRA-DIN-6F,Barramento terminal de aterramento verde DIN - 6 furos,Painel elétrico,Barramentos,0,un,0
+62c116b5-53fb-4193-be8d-2659a271fbbe,P3D-004,BASE DO MOTOR PENEIRA DE 3 DECKS,Estruturas Metálicas,Suportes,0,un,0
+12589048-7381-4195-b67d-fb15a0c6158d,P3D-039,BASE DO MOTOR SILO PENEIRA,Estruturas Metálicas,Suportes,0,un,0
+0f36e185-2c57-4ae2-8b2e-b93c70f8ad37,GE-000112,BATERIA FURADEIRA ELETRICA,Ferramentas,Manuais,4,un,0
+618d3cb3-a829-4f35-80fd-5516456e0560,GE-000111,BATERIA PARAFUSADEIRA,Ferramentas,Manuais,4,un,0
+5be53311-c4e4-4846-9cc0-ff45dd42e646,P3D-005,BICA FRONTAL PENEIRA DE 3 DECKS,Estruturas Metálicas,Suportes,0,un,0
+53afdbcf-739d-4134-b517-fc7bedfb9065,P3D-006,BICA PENEIRA DE 3 DECKS,Estruturas Metálicas,Suportes,0,un,0
+f68d44ea-dbdf-4944-9e73-9ca700490e65,BOT-EMERG-22MM,Botão de emergência 22 mm,Painel elétrico,Botões e comandos,1,un,0
+afa6f71f-19a1-4471-838f-2bd08146e035,BOT-PULS-VERDE-22MM,Botão pulsador verde 22 mm,Painel elétrico,Botões e comandos,0,un,0
+a2f6a022-3b9d-4834-9989-98df58f47746,BOT-PULS-VERM-22MM,Botão pulsador vermelho 22 mm,Painel elétrico,Botões e comandos,0,un,0
+a48c8c41-fb8b-453d-854b-8f3aeea7d03d,GE-000115,CABO CAXIMBO CATRACA,Elétrica,Motores,2,un,0
+9770be45-51e0-4f9a-a8a2-9ef9f137bd0d,GE-000026,CABO/CACHIMBO,Elétrica,Motores,1,un,0
+8debb9d8-cd68-46ee-b827-0cef5006cc15,BAR-11-4-316-02,"CANTONEIRA 1.1/4"" #3/16",Matéria-prima,Cantoneiras,0,barra,0
+5153cac5-63da-4e92-ac59-71a1d6ecb72e,P3D-045,"CANTONEIRA 1.1/4"" #3/16",Matéria-prima,Cantoneiras,0,barra,0
+6ce99875-27c4-4f61-9828-fd555ad3ac74,BAR-1-316,"CANTONEIRA 1"" #3/16",Matéria-prima,Cantoneiras,0,barra,0
+8e6f105b-8f9d-45b9-9bd7-439a520f7a60,P3D-046,"CANTONEIRA 1"" #3/16",Matéria-prima,Cantoneiras,0,barra,0
+d465d776-e9e6-45c8-9a94-f7435268ae7d,BAR-2-316,"CANTONEIRA 2""X#3/16",Matéria-prima,Cantoneiras,0,barra,0
+bc1410e0-b9f0-4476-a4ab-d889b4cc4a34,GE-000110,CARREGADOR DEWALT,Ferramentas,Manuais,2,un,0
+a7cd4eeb-346e-4b4f-809f-3d31525ef17d,GE-000109,CARREGADOR VONDER,Ferramentas,Manuais,3,un,0
+dc3ec214-c48f-4bfa-b363-630b15f36649,GE-000024,CATRACA GRANDE,Ferramentas,Manuais,1,un,0
+f45d3ac9-3ebe-4514-b92e-0875dd654c20,GE-000025,CATRACA PEQUENA,Ferramentas,Manuais,1,un,0
+73467130-1404-48d0-9425-847e89d11d11,CHA-710-610,CHAPA EXPANDIDA 710X610MM,Matéria-prima,Chapas,0,chapa,0
+b3b9015c-0fbc-4bcb-a8d3-009a9dded73e,P3D-007,CHAPA INFERIOR PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+bdef030e-fa5a-4926-a087-61ef6502aa23,GE-000033,CHAVE CANHAO 10MM,Ferramentas,Manuais,3,un,0
+e0fa320d-3829-4446-ab76-0dcdf9607367,GE-000063,CHAVE CANHAO 11MM,Ferramentas,Manuais,1,un,0
+f746140a-8da6-4d21-88e6-e4974aca1516,GE-000034,CHAVE CANHAO 12MM,Ferramentas,Manuais,0,un,0
+acfba69f-a4d2-4074-9053-3865785111a3,GE-000062,CHAVE CANHAO 5MM,Ferramentas,Manuais,1,un,0
+88cb5ff2-4181-4d48-a342-a41e4b109240,GE-000029,CHAVE CANHAO 6MM,Ferramentas,Manuais,1,un,0
+d6e23e3a-85d1-4d9e-9669-3e73c9bcdf3e,GE-000031,CHAVE CANHAO 7MM,Ferramentas,Manuais,4,un,0
+0d4f9998-618e-4b32-a800-c44890ce294c,GE-000032,CHAVE CANHAO 8MM,Ferramentas,Manuais,4,un,0
+d0319d48-04df-457c-ac28-883d26745c99,GE-000005,CHAVE DE BOCA 10/11,Ferramentas,Manuais,1,un,0
+665fe3b8-ea06-46c8-bb92-d2d0fac237c2,GE-000003,CHAVE DE BOCA 10/8,Ferramentas,Manuais,1,un,0
+ae68ef5e-3ce5-459b-91bb-7f33bf191964,GE-000006,CHAVE DE BOCA 12/13,Ferramentas,Manuais,1,un,0
+87a7dabd-ae49-45a5-94ab-6114152e987a,GE-000008,CHAVE DE BOCA 15/10,Ferramentas,Manuais,1,un,0
+27af5e61-5ae8-4e75-b05f-36f8c81b604e,GE-000007,CHAVE DE BOCA 16/17,Ferramentas,Manuais,1,un,0
+660fe81c-6e5b-4ee6-9134-ee56e64c33da,GE-000002,CHAVE DE BOCA 17/14,Ferramentas,Manuais,2,un,0
+bf857307-ee2e-46f4-8f3b-c0015f44874a,GE-000004,CHAVE DE BOCA 19/17,Ferramentas,Manuais,1,un,0
+d877411a-fc3f-4d83-b63d-a30b809376a0,GE-000010,CHAVE DE BOCA 21/23,Ferramentas,Manuais,1,un,0
+650c2670-780d-40da-93ec-c6e5967e220b,GE-000011,CHAVE DE BOCA 24/26,Ferramentas,Manuais,1,un,0
+9a2cbe20-35b9-401c-a92f-d54c7920042f,GE-000009,CHAVE DE BOCA 28/25,Ferramentas,Manuais,2,un,0
+226a9fab-29ae-49dc-aa36-767b23a19331,GE-000077,CHAVE DE BOCA/ESTRIA 1/16,Ferramentas,Manuais,1,un,0
+f333707e-8f31-4f7c-ae1b-612c8f5f9aab,GE-000075,CHAVE DE BOCA/ESTRIA 1/2,Ferramentas,Manuais,3,un,0
+9203bc2d-b74e-483c-9279-f15ce5c403c6,GE-000037,CHAVE DE BOCA/ESTRIA 10MM,Ferramentas,Manuais,2,un,0
+e51e0d21-2b16-4bfd-a3af-14df708f03f3,GE-000038,CHAVE DE BOCA/ESTRIA 11MM,Ferramentas,Manuais,0,un,0
+53c1032d-b34e-4cc6-8828-d15acf070eb9,GE-000039,CHAVE DE BOCA/ESTRIA 12MM,Ferramentas,Manuais,0,un,0
+9894d631-fed1-4a9c-8136-7dc6dfe4cabf,GE-000040,CHAVE DE BOCA/ESTRIA 13MM,Ferramentas,Manuais,4,un,0
+382c3e8a-aedc-4b60-ae46-7b5572965dcb,GE-000041,CHAVE DE BOCA/ESTRIA 14MM,Ferramentas,Manuais,2,un,0
+7ded5644-9e82-4657-8733-567457ae6d77,GE-000042,CHAVE DE BOCA/ESTRIA 15MM,Ferramentas,Manuais,2,un,0
+91dfbe67-62a7-48ae-b32f-19706490bc25,GE-000043,CHAVE DE BOCA/ESTRIA 16MM,Ferramentas,Manuais,0,un,0
+4778499d-d58e-4dc4-a8b5-7c723bc57deb,GE-000044,CHAVE DE BOCA/ESTRIA 17MM,Ferramentas,Manuais,3,un,0
+35c3bd0f-89e9-44cd-97be-c3fa1d6427fc,GE-000045,CHAVE DE BOCA/ESTRIA 18MM,Ferramentas,Manuais,1,un,0
+6759c4ac-51cb-4a0d-b715-dc046889a9ca,GE-000046,CHAVE DE BOCA/ESTRIA 19MM,Ferramentas,Manuais,1,un,0
+f33d1964-0718-46ef-8439-05fa26a6bce3,GE-000047,CHAVE DE BOCA/ESTRIA 20MM,Ferramentas,Manuais,0,un,0
+1f2ffa4f-4694-4ed7-b317-68c01acfbda7,GE-000048,CHAVE DE BOCA/ESTRIA 21MM,Ferramentas,Manuais,0,un,0
+deda2136-2131-44ab-b696-a4292d39eaff,GE-000049,CHAVE DE BOCA/ESTRIA 22MM,Ferramentas,Manuais,4,un,0
+f9496bfb-022a-43ec-a446-ede08ab76309,GE-000050,CHAVE DE BOCA/ESTRIA 24MM,Ferramentas,Manuais,2,un,0
+7406b09f-0b5b-416d-8a88-2bf953211fbe,GE-000076,CHAVE DE BOCA/ESTRIA 27MM,Ferramentas,Manuais,1,un,0
+5d0dc4cf-759f-4890-901c-5272c70b3a73,GE-000073,CHAVE DE BOCA/ESTRIA 30MM,Ferramentas,Manuais,2,un,0
+bf2fad1d-fffd-46ab-8824-d8944dddd607,GE-000072,CHAVE DE BOCA/ESTRIA 32MM,Ferramentas,Manuais,2,un,0
+e7574387-a2b3-4c31-acf3-dc2eb9adb7d7,GE-000074,CHAVE DE BOCA/ESTRIA 7MM,Ferramentas,Manuais,1,un,0
+3fa6675d-b6c8-4e2a-b8cb-eac885b1833a,GE-000035,CHAVE DE BOCA/ESTRIA 8MM,Ferramentas,Manuais,2,un,0
+70fa8fe0-e208-4ba0-83fc-faf4aa8ddf99,GE-000036,CHAVE DE BOCA/ESTRIA 9MM,Ferramentas,Manuais,0,un,0
+a724566b-9d98-4885-b3aa-ec87a34b6e25,GE-000104,CHAVE DE CANO 24,Ferramentas,Manuais,1,un,0
+134dcad2-fdc2-45ef-a1f5-1a994a2b2143,GE-000053,CHAVE DE CATRACA 10MM,Ferramentas,Manuais,1,un,0
+1168a343-c1d5-4df2-9cc4-b5054f2631b6,GE-000054,CHAVE DE CATRACA 11MM,Ferramentas,Manuais,1,un,0
+d06541ab-64bc-494f-9141-ece6e2dcb188,GE-000055,CHAVE DE CATRACA 13MM,Ferramentas,Manuais,1,un,0
+9df6fdbe-35e4-4ab5-ab5f-2cc0f8231d3b,GE-000059,CHAVE DE CATRACA 16MM,Ferramentas,Manuais,1,un,0
+cf3aa123-9266-4798-b2ae-ce871acef5fa,GE-000056,CHAVE DE CATRACA 18MM,Ferramentas,Manuais,1,un,0
+be794455-70cf-4dd5-b2c8-349af178fc85,GE-000060,CHAVE DE CATRACA 19MM,Ferramentas,Manuais,1,un,0
+3a6ec8e3-59ff-482d-bf50-549b7f51ef6e,GE-000061,CHAVE DE CATRACA 20MM,Ferramentas,Manuais,1,un,0
+4459bd3a-70db-4d17-8dde-7daf0011d769,GE-000057,CHAVE DE CATRACA 21MM,Ferramentas,Manuais,1,un,0
+167ff5c3-3dbd-4dbb-be93-8579afe7858d,GE-000058,CHAVE DE CATRACA 24MM,Ferramentas,Manuais,1,un,0
+da5832a3-e063-4f2a-9e1c-d5c726ea05fd,GE-000051,CHAVE DE CATRACA 8MM,Ferramentas,Manuais,1,un,0
+12158779-38fa-4363-944f-b87c24db0180,GE-000052,CHAVE DE CATRACA 9MM,Ferramentas,Manuais,1,un,0
+37a89e50-eb3f-4f6a-a319-c7f88c4e6bea,GE-000105,CHAVE DE REGULAGEM 14,Ferramentas,Manuais,1,un,0
+db08af3a-318e-438c-b7d6-f17483d84660,GE-000016,CHAVE ESTRIA 15/14,Ferramentas,Manuais,2,un,0
+6d5ba461-3194-474a-a6cc-bab39a9ab5c6,GE-000017,CHAVE ESTRIA 19/18,Ferramentas,Manuais,1,un,0
+e98c7339-441e-4f07-a0c6-f0e3ca7492e5,GE-000018,CHAVE ESTRIA 20/22,Ferramentas,Manuais,1,un,0
+af84a548-7a50-4cb2-a876-9da915025078,GE-000019,CHAVE ESTRIA 21/23,Ferramentas,Manuais,1,un,0
+dae9457e-6582-4add-b9e0-73081e691a82,GE-000020,CHAVE ESTRIA 26/24,Ferramentas,Manuais,1,un,0
+22248b39-aca1-46ac-b880-57418399c61a,GE-000021,CHAVE ESTRIA 27/32,Ferramentas,Manuais,1,un,0
+a0afc361-179f-4a1e-95a6-d1988a77ca70,GE-000015,CHAVE ESTRIA 9/8,Ferramentas,Manuais,1,un,0
+8b813fdd-7fd7-4c96-991d-3edc335db7b8,GE-000090,CHAVE FENDA,Ferramentas,Manuais,7,un,0
+15673fc5-bccc-4004-bb23-70a74cbce32b,CHAVE-FIM-CURSO,Chave fim de curso,Painel elétrico,Chaves,0,un,0
+0dd917fd-b2bf-42f0-955e-978f13c74653,GE-000013,CHAVE INGLESA 250/10,Ferramentas,Manuais,1,un,0
+7cf1e636-7f02-491b-be11-19f96e6836a0,GE-000012,CHAVE INGLESA 300/12,Ferramentas,Manuais,1,un,0
+e0085265-222b-44bf-9d24-c5b7548a570f,GE-000014,CHAVE INGLESA 450/18,Ferramentas,Manuais,1,un,0
+0510d34c-64cb-482c-b91d-1d86f3b8b601,GE-000066,CHAVE L 10MM,Ferramentas,Manuais,3,un,0
+cca574aa-21a8-40e5-a107-1087e03d2d47,GE-000067,CHAVE L 11MM,Ferramentas,Manuais,3,un,0
+8b7ee04b-db13-42a5-98c3-4f21639836b5,GE-000068,CHAVE L 12MM,Ferramentas,Manuais,0,un,0
+5f11876f-2d5f-4668-9012-a4d45791b501,GE-000069,CHAVE L 13MM,Ferramentas,Manuais,2,un,0
+73942a81-cc2e-41b1-af2b-eb6a54ef18f5,GE-000070,CHAVE L 14MM,Ferramentas,Manuais,1,un,0
+9c9fccec-1449-4a9b-a3d5-c1b892215ede,GE-000071,CHAVE L 15MM,Ferramentas,Manuais,0,un,0
+bbf7e1a7-6442-4926-bf1d-fe57c128cf02,GE-000064,CHAVE L 6MM,Ferramentas,Manuais,0,un,0
+79f6744b-0636-4716-a61e-f5be04e9a6cf,GE-000065,CHAVE L 8MM,Ferramentas,Manuais,0,un,0
+64dbc15d-829e-4f93-bd2f-f4d970982fe6,GE-000092,CHAVE PHILLIPS,Ferramentas,Manuais,8,un,0
+b403b708-e294-4e9a-9a94-5e91999aeb6d,CHAVE-SECCIONADORA,Chave seccionadora,Painel elétrico,Chaves,0,un,0
+3150eaee-3c24-4e81-98d6-ad67a7a23b43,CHAVE-SEL-2P-22MM,Chave seletora 2 posições 22 mm,Painel elétrico,Chaves,1,un,0
+c7b9d8d6-d5b7-4d58-b200-250e4cc3eb1c,CHAVE-SEL-COM-22MM-2P-FIXA,Chave seletora comutador 22 mm - 2 posições fixa,Painel elétrico,Chaves,2,un,0
+ad59e9e6-a60d-4a5d-905d-f518f6e6534e,GE-000091,CHAVE TORQ/CABO,Elétrica,Motores,4,un,0
+e05cb2c3-87ae-449b-917b-e681b8f19cf5,BORNE-SIMPLES-250MM,"Conector borne simples 2,50 mm²",Painel elétrico,Bornes e conectores,117,un,0
+90400daa-0513-4ce4-be44-919783535db4,BORNE-TERRA-250MM,"Conector borne terra simples 2,50 mm²",Painel elétrico,Bornes e conectores,1,un,0
+8a22a8f3-6a5d-4251-942e-2aa6b57748c0,CONTATO-NC,Contato NC,Painel elétrico,Contatos auxiliares,10,un,0
+1c2d3400-4e75-415d-8f62-36e703b45454,CONTATO-NO,Contato NO,Painel elétrico,Contatos auxiliares,17,un,0
+61d93578-92a6-40eb-ab41-d9386a30e488,CONTATORA-25A-24VCC,Contatora 25 A - bobina 24 V CC,Painel elétrico,Componentes elétricos,0,un,0
+f89bdc04-d7d8-4ac4-9354-2b8272056d67,ITEM-COPO-DE-NYLON,COPO DE  NYLON,Consumíveis,Estopas,32,un,0
+1a639d81-3859-4e67-ac9c-d7c72d895fee,DISJ-MOTOR-C-138A,"Disjuntor-motor termomagnético curva C - ajuste térmico de 13,8 A",Painel elétrico,Proteção elétrica,0,un,0
+f0082ed0-8901-420f-a1ce-aee34b3568c4,GE-000083,ESPATULA,Ferramentas,Manuais,2,un,0
+8c4370b1-4d32-43a8-bfdd-5524a245ed34,P3D-008,ESPELHO 2 PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+aa10c186-d2a5-4963-a624-b1953ca17a3e,P3D-009,ESPELHO PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+8b8161c3-48a9-484a-8083-04b1406b915b,GE-000081,ESQUADRO,Ferramentas,Manuais,2,un,0
+9052283c-c548-482d-a12e-3f64e29f2103,GE-000078,ESQUADRO/NIVEL,Ferramentas,Manuais,2,un,0
+208c6ce1-672a-412f-90e3-339fb0a13744,GE-000085,ESTILETE,Ferramentas,Manuais,2,un,0
+d47514be-2b60-4940-a5f6-973ab18f4cd5,GE-000028,EXT. CACHIMBO,Ferramentas,Manuais,2,un,0
+bf02b729-a63a-48ad-9ebe-0ec93635c2dd,GE-000118,EXTENSAO,Ferramentas,Manuais,4,un,0
+f38dc78d-9dde-4a05-8320-5b57f76e59a0,P3D-010,FLANGE BICA FRONTAL PENEIRA DE 3 DECKS,Estruturas Metálicas,Suportes,0,un,0
+496e6159-7d38-4795-bfa2-9d4ba487cff2,FONTE-24V-5A-SLIM,Fonte chaveada slim bivolt 24 V 5 A,Painel elétrico,Fonte,1,un,0
+fc2b7736-d989-441d-b738-7b142141cbc9,GE-000098,FURADEIRA ELETRICA,Ferramentas,Manuais,1,un,0
+7f5b7cc9-6fae-4e59-bc70-297ca618fb9e,GE-000116,FURADEIRA MAGNETICA,Ferramentas,Manuais,1,un,0
+79a40f3a-cf6b-4f3a-9b33-4a7c81db3288,GE-000099,FURADEIRA-B,Ferramentas,Manuais,1,un,0
+aa1aa3fc-11c6-4dc2-b0a7-b9d2962e3979,GE-000103,GRAMPEADEIRA,Ferramentas,Manuais,1,un,0
+c1bf07da-a6af-4478-93c3-e92d97a04262,GE-000114,JOGO DE CAXIMBO DE TORQ,Ferramentas,Manuais,1,un,0
+85bd39f0-2770-49df-b062-1cc9182182c1,GE-000089,JOGO DE CHAVE ALLEN,Ferramentas,Manuais,3,un,0
+e660acf3-cd60-4fbf-8ca5-21b618f89549,GE-000088,JOGO DE CHAVE ALLEN POL,Ferramentas,Manuais,1,un,0
+2e399e3a-f9a4-46bf-b7de-63d1acc4fb5d,GE-000087,JOGO DE CHAVE ALLEN TORQ,Ferramentas,Manuais,2,un,0
+b3daa4ae-4ef1-465c-9154-cab8c56e21e2,GE-000079,JOGO DE SACA PINOS 2.5 AO 8,Fixadores,Parafusos,1,un,0
+a547c5f2-c5ca-4564-8bd6-9960fdbb35a8,KIT-CONEC-OLHAL,Kit de conectores tipo olhal,Painel elétrico,Kits de conectores,0,kit,0
+edb46dc9-57d1-4179-95a5-8ea2fadd0e4a,KIT-CONEC-TUB-DUPLOS,Kit de conectores tubulares duplos,Painel elétrico,Kits de conectores,0,kit,0
+5765a5d9-0b3d-48b5-a87d-8640e68e1569,GE-000095,LIXADEIRA 4,Consumíveis,Lixas,2,un,0
+db53eeb0-4ace-4f68-b254-f59ca3b21b69,GE-000119,LIXADEIRA 4 BATERIA,Consumíveis,Lixas,1,un,0
+cbe05b77-e823-4bb0-85f8-45d0465fdc64,GE-000096,LIXADEIRA 7,Consumíveis,Lixas,1,un,0
+96ec22c2-d6ae-4aa9-8474-777ad26e1a6e,GE-000106,MARRETA 4L,Ferramentas,Manuais,1,un,0
+d905bf6b-1295-4938-ab83-a4a7ebca55d1,GE-000108,MARRETA GRANDE,Ferramentas,Manuais,1,un,0
+0ee71bd5-9461-444d-8627-94319cfa90a4,GE-000107,MARRETA PQ,Ferramentas,Manuais,2,un,0
+a1110fa7-bdc5-4783-9b64-383bb9e62919,GE-000120,MARTELE BOSCH,Ferramentas,Manuais,1,un,0
+1d4f55fd-a939-473b-a71b-d2bd29a80e0e,MET-40-40-18,METALON 40x40 #1/8,Matéria-prima,Perfis,0,barra,0
+3eb7ef47-5c80-4c18-9afa-d69c74bacf85,P3D-042,METALON 40X40 #1/8,Matéria-prima,Metalons,0,barra,0
+ae060b46-b749-45a6-8021-11f197897519,MET-40-40-16,METALON 40x40 #16,Matéria-prima,Perfis,0,barra,0
+bcd156e1-c431-4e92-8b24-fa6891b4aed9,P3D-043,METALON 40X40 #16,Matéria-prima,Metalons,0,barra,0
+1240aa63-9886-4024-9403-438c340759e3,MET-50-50-14,METALON 50x50 #14,Matéria-prima,Perfis,0,barra,0
+593a2d1c-50bd-4a09-95f5-d1b52216cbde,P3D-041,METALON 50X50 #14,Matéria-prima,Metalons,0,barra,0
+0891aed3-3548-48b7-90f5-a02328a77fe8,MET-50-50-316,METALON 50x50 #3/16,Matéria-prima,Perfis,0,barra,0
+78927bc5-04ef-404d-9514-471b5addaa69,P3D-040,METALON 50X50 #3/16,Matéria-prima,Metalons,0,barra,0
+fb4f660f-65c5-4c7d-a00b-8966b59da96f,ITEM-2-60,MOLAS 2x60MM,Consumíveis,Estopas,0,un,0
+dcf5f613-49f3-4058-a347-deb665d969bc,ITEM-5-110,MOLAS 5x110MM,Consumíveis,Estopas,42,un,0
+a4000a21-c03a-45f7-8b56-4c15105ed2b1,ITEM-6-110,MOLAS 6x110MM,Consumíveis,Estopas,6,un,0
+e560f297-76de-4e94-8cf3-8079705c641d,ITEM-7-110,MOLAS 7x110MM,Consumíveis,Estopas,0,un,0
+f9b3d6ad-b853-4d96-a599-7abe13ee2a26,ITEM-8-110,MOLAS 8x110MM,Consumíveis,Estopas,2,un,0
+5e2e4bac-af91-49e4-8718-1062a0be871b,P3D-011,NERVURA 1 BASE SILO,Estruturas Metálicas,Chassis,0,un,0
+a5ffa152-dcac-4288-ad52-e70578239dfe,P3D-012,NERVURA 2 BASE SILO,Estruturas Metálicas,Chassis,0,un,0
+5be382e2-7ced-4b09-a013-52a687f64ba2,P3D-013,NERVURA BASE DO MOTOR SILO PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+3b25884e-d72a-4c51-b47b-f4227dae33d5,P3D-014,NERVURA BICA FRONTAL PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+82713445-de76-4bc2-800c-cd54deadd12e,P3D-036,NERVURA CONJUNTO METALONS MOTOR - PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+18d54459-cbce-4dcd-b706-6e8cff40f384,P3D-035,NERVURA METALON 40X40 PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+8dd5a554-4522-41aa-8f70-087f626befa6,P3D-015,NERVURA SUPORTE BICAS INFERIOR - PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+733e52ce-441c-43cc-83ba-7174b8731f9e,P3D-016,NERVURA SUPORTE BICAS PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+a0f6a44a-ebc1-420b-8090-39e5954dbbe3,P3D-017,NERVURA SUSTENTAÇÃO CHAPA MOTOR MAIOR PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+06d42db3-e3a3-4c3f-8048-a268427d8fd3,P3D-018,NERVURA SUSTENTAÇÃO MOTOR PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+af6dd0af-64de-4fe2-bb50-4aecb818328f,P3D-019,NERVURA TRAVA SUPERIOR ESTRUTURA - PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+e580b1a0-2044-4cc7-8539-315c1c21ade7,GE-000097,PARAFUSADEIRA,Ferramentas,Manuais,1,un,0
+b00eb293-c749-4dde-9bd1-056b7ff86105,GE-000100,PARAFUSADEIRA 220V,Ferramentas,Manuais,1,un,0
+126d2a39-c208-4c71-8ca5-e8c6d0643727,FIX-6-25,PARAFUSO ALLEN M6X25MM,Fixadores,Parafusos,0,un,0
+6cb1369e-3393-44b9-9b05-19035ab1dc6f,P3D-050,PARAFUSO M10 X 20MM,Fixadores,Parafusos,0,un,0
+0fd114ef-2f09-4f90-821e-2f0a7f6193a3,P3D-052,PARAFUSO M10 X 30MM,Fixadores,Parafusos,0,un,0
+1c7e8cc3-27ff-4a71-a7dd-d07488bf98d9,P3D-051,PARAFUSO M10 X 90MM,Fixadores,Parafusos,0,un,0
+c0c958e2-5759-408e-b51c-85c0df9f7759,P3D-048,PARAFUSO M6 X 25MM,Fixadores,Parafusos,0,un,0
+9995fa87-1623-4d82-a13b-5ef2f2fd46f2,P3D-049,PARAFUSO M8 X 25MM,Fixadores,Parafusos,0,un,0
+66f61fd6-d68a-4edb-a8ed-a068ee3f012f,P3D-029,PARTE 1 SILO PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+446b5de6-1231-40d9-b84a-566a96217344,P3D-030,PARTE 2 SILO PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+b07b823d-80ff-4aaf-8738-201b354f044c,P3D-031,PARTE 3 SILO PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+ad8dada1-5f7e-4bdf-ab3d-9caa075bd101,P3D-032,PARTE 4 SILO PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+722961d9-8c91-48ee-8f00-4757d9361ba7,PLACA-PAINEL-220V-NR10-NR12,Placa adesiva para painel elétrico - tensão 220 V NR10/NR12,Painel elétrico,Placas e identificação,0,un,0
+e7e757b8-a343-4cd7-abd2-518c8c8698ae,PLACA-AUTOMACAO,Placa de automação,Painel elétrico,Automação,0,un,0
+1669a2b7-7ad0-4d66-beb7-aa69efb8353e,GE-000030,PORCA PARLOCK BAIXA M6X1.0,Fixadores,Parafusos,400,un,0
+31806ce2-94c9-40a8-bca5-9b671373363e,P3D-055,PORCA PARLOCK M10,Fixadores,Porcas,0,un,0
+e54d0d67-e6b2-4558-bbab-635005c01886,FIX-6,PORCA PARLOCK M6,Fixadores,Parafusos,0,un,0
+f1e2ade8-4cc4-485d-ab4f-117c499be965,P3D-054,PORCA PARLOCK M8,Fixadores,Porcas,0,un,0
+b46fb57b-9708-4a4d-bf6a-91b74f38f213,P3D-033,PORTA SILO PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+fb4ca787-0334-4baa-a60b-0b5773ccf86f,POSTES-FINAIS,Postes finais,Painel elétrico,Fixação e acabamento,1,un,0
+53ad273a-5e84-4877-88e2-0b57edc00715,PRENSA-CABO-1-2-22MM,"Prensa-cabo 1/2"" 22 mm",Painel elétrico,Prensa-cabos,7,un,0
+0ae9eafe-4909-4212-a6b4-a8dbeeb39bb5,QUADRO-IND-40X40X20,Quadro industrial 40 x 40 x 20 cm,Painel elétrico,Quadros industriais,0,un,0
+593e036d-9fdc-4498-89a5-a11466320d06,GE-000101,REBITADEIRA PNEUMATICA,Ferramentas,Manuais,1,un,0
+484570af-52d6-4de2-ba92-5e5478f3ac2a,P3D-020,REFORÇO QUADRO CANTONEIRA PENEIRA DE 3 DECKS,Estruturas Metálicas,Chassis,0,un,0
+2a49cf4e-e858-4330-891f-dedff2093828,GE-000082,REGUA PEQ,Ferramentas,Manuais,2,un,0
+5802e749-092b-4605-9706-c4a378abd319,GE-000102,RETIFICA,Ferramentas,Manuais,1,un,0
+8744ef89-7287-4b61-9094-3a17b3503add,51104,Rolamento 51104,Rolamentos,Rolamento axial,2,un,0
+4f13b9f8-ae95-4ae4-b469-88cbb75f17d1,6000-2RS,Rolamento 6000-2RS,Rolamentos,Rolamento,2,un,0
+40d2f1fb-89b9-43c4-a92c-d83d666036c6,6204-2RS,Rolamento 6204-2RS,Rolamentos,Rolamento,3,un,0
+c8ba01cb-bbf3-42d8-846a-800b8ae3f8ce,LME30UU,Rolamento LME30UU,Rolamentos,Rolamento linear,7,un,0
+24aabf5c-80c4-453d-a503-308a4bc03129,ROL-16,Rolamento LMEF16UU,Transmissão Mecânica,Rolamentos,1,un,0
+2132458a-a1b2-40c3-ba0b-ca0add6b65de,LMEF25LUU,Rolamento LMEF25LUU,Rolamentos,Rolamento linear flangeado,4,un,0
+d13af214-5f8f-4b31-a569-853831a8c3ee,ROL-25,Rolamento LMEF25UU,Transmissão Mecânica,Rolamentos,10,un,0
+015a2412-1422-43e5-8d07-62c1a2cb26d4,LMEF30UU,Rolamento LMEF30UU,Rolamentos,Rolamento linear flangeado,4,un,0
+a098aac5-d058-47e8-844e-2d86806db58c,UC205-HS,Rolamento UC205-HS,Rolamentos,Rolamento,6,un,0
+ec9ad389-6b3a-4c8e-8f9a-e6c9ad0a7dc0,SINALEIRO-22MM-3CORES,Sinaleiro 22 mm - kit com 3 cores,Painel elétrico,Sinaleiros,3,kit,0
+a069bb7c-53e9-41d2-bdfb-7f74d3c77c8b,P3D-021,SUPORTE BICA FRONTAL PENEIRA DE 3 DECKS,Estruturas Metálicas,Suportes,0,un,0
+e18b4be8-aef5-4704-8de2-f98332de6fbd,P3D-022,SUPORTE BICA PENEIRA DE 3 DECKS,Estruturas Metálicas,Suportes,0,un,0
+b8fa1396-4c21-400a-8753-d6ac8c1d924a,P3D-023,SUPORTE CALHA PÓ PENEIRA DE 3 DECKS ATU,Estruturas Metálicas,Suportes,0,un,0
+f893d1c5-466f-4b05-82ef-2c087e1e1462,P3D-034,SUPORTE PORTA SILO PENEIRA DE 3 DECKS,Estruturas Metálicas,Suportes,0,un,0
+91cd36c1-d982-44bb-916d-a67981cb07e2,P3D-037,TAMPA 2MM - PENEIRA,Estruturas Metálicas,Proteções,0,un,0
+d7ff0cae-1979-4be9-b6a6-bc0458e63071,P3D-024,TAMPA BICA FRONTAL PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+f19f538c-9d49-4ed8-a2c7-341664807665,P3D-038,TAMPA COPO NYLON - PENEIRA,Estruturas Metálicas,Proteções,0,un,0
+649f2051-9263-48ae-821a-f0058a400c59,P3D-025,TAMPA MAIOR BICA PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+8ddaf49f-783a-4794-8966-654ac083c70e,P3D-026,TAMPA MEDIA BICA PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+7d72ad59-fe4e-474c-a2f0-e674decdaa5a,P3D-027,TAMPA MENOR BICA PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+aae4c23d-ffd6-4cc7-ad54-460339553185,P3D-028,TAMPA SUPERIOR BICA FRONTAL PENEIRA DE 3 DECKS,Estruturas Metálicas,Proteções,0,un,0
+b95f8998-9090-4bd0-9baf-abba20b8e120,TELA-10-24,Tela inox 10/24,Telas,Tela inox,10,m,0
+efb16a79-b392-4d54-98f1-dc8bb5959128,TELA-30-32,Tela inox 30/32,Telas,Tela inox,10,m,0
+8a5c5bff-5651-47d1-bde2-69d7b280a8d9,TELA-8-21,Tela inox 8/21,Telas,Tela inox,6,m,0
+15147487-2049-4f0a-a305-bc7ce1145e60,GE-000022,TESOURA COMUM,Ferramentas,Manuais,1,un,0
+20a47489-3586-4fdc-b863-c83d3cbd3fea,GE-000023,TESOURA CORT. TELA,Ferramentas,Manuais,1,un,0
+137b80d0-1192-40e1-8986-781eb5d17c6e,GE-000117,TRANSFORMADOR 127/220,Ferramentas,Manuais,1,un,0
+f71a0ef2-6d84-4d53-b12c-bf657f114240,GE-000084,TRENA 5M,Ferramentas,Manuais,1,un,0
+9a68af53-3bda-4450-8581-e5d160cbd3ca,TRILHO-DIN-32MM,Trilho DIN 32 mm,Painel elétrico,Fixação e montagem,0,un,0
+a762a727-7163-434a-9399-e0a078ff73fa,ITEM-40-40,TUDO QUADRADO EXTERNO 40x40MM PVC,Consumíveis,Estopas,0,un,0
+b183d97f-ea6d-47a0-803d-7527f11061a5,VOLTIMETRO-22MM,Voltímetro 22 mm,Painel elétrico,Medição,5,un,0
