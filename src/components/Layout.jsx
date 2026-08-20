@@ -55,7 +55,7 @@ function LowStockNotifications({ items }) {
               <div className="p-5 text-sm text-brand-steel dark:text-white/60">Tudo certo no estoque.</div>
             ) : ordered.map(item => (
               <NavLink
-                to="/estoque"
+                to={`/estoque?item=${item.id}`}
                 key={item.id}
                 onClick={() => setOpen(false)}
                 className="grid gap-1 border-b border-brand-line p-3 text-sm transition hover:bg-brand-light dark:border-white/10 dark:hover:bg-white/10"
