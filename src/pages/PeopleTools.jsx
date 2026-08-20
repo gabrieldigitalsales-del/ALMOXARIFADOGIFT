@@ -7,6 +7,10 @@ import FormGrid,{Field}from'../components/FormGrid';
 import{useApp}from'../context/AppContext';
 import{num}from'../utils/costs';
 import{COLLABORATORS}from'./Movements';
+const movementStamp=m=>m.createdAt||`${m.date||''}T${m.time||'00:00:00'}`;
+const sortMovements=rows=>[...rows].sort((a,b)=>movementStamp(b).localeCompare(movementStamp(a)));
+const typeBadge=t=>{const cls=t==='entrada'?'bg-green-100 text-green-700':t==='saída'?'bg-brand-yellow text-brand-black':t==='devolução'?'bg-blue-100 text-blue-700':t==='perda'?'bg-brand-red text-white':'bg-brand-light text-brand-steel dark:bg-white/10 dark:text-white/80';const label=t==='devolução'?'Voltou para o estoque':t;return <span className={`badge ${cls}`}>{label}</span>};
+const daysWithPerson=date=>{if(!date)return 'Sem data';const start=new Date(`${date}T00:00:00`);const now=new Date();const diff=Math.max(0,Math.floor((new Date(now.toISOString().slice(0,10))-start)/86400000));if(diff===0)return 'Com a pessoa desde hoje';if(diff===1)return 'Com a pessoa há 1 dia';return `Com a pessoa há ${diff} dias`};
 
 function buildHoldings(movements){
  const allowed=new Set(COLLABORATORS);
@@ -31,8 +35,8 @@ export default function PeopleTools(){
  const holdings=useMemo(()=>buildHoldings(movements),[movements]);
  const totalPeople=COLLABORATORS.filter(p=>holdings[p]?.length).length;
  const totalItems=COLLABORATORS.reduce((a,p)=>a+(holdings[p]||[]).reduce((s,i)=>s+num(i.qty),0),0);
- const recent=movements.filter(m=>COLLABORATORS.includes(m.reason)&&['saída','devolução'].includes(m.type)).slice(0,15);
- const recentCols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'reason',label:'Colaborador'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'}];
+ const recent=sortMovements(movements.filter(m=>COLLABORATORS.includes(m.reason)&&['saída','devolução'].includes(m.type))).slice(0,15);
+ const recentCols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'reason',label:'Colaborador'},{key:'type',label:'Tipo',render:r=>typeBadge(r.type)},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'}];
  const findProduct=itemName=>stock.find(s=>(s.name||'')===itemName)||stock.find(s=>(s.name||'').toLowerCase()===(itemName||'').toLowerCase());
  const doReturn=()=>{
   if(!returnItem)return;
@@ -47,8 +51,8 @@ export default function PeopleTools(){
 
  if(selected){
   const items=holdings[selected]||[];
-  const history=movements.filter(m=>m.reason===selected).slice(0,80);
-  const historyCols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'user',label:'Registrado por'}];
+  const history=sortMovements(movements.filter(m=>m.reason===selected)).slice(0,80);
+  const historyCols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'type',label:'Tipo',render:r=>typeBadge(r.type)},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'user',label:'Registrado por'}];
   const count=items.reduce((a,i)=>a+num(i.qty),0);
   return <>
    <PageHeader title={selected} subtitle="Ferramentas e histórico deste colaborador" actions={<button className="btn-ghost" onClick={()=>setSelected(null)}><ArrowLeft size={18}/>Voltar aos colaboradores</button>}/>
@@ -70,7 +74,11 @@ export default function PeopleTools(){
         </div>
         <span className="badge bg-brand-red text-white">{i.qty}</span>
        </div>
-       <button className="btn-ghost w-full justify-center" onClick={()=>setReturnItem({person:selected,item:i.item,qty:i.qty,maxQty:i.qty})}><RotateCcw size={16}/>Devolver</button>
+       <p className="text-xs font-semibold text-brand-turquoise">{daysWithPerson(i.lastDate)}</p>
+       <div className="grid gap-2 sm:grid-cols-2">
+        <button className="btn-ghost justify-center" onClick={()=>setReturnItem({person:selected,item:i.item,qty:i.qty,maxQty:i.qty})}><RotateCcw size={16}/>Devolver</button>
+        <button className="btn-primary justify-center" onClick={()=>setReturnItem({person:selected,item:i.item,qty:i.qty,maxQty:i.qty,returnAll:true})}><RotateCcw size={16}/>Devolver tudo</button>
+       </div>
       </div>)}
      </div>:<div className="grid place-items-center border border-dashed border-brand-line p-8 text-center text-sm text-brand-steel dark:border-white/10 dark:text-white/60">
       <PackageCheck className="mb-2" size={28}/>
@@ -84,7 +92,7 @@ export default function PeopleTools(){
     </div>
    </div>
 
-   <Modal open={!!returnItem} title="Devolver ferramenta" onClose={()=>setReturnItem(null)}>
+   <Modal open={!!returnItem} title="Devolver ferramenta" dirty={!!returnItem} onClose={()=>setReturnItem(null)}>
     <FormGrid>
      <Field label="Colaborador" value={returnItem?.person||''} onChange={()=>{}}/>
      <Field label="Ferramenta" value={returnItem?.item||''} onChange={()=>{}}/>
@@ -92,6 +100,7 @@ export default function PeopleTools(){
     </FormGrid>
     <div className="mt-5 flex flex-wrap gap-2">
      <button className="btn-primary" onClick={doReturn}><RotateCcw size={18}/>Confirmar devolução</button>
+     
      <button className="btn-ghost" onClick={()=>setReturnItem(null)}>Cancelar</button>
     </div>
    </Modal>

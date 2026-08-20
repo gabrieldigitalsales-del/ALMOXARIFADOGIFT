@@ -9,6 +9,9 @@ import{availableOf,num}from'../utils/costs';
 
 export const COLLABORATORS=['Vinicius','Luciano','Bruno','Gabriel','Sidney','Hanyel','Robson','Julia','Carla'];
 const today=()=>new Date().toISOString().slice(0,10);
+const movementStamp=m=>m.createdAt||`${m.date||''}T${m.time||'00:00:00'}`;
+const sortMovements=rows=>[...rows].sort((a,b)=>movementStamp(b).localeCompare(movementStamp(a)));
+const typeBadge=t=>{const cls=t==='entrada'?'bg-green-100 text-green-700':t==='saída'?'bg-brand-yellow text-brand-black':t==='devolução'?'bg-blue-100 text-blue-700':t==='perda'?'bg-brand-red text-white':'bg-brand-light text-brand-steel dark:bg-white/10 dark:text-white/80';const label=t==='devolução'?'Voltou para o estoque':t;return <span className={`badge ${cls}`}>{label}</span>};
 
 function QuickEmployeeMovements({movements,stock,quickMove,auth}){
  const[form,setForm]=useState({type:'saída',productId:'',qty:1,reason:COLLABORATORS[0]});
@@ -19,7 +22,7 @@ function QuickEmployeeMovements({movements,stock,quickMove,auth}){
   if(!q)return stock.slice(0,12);
   return stock.filter(s=>`${s.code||''} ${s.name||''} ${s.category||''}`.toLowerCase().includes(q)).slice(0,18)
  },[stock,query]);
- const todayRows=movements.filter(m=>m.date===today()&&(!auth?.user||m.user===auth.user)).slice(0,12);
+ const todayRows=sortMovements(movements.filter(m=>m.date===today()&&(!auth?.user||m.user===auth.user))).slice(0,12);
  const typeOptions=[
   {key:'entrada',label:'Entrada',icon:<ArrowDownCircle size={18}/>},
   {key:'saída',label:'Saída',icon:<ArrowUpCircle size={18}/>},
@@ -31,7 +34,7 @@ function QuickEmployeeMovements({movements,stock,quickMove,auth}){
   quickMove({productId:form.productId,type:form.type,qty:form.qty,reason:form.reason});
   setForm(f=>({...f,qty:1,reason:f.reason||COLLABORATORS[0]}));
  };
- const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'reason',label:'Colaborador'}];
+ const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'type',label:'Tipo',render:r=>typeBadge(r.type)},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'reason',label:'Colaborador'}];
 
  return <>
   <PageHeader title="Movimentação rápida" subtitle="Entrada, saída e retorno de ferramentas por colaborador"/>
@@ -114,13 +117,16 @@ function QuickEmployeeMovements({movements,stock,quickMove,auth}){
 export default function Movements(){
  const{movements,stock,quickMove,auth}=useApp();
  const[edit,setEdit]=useState(null);
+ const[filter,setFilter]=useState('Todos');
+ const[search,setSearch]=useState('');
  const isEmployee=auth?.role==='almox';
- const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'user',label:'Usuário'},{key:'type',label:'Tipo'},{key:'item',label:'Item'},{key:'qty',label:'Quantidade'},{key:'reason',label:'Colaborador'},{key:'op',label:'OP'}];
+ const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'user',label:'Usuário'},{key:'type',label:'Tipo',render:r=>typeBadge(r.type)},{key:'item',label:'Item'},{key:'qty',label:'Quantidade'},{key:'reason',label:'Colaborador'},{key:'op',label:'OP'}];
+ const adminRows=sortMovements(movements.filter(m=>(filter==='Todos'||m.type===filter)&&`${m.date||''} ${m.time||''} ${m.user||''} ${m.type||''} ${m.item||''} ${m.reason||''} ${m.op||''}`.toLowerCase().includes(search.toLowerCase())));
  if(isEmployee)return <QuickEmployeeMovements movements={movements} stock={stock} quickMove={quickMove} auth={auth}/>;
  return <>
   <PageHeader title="Movimentações" subtitle="Entrada, saída, retorno de ferramenta, perda, transferência e reserva de produção" actions={<button className="btn-primary" onClick={()=>setEdit({productId:stock[0]?.id,type:'entrada',qty:1,reason:COLLABORATORS[0]})}><Plus size={18}/>Nova movimentação</button>}/>
-  <DataTable rows={movements} columns={cols}/>
-  <Modal open={!!edit} title="Registrar movimentação" onClose={()=>setEdit(null)}>
+  <div className="card mb-4 grid gap-3 md:grid-cols-[1fr_auto]"><input className="input" placeholder="Buscar por item, colaborador, tipo, data ou usuário..." value={search} onChange={e=>setSearch(e.target.value)}/><select className="input" value={filter} onChange={e=>setFilter(e.target.value)}><option>Todos</option><option value="entrada">Entrada</option><option value="saída">Saída</option><option value="devolução">Voltou para o estoque</option><option value="perda">Perda</option></select></div><DataTable rows={adminRows} columns={cols}/>
+  <Modal open={!!edit} title="Registrar movimentação" dirty={!!edit} onClose={()=>setEdit(null)}>
    <FormGrid>
     <Field label="Item" value={edit?.productId} options={stock.map(s=>({value:s.id,label:`${s.code} - ${s.name}`}))} onChange={v=>setEdit({...edit,productId:v})}/>
     <Field label="Tipo" value={edit?.type} options={['entrada','saída','devolução','perda','transferência','reserva produção']} onChange={v=>setEdit({...edit,type:v})}/>
