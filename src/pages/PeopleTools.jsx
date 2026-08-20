@@ -75,10 +75,7 @@ export default function PeopleTools(){
         <span className="badge bg-brand-red text-white">{i.qty}</span>
        </div>
        <p className="text-xs font-semibold text-brand-turquoise">{daysWithPerson(i.lastDate)}</p>
-       <div className="grid gap-2 sm:grid-cols-2">
-        <button className="btn-ghost justify-center" onClick={()=>setReturnItem({person:selected,item:i.item,qty:i.qty,maxQty:i.qty})}><RotateCcw size={16}/>Devolver</button>
-        <button className="btn-primary justify-center" onClick={()=>setReturnItem({person:selected,item:i.item,qty:i.qty,maxQty:i.qty,returnAll:true})}><RotateCcw size={16}/>Devolver tudo</button>
-       </div>
+       <button className="btn-ghost w-full justify-center" onClick={()=>setReturnItem({person:selected,item:i.item,qty:i.qty,maxQty:i.qty})}><RotateCcw size={16}/>Devolver</button>
       </div>)}
      </div>:<div className="grid place-items-center border border-dashed border-brand-line p-8 text-center text-sm text-brand-steel dark:border-white/10 dark:text-white/60">
       <PackageCheck className="mb-2" size={28}/>
