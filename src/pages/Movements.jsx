@@ -11,7 +11,7 @@ export const COLLABORATORS=['Vinicius','Luciano','Bruno','Gabriel','Sidney','Han
 const today=()=>new Date().toISOString().slice(0,10);
 const movementStamp=m=>m.createdAt||`${m.date||''}T${m.time||'00:00:00'}`;
 const sortMovements=rows=>[...rows].sort((a,b)=>movementStamp(b).localeCompare(movementStamp(a)));
-const typeBadge=t=>{const cls=t==='entrada'?'bg-green-100 text-green-700':t==='saída'?'bg-brand-yellow text-brand-black':t==='devolução'?'bg-blue-100 text-blue-700':t==='perda'?'bg-brand-red text-white':'bg-brand-light text-brand-steel dark:bg-white/10 dark:text-white/80';const label=t==='devolução'?'Voltou para o estoque':t;return <span className={`badge ${cls}`}>{label}</span>};
+const typeBadge=t=>{const cls=t==='entrada'?'bg-green-100 text-green-700':t==='saída'?'bg-brand-yellow text-brand-black':t==='devolução'?'bg-blue-100 text-blue-700':t==='perda'?'bg-brand-red text-white':t==='item removido'?'bg-black text-white':'bg-brand-light text-brand-steel dark:bg-white/10 dark:text-white/80';const label=t==='devolução'?'Voltou para o estoque':t==='item removido'?'Item removido':t;return <span className={`badge ${cls}`}>{label}</span>};
 
 function QuickEmployeeMovements({movements,stock,quickMove,auth}){
  const[form,setForm]=useState({type:'saída',productId:'',qty:1,reason:COLLABORATORS[0]});

@@ -9,7 +9,7 @@ import{num}from'../utils/costs';
 import{COLLABORATORS}from'./Movements';
 const movementStamp=m=>m.createdAt||`${m.date||''}T${m.time||'00:00:00'}`;
 const sortMovements=rows=>[...rows].sort((a,b)=>movementStamp(b).localeCompare(movementStamp(a)));
-const typeBadge=t=>{const cls=t==='entrada'?'bg-green-100 text-green-700':t==='saída'?'bg-brand-yellow text-brand-black':t==='devolução'?'bg-blue-100 text-blue-700':t==='perda'?'bg-brand-red text-white':'bg-brand-light text-brand-steel dark:bg-white/10 dark:text-white/80';const label=t==='devolução'?'Voltou para o estoque':t;return <span className={`badge ${cls}`}>{label}</span>};
+const typeBadge=t=>{const cls=t==='entrada'?'bg-green-100 text-green-700':t==='saída'?'bg-brand-yellow text-brand-black':t==='devolução'?'bg-blue-100 text-blue-700':t==='perda'?'bg-brand-red text-white':t==='item removido'?'bg-black text-white':'bg-brand-light text-brand-steel dark:bg-white/10 dark:text-white/80';const label=t==='devolução'?'Voltou para o estoque':t==='item removido'?'Item removido':t;return <span className={`badge ${cls}`}>{label}</span>};
 const daysWithPerson=date=>{if(!date)return 'Sem data';const start=new Date(`${date}T00:00:00`);const now=new Date();const diff=Math.max(0,Math.floor((new Date(now.toISOString().slice(0,10))-start)/86400000));if(diff===0)return 'Com a pessoa desde hoje';if(diff===1)return 'Com a pessoa há 1 dia';return `Com a pessoa há ${diff} dias`};
 
 function buildHoldings(movements){
