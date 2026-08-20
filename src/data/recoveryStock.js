@@ -13,7 +13,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -30,7 +30,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -47,7 +47,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -64,7 +64,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -81,7 +81,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -98,7 +98,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -115,7 +115,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -132,7 +132,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -149,7 +149,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -166,7 +166,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -183,7 +183,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -200,7 +200,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -217,7 +217,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -234,7 +234,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -251,7 +251,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -268,7 +268,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -285,7 +285,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -302,7 +302,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -319,7 +319,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -336,7 +336,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -353,7 +353,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -370,7 +370,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -387,7 +387,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -404,7 +404,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -421,7 +421,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -438,7 +438,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -455,7 +455,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -472,7 +472,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -489,7 +489,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -506,7 +506,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -523,7 +523,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -540,7 +540,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -557,7 +557,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -574,7 +574,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -591,7 +591,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -608,7 +608,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -625,7 +625,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -642,7 +642,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -659,7 +659,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -676,7 +676,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -693,7 +693,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -710,7 +710,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -727,7 +727,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -744,7 +744,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -761,7 +761,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -778,7 +778,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -795,7 +795,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -812,7 +812,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -829,7 +829,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -846,7 +846,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -863,7 +863,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -880,7 +880,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -897,7 +897,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -914,7 +914,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -931,7 +931,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -948,7 +948,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -965,7 +965,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -982,7 +982,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -999,7 +999,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1016,7 +1016,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1033,7 +1033,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1050,7 +1050,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1067,7 +1067,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1084,7 +1084,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1101,7 +1101,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1118,7 +1118,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1135,7 +1135,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1152,7 +1152,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1169,7 +1169,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1186,7 +1186,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1203,7 +1203,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1220,7 +1220,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1237,7 +1237,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1254,7 +1254,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1271,7 +1271,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1288,7 +1288,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1305,7 +1305,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1322,7 +1322,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1339,7 +1339,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1356,7 +1356,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1373,7 +1373,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1390,7 +1390,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1407,7 +1407,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1424,7 +1424,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1441,7 +1441,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1458,7 +1458,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1475,7 +1475,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1492,7 +1492,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1509,7 +1509,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1526,7 +1526,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1543,7 +1543,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1560,7 +1560,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1577,7 +1577,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1594,7 +1594,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1611,7 +1611,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1628,7 +1628,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1645,7 +1645,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1662,7 +1662,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1679,7 +1679,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1696,7 +1696,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1713,7 +1713,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1730,7 +1730,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1747,7 +1747,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1764,7 +1764,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1781,7 +1781,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1798,7 +1798,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1815,7 +1815,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1832,7 +1832,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1849,7 +1849,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1866,7 +1866,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1883,7 +1883,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1900,7 +1900,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1917,7 +1917,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1934,7 +1934,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -1951,7 +1951,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -1968,7 +1968,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -1985,7 +1985,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2002,7 +2002,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2019,7 +2019,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2036,7 +2036,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2053,7 +2053,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2070,7 +2070,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2087,7 +2087,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2104,7 +2104,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2121,7 +2121,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2138,7 +2138,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2155,7 +2155,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2172,7 +2172,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2189,7 +2189,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2206,7 +2206,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2223,7 +2223,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2240,7 +2240,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2257,7 +2257,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2274,7 +2274,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2291,7 +2291,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2308,7 +2308,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2325,7 +2325,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2342,7 +2342,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2359,7 +2359,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2376,7 +2376,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2393,7 +2393,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2410,7 +2410,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2427,7 +2427,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2444,7 +2444,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2461,7 +2461,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2478,7 +2478,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2495,7 +2495,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2512,7 +2512,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2529,7 +2529,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2546,7 +2546,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2563,7 +2563,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2580,7 +2580,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -2597,7 +2597,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2614,7 +2614,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2631,7 +2631,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2648,7 +2648,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2665,7 +2665,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2682,7 +2682,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2699,7 +2699,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2716,7 +2716,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2733,7 +2733,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2750,7 +2750,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2767,7 +2767,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2784,7 +2784,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2801,7 +2801,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -2818,7 +2818,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2835,7 +2835,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2852,7 +2852,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2869,7 +2869,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2886,7 +2886,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2903,7 +2903,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2920,7 +2920,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2937,7 +2937,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2954,7 +2954,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2971,7 +2971,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -2988,7 +2988,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3005,7 +3005,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3022,7 +3022,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3039,7 +3039,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3056,7 +3056,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3073,7 +3073,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3090,7 +3090,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3107,7 +3107,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3124,7 +3124,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3141,7 +3141,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3158,7 +3158,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3175,7 +3175,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3192,7 +3192,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3209,7 +3209,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3226,7 +3226,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3243,7 +3243,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3260,7 +3260,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3277,7 +3277,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3294,7 +3294,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3311,7 +3311,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3328,7 +3328,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3345,7 +3345,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3362,7 +3362,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3379,7 +3379,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3396,7 +3396,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3413,7 +3413,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3430,7 +3430,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3447,7 +3447,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3464,7 +3464,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3481,7 +3481,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3498,7 +3498,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3515,7 +3515,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3532,7 +3532,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3549,7 +3549,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3566,7 +3566,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3583,7 +3583,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3600,7 +3600,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3617,7 +3617,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3634,7 +3634,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3651,7 +3651,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3668,7 +3668,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3685,7 +3685,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3702,7 +3702,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3719,7 +3719,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3736,7 +3736,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3753,7 +3753,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3770,7 +3770,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3787,7 +3787,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3804,7 +3804,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3821,7 +3821,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3838,7 +3838,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   },
   {
@@ -3855,7 +3855,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3872,7 +3872,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3889,7 +3889,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3906,7 +3906,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Estoque baixo"
   },
   {
@@ -3923,7 +3923,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3940,7 +3940,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "Em falta"
   },
   {
@@ -3957,7 +3957,7 @@ export const recoveryStockItems=[
     "supplier": "",
     "min": 1,
     "leadTime": 0,
-    "application": "Estoque recuperado do CSV original",
+    "application": "Estoque recuperado do SQL original",
     "status": "OK"
   }
 ];
