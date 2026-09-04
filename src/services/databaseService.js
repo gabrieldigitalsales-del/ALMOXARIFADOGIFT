@@ -99,6 +99,22 @@ export async function loadAllCollections() {
   return Object.fromEntries(entries);
 }
 
+
+export async function saveDailyCloudBackup(label, snapshot) {
+  ensure();
+  const { data, error } = await supabase
+    .from('giftx_almox_siqueira_2026_daily_backups')
+    .insert({
+      label: label || 'backup-diario',
+      data: snapshot || {},
+      backup_date: new Date().toISOString().slice(0, 10)
+    })
+    .select('id,backup_date,created_at')
+    .single();
+  if (error) throw error;
+  return data;
+}
+
 export async function uppercaseStockNames() {
   ensure();
   const { data, error } = await supabase.rpc('giftx_almox_siqueira_2026_uppercase_stock_names');

@@ -115,13 +115,13 @@ export default function Settings() {
                 <CalendarClock size={20} />
                 <div>
                   <h3 className="text-lg font-semibold">Backup automático diário</h3>
-                  <p className="text-sm text-brand-steel dark:text-white/60">Quando o app for aberto no dia, ele baixa automaticamente um JSON de segurança uma vez por dia.</p>
-                  <p className="mt-1 text-xs text-brand-steel dark:text-white/60">Último backup: <b>{backupSettings?.lastDailyBackupAt ? new Date(backupSettings.lastDailyBackupAt).toLocaleString('pt-BR') : 'Ainda não executado'}</b></p>
+                  <p className="text-sm text-brand-steel dark:text-white/60">Quando o app for aberto no dia, ele salva automaticamente um backup no Supabase uma vez por dia, sem baixar arquivo na tela.</p>
+                  <p className="mt-1 text-xs text-brand-steel dark:text-white/60">Último backup: <b>{backupSettings?.lastDailyBackupAt ? new Date(backupSettings.lastDailyBackupAt).toLocaleString('pt-BR') : 'Ainda não executado'}</b>{backupSettings?.lastDailyBackupMode ? ` • ${backupSettings.lastDailyBackupMode}` : ''}</p>
                 </div>
               </div>
               <div className="flex flex-wrap gap-3">
                 <button className={backupSettings?.dailyEnabled?'btn-primary':'btn-ghost'} onClick={() => setBackupSettings({ ...backupSettings, dailyEnabled: !backupSettings?.dailyEnabled })}>{backupSettings?.dailyEnabled?'Backup diário ligado':'Backup diário desligado'}</button>
-                <button className="btn-ghost" onClick={() => { setBackupSettings({ ...backupSettings, lastDailyBackupDate: '' }); setTimeout(runDailyBackupIfNeeded, 100); notify('Backup diário forçado'); }}><Download size={18}/>Testar backup diário agora</button>
+                <button className="btn-ghost" onClick={() => runDailyBackupIfNeeded(true)}><Download size={18}/>Salvar backup diário agora</button>
               </div>
             </div>
           </div>
