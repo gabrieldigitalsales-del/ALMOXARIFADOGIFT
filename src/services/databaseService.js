@@ -98,3 +98,10 @@ export async function loadAllCollections() {
   const entries = await Promise.all(keys.map(async key => [key, await loadCollection(key)]));
   return Object.fromEntries(entries);
 }
+
+export async function uppercaseStockNames() {
+  ensure();
+  const { data, error } = await supabase.rpc('giftx_almox_siqueira_2026_uppercase_stock_names');
+  if (error) throw error;
+  return Array.isArray(data) ? data[0] : data;
+}

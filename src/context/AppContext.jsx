@@ -2,7 +2,7 @@ import{createContext,useContext,useEffect,useMemo,useRef,useState}from'react';
 import{bomSeed,machinesSeed,maintenanceSeed,movementsSeed,opsSeed,purchasesSeed,stockSeed,suppliersSeed}from'../data/seed';
 import{useLocalStorage}from'../hooks/useLocalStorage';
 import{isSupabaseConfigured}from'../services/supabaseClient';
-import{deleteCollectionItem,loadAllCollections,loadCollection,replaceCollection,upsertCollectionItem}from'../services/databaseService';
+import{deleteCollectionItem,loadAllCollections,loadCollection,replaceCollection,upsertCollectionItem,uppercaseStockNames}from'../services/databaseService';
 import{availableOf,calcMachineCost,num,statusOf,today}from'../utils/costs';
 import{downloadJson}from'../utils/exporters';
 
@@ -53,7 +53,8 @@ export function AppProvider({children}){
  const backup=()=>downloadJson('backup-almoxarifado-gift.json',{stock,machines,bom,suppliers,movements,purchases,ops,maintenance,warranties,soldMachines,settings,createdAt:new Date().toISOString()});
  const restore=data=>{if(data.stock)setStock(data.stock);if(data.machines)setMachines(data.machines);if(data.bom)setBom(data.bom);if(data.suppliers)setSuppliers(data.suppliers);if(data.movements)setMovements(data.movements);if(data.purchases)setPurchases(data.purchases);if(data.ops)setOps(data.ops);if(data.maintenance)setMaintenance(data.maintenance);if(data.warranties)setWarranties(data.warranties);if(data.soldMachines)setSoldMachines(data.soldMachines);notify('Backup restaurado')};
  const resetDemo=()=>{setStock([]);setMachines([]);setBom([]);setSuppliers([]);setMovements([]);setPurchases([]);setOps([]);setMaintenance([]);setWarranties([]);setSoldMachines([]);notify('Sistema zerado')};
+ const uppercaseStockItemNames=async()=>{if(!isSupabaseConfigured)return notify('Supabase não configurado','error');try{setDbStatus('Padronizando estoque...');const result=await uppercaseStockNames();const nextStock=await loadCollection('stock');settersRef.current.stock(nextStock||[]);statesRef.current.stock=nextStock||[];setDbStatus('Supabase conectado');notify(`Nomes padronizados em maiúsculo. Itens alterados: ${result?.total_updated??0}`)}catch(e){showDbError(e)}};
  const totals=useMemo(()=>{const items=stock.reduce((a,i)=>a+num(i.qty),0);const reserved=stock.reduce((a,i)=>a+num(i.reserved),0);const available=stock.reduce((a,i)=>a+availableOf(i),0);const value=stock.reduce((a,i)=>a+num(i.qty)*num(i.avgCost||i.unitCost),0);const low=stock.filter(i=>statusOf(i)!=='OK');return{items,reserved,available,value,low}},[stock]);
  const machineCosts=useMemo(()=>machines.map(m=>({machine:m,...calcMachineCost(m,bom,stock)})),[machines,bom,stock]);
- const value={stock,setStock,upsertStock,deleteStock,quickMove,addMovement,machines,setMachines,bom,setBom,suppliers,setSuppliers,movements,setMovements,purchases,setPurchases,receivePurchase,createPurchaseSuggestion,ops,setOps,reserveOP,finishOP,deleteOP,maintenance,setMaintenance,warranties,setWarranties,soldMachines,setSoldMachines,settings,setSettings,auth,setAuth,toast,notify,totals,machineCosts,backup,restore,resetDemo,rid,dbStatus,isSupabaseConfigured};return <Ctx.Provider value={value}>{children}</Ctx.Provider>}
+ const value={stock,setStock,upsertStock,deleteStock,quickMove,addMovement,machines,setMachines,bom,setBom,suppliers,setSuppliers,movements,setMovements,purchases,setPurchases,receivePurchase,createPurchaseSuggestion,ops,setOps,reserveOP,finishOP,deleteOP,maintenance,setMaintenance,warranties,setWarranties,soldMachines,setSoldMachines,settings,setSettings,auth,setAuth,toast,notify,totals,machineCosts,backup,restore,resetDemo,uppercaseStockItemNames,rid,dbStatus,isSupabaseConfigured};return <Ctx.Provider value={value}>{children}</Ctx.Provider>}
 export const useApp=()=>useContext(Ctx);
