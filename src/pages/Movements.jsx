@@ -37,7 +37,7 @@ function QuickEmployeeMovements({movements,stock,quickMove,auth}){
  const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'type',label:'Tipo',render:r=>typeBadge(r.type)},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'reason',label:'Colaborador'}];
 
  return <>
-  <PageHeader title="Movimentação rápida" subtitle="Entrada, saída e retorno de ferramentas por colaborador"/>
+  <PageHeader title="Movimentação rápida" subtitle="Entrada, saída e retorno de itens por colaborador"/>
   <div className="grid gap-5 xl:grid-cols-[1.15fr_.85fr]">
    <div className="card">
     <h3 className="mb-4 text-xl font-semibold">Registrar movimentação</h3>

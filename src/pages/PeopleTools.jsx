@@ -55,16 +55,16 @@ export default function PeopleTools(){
   const historyCols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'type',label:'Tipo',render:r=>typeBadge(r.type)},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'},{key:'user',label:'Registrado por'}];
   const count=items.reduce((a,i)=>a+num(i.qty),0);
   return <>
-   <PageHeader title={selected} subtitle="Ferramentas e histórico deste colaborador" actions={<button className="btn-ghost" onClick={()=>setSelected(null)}><ArrowLeft size={18}/>Voltar aos colaboradores</button>}/>
+   <PageHeader title={selected} subtitle="Itens e histórico deste colaborador" actions={<button className="btn-ghost" onClick={()=>setSelected(null)}><ArrowLeft size={18}/>Voltar aos colaboradores</button>}/>
    <div className="mb-5 grid gap-4 md:grid-cols-3">
     <div className="card"><p className="text-sm text-brand-steel dark:text-white/60">Itens atualmente com a pessoa</p><b className="text-3xl">{count}</b></div>
-    <div className="card"><p className="text-sm text-brand-steel dark:text-white/60">Tipos de ferramentas</p><b className="text-3xl">{items.length}</b></div>
+    <div className="card"><p className="text-sm text-brand-steel dark:text-white/60">Tipos de itens</p><b className="text-3xl">{items.length}</b></div>
     <div className="card"><p className="text-sm text-brand-steel dark:text-white/60">Histórico registrado</p><b className="text-3xl">{history.length}</b></div>
    </div>
 
    <div className="grid gap-5 xl:grid-cols-[.9fr_1.1fr]">
     <div className="card">
-     <h3 className="mb-4 text-xl font-semibold">Ferramentas com {selected}</h3>
+     <h3 className="mb-4 text-xl font-semibold">Itens com {selected}</h3>
      {items.length?<div className="space-y-2">
       {items.map(i=><div className="grid gap-3 border border-brand-line p-4 dark:border-white/10" key={i.item}>
        <div className="flex items-start justify-between gap-3">
@@ -92,7 +92,7 @@ export default function PeopleTools(){
    <Modal open={!!returnItem} title="Devolver ferramenta" dirty={!!returnItem} onClose={()=>setReturnItem(null)}>
     <FormGrid>
      <Field label="Colaborador" value={returnItem?.person||''} onChange={()=>{}}/>
-     <Field label="Ferramenta" value={returnItem?.item||''} onChange={()=>{}}/>
+     <Field label="Item" value={returnItem?.item||''} onChange={()=>{}}/>
      <Field label={`Quantidade para devolver / máximo ${returnItem?.maxQty||0}`} type="number" value={returnItem?.qty||1} onChange={v=>setReturnItem({...returnItem,qty:v})}/>
     </FormGrid>
     <div className="mt-5 flex flex-wrap gap-2">
@@ -105,7 +105,7 @@ export default function PeopleTools(){
  }
 
  return <>
-  <PageHeader title="Colaboradores" subtitle="Clique em um colaborador para ver ferramentas e histórico"/>
+  <PageHeader title="Colaboradores" subtitle="Clique em um colaborador para ver itens e histórico"/>
   <div className="mb-5 grid gap-4 md:grid-cols-3">
    <div className="card"><p className="text-sm text-brand-steel dark:text-white/60">Pessoas com itens</p><b className="text-3xl">{totalPeople}</b></div>
    <div className="card"><p className="text-sm text-brand-steel dark:text-white/60">Itens fora do estoque</p><b className="text-3xl">{totalItems}</b></div>
@@ -130,7 +130,7 @@ export default function PeopleTools(){
      </div>
      <div className="grid grid-cols-2 gap-3">
       <div className="border border-brand-line p-3 dark:border-white/10">
-       <p className="text-xs text-brand-steel dark:text-white/60">Ferramentas</p>
+       <p className="text-xs text-brand-steel dark:text-white/60">Items</p>
        <b className="text-2xl">{count}</b>
       </div>
       <div className="border border-brand-line p-3 dark:border-white/10">

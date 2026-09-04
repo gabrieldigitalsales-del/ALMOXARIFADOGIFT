@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Home, LogOut, Menu, Package, PackagePlus, ShoppingCart, Truck, Moon, Sun, AlertTriangle, X, ShieldCheck, FileText, ReceiptText, UsersRound } from 'lucide-react';
+import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Home, LogOut, Menu, PackagePlus, ShoppingCart, Truck, Moon, Sun, AlertTriangle, X, ShieldCheck, FileText, ReceiptText, UsersRound, Wrench, Zap } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { statusOf } from '../utils/costs';
 import { canAccessRoute } from '../utils/permissions';
@@ -11,13 +11,14 @@ const nav = [
   ['/ordens-servico', 'Ordens de Serviço', ReceiptText],
   ['/fretes', 'Cotações de Frete', Truck],
   ['/estoque', 'Estoque', Boxes],
-  ['/produtos', 'Produtos', Package],
   ['/movimentacoes', 'Movimentações', PackagePlus],
   ['/colaboradores', 'Colaboradores', UsersRound],
   ['/compras', 'Ordens de Compra', ShoppingCart],
   ['/maquinas', 'Máquinas', Factory],
   ['/montagem', 'Montar Máquina', Factory],
   ['/bom', 'BOM / Estrutura', ClipboardList],
+  ['/organizacao', 'Organização', Wrench],
+  ['/produtividade', 'Produtividade', Zap],
   ['/garantias', 'Garantias / WhatsApp', ShieldCheck],
   ['/maquinas-vendidas', 'Máquinas Vendidas', Factory],
   ['/relatorios', 'Relatórios', FileBarChart],
