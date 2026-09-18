@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Home, LogOut, Menu, PackagePlus, ShoppingCart, Truck, Moon, Sun, AlertTriangle, X, ShieldCheck, FileText, ReceiptText, UsersRound, Wrench, Zap } from 'lucide-react';
+import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Home, LogOut, Menu, PackagePlus, ShoppingCart, Truck, Moon, Sun, AlertTriangle, X, ShieldCheck, FileText, ReceiptText, UsersRound, Wrench, Zap, QrCode } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { statusOf } from '../utils/costs';
-import { canAccessRoute } from '../utils/permissions';
+import { canAccessRoute, roleLabel, isBrunoLimited } from '../utils/permissions';
 
 const nav = [
   ['/', 'Dashboard', Home],
@@ -11,6 +11,7 @@ const nav = [
   ['/ordens-servico', 'Ordens de Serviço', ReceiptText],
   ['/fretes', 'Cotações de Frete', Truck],
   ['/estoque', 'Estoque', Boxes],
+  ['/movimentacao-rapida', 'Movimentação Rápida', QrCode],
   ['/movimentacoes', 'Movimentações', PackagePlus],
   ['/colaboradores', 'Colaboradores', UsersRound],
   ['/compras', 'Ordens de Compra', ShoppingCart],
@@ -89,6 +90,7 @@ export default function Layout() {
   const navg = useNavigate();
   const logout = () => { setMobileMenuOpen(false); setAuth({ logged: false, role: null, user: '' }); navg('/login'); };
   const visibleNav = nav.filter(([to]) => canAccessRoute(auth, to));
+  const brunoOnly = isBrunoLimited(auth);
 
   return (
     <main className="min-h-screen bg-brand-light text-brand-black dark:bg-brand-black dark:text-white">
@@ -111,8 +113,8 @@ export default function Layout() {
           ))}
         </nav>
         <div className="m-3 grid gap-2 border border-white/10 bg-brand-black p-4 text-white">
-          <p className="text-xs text-white/60">{auth?.role==='almox'?'Almoxarifado':'Administrador'}</p><p className="text-xs text-white/60">Alertas de estoque</p>
-          <p className="text-2xl font-semibold text-brand-yellow">{totals.low.length}</p>
+          <p className="text-xs text-white/60">{roleLabel(auth)}</p>{!brunoOnly&&<><p className="text-xs text-white/60">Alertas de estoque</p>
+          <p className="text-2xl font-semibold text-brand-yellow">{totals.low.length}</p></>}
           <button className="btn-danger py-2" onClick={logout}><LogOut size={16} />Sair</button>
         </div>
       </aside>
@@ -132,11 +134,11 @@ export default function Layout() {
             <img src="/logo-gift.png" className="h-12 w-20 object-contain lg:hidden" />
             <div>
               <h2 className="text-lg font-semibold tracking-tight lg:text-2xl">GIFT CONTROL • GIFT EXCELLENCE</h2>
-              <p className="text-xs text-brand-steel dark:text-white/60">{auth?.role==='almox'?'Acesso almoxarifado: estoque, movimentações e colaboradores':'Gestão integrada: comercial, serviços, logística, estoque, produção e compras'} • {dbStatus}</p>
+              <p className="text-xs text-brand-steel dark:text-white/60">{brunoOnly?'Acesso Bruno: somente garantias':auth?.role==='almox'?'Acesso almoxarifado: estoque, movimentações e colaboradores':'Gestão integrada: comercial, serviços, logística, estoque, produção e compras'} • {dbStatus}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <LowStockNotifications items={totals.low} />
+            {!brunoOnly&&<LowStockNotifications items={totals.low} />}
             <button onClick={() => setSettings({ ...settings, dark: !settings.dark })} className="btn-ghost">{settings.dark ? <Sun size={18} /> : <Moon size={18} />}</button>
             <button onClick={logout} className="btn-ghost hidden md:flex"><LogOut size={18} />Sair</button>
           </div>

@@ -119,7 +119,7 @@ export default function Movements(){
  const[edit,setEdit]=useState(null);
  const[filter,setFilter]=useState('Todos');
  const[search,setSearch]=useState('');
- const isEmployee=auth?.role==='almox';
+ const isEmployee=auth?.role==='almox'||auth?.role==='garantia_movimentacao';
  const cols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'user',label:'Usuário'},{key:'type',label:'Tipo',render:r=>typeBadge(r.type)},{key:'item',label:'Item'},{key:'qty',label:'Quantidade'},{key:'reason',label:'Colaborador'},{key:'op',label:'OP'}];
  const adminRows=sortMovements(movements.filter(m=>(filter==='Todos'||m.type===filter)&&`${m.date||''} ${m.time||''} ${m.user||''} ${m.type||''} ${m.item||''} ${m.reason||''} ${m.op||''}`.toLowerCase().includes(search.toLowerCase())));
  if(isEmployee)return <QuickEmployeeMovements movements={movements} stock={stock} quickMove={quickMove} auth={auth}/>;

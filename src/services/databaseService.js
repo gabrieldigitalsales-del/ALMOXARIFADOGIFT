@@ -100,6 +100,17 @@ export async function loadAllCollections() {
 }
 
 
+export async function listDailyCloudBackups(limit = 20) {
+  ensure();
+  const { data, error } = await supabase
+    .from('giftx_almox_siqueira_2026_daily_backups')
+    .select('id,label,backup_date,created_at,data')
+    .order('created_at', { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return data || [];
+}
+
 export async function saveDailyCloudBackup(label, snapshot) {
   ensure();
   const { data, error } = await supabase
@@ -120,4 +131,12 @@ export async function uppercaseStockNames() {
   const { data, error } = await supabase.rpc('giftx_almox_siqueira_2026_uppercase_stock_names');
   if (error) throw error;
   return Array.isArray(data) ? data[0] : data;
+}
+
+
+export async function deleteStorageFile(bucket, path) {
+  ensure();
+  if (!path) return;
+  const { error } = await supabase.storage.from(bucket).remove([path]);
+  if (error) throw error;
 }

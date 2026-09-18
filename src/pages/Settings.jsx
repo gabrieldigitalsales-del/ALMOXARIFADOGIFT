@@ -1,4 +1,5 @@
-import { Activity, AlertTriangle, CalendarClock, Database, Download, RotateCcw, Save, ShieldCheck, Type, Upload } from 'lucide-react';
+import { Activity, AlertTriangle, CalendarClock, Database, Download, RotateCcw, Save, ShieldCheck, Type, Upload, Cloud, RefreshCw } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import PageHeader from '../components/PageHeader';
 import FormGrid, { Field } from '../components/FormGrid';
 import { useApp } from '../context/AppContext';
@@ -20,8 +21,20 @@ export default function Settings() {
     dbHealth,
     backupSettings,
     setBackupSettings,
-    runDailyBackupIfNeeded
+    runDailyBackupIfNeeded,
+    loadCloudBackups,
+    restoreCloudBackup
   } = useApp();
+  const [cloudBackups, setCloudBackups] = useState([]);
+  const [loadingBackups, setLoadingBackups] = useState(false);
+  const refreshBackups = async () => {
+    if (!isSupabaseConfigured || !loadCloudBackups) return;
+    setLoadingBackups(true);
+    try { setCloudBackups(await loadCloudBackups()); }
+    catch (e) { notify('Não consegui carregar os backups em nuvem', 'error'); }
+    finally { setLoadingBackups(false); }
+  };
+  useEffect(() => { refreshBackups(); }, [isSupabaseConfigured]);
 
   const importFile = e => {
     const f = e.target.files?.[0];
@@ -121,8 +134,10 @@ export default function Settings() {
               </div>
               <div className="flex flex-wrap gap-3">
                 <button className={backupSettings?.dailyEnabled?'btn-primary':'btn-ghost'} onClick={() => setBackupSettings({ ...backupSettings, dailyEnabled: !backupSettings?.dailyEnabled })}>{backupSettings?.dailyEnabled?'Backup diário ligado':'Backup diário desligado'}</button>
-                <button className="btn-ghost" onClick={() => runDailyBackupIfNeeded(true)}><Download size={18}/>Salvar backup diário agora</button>
+                <button className="btn-ghost" onClick={async () => { await runDailyBackupIfNeeded(true); refreshBackups(); }}><Download size={18}/>Salvar backup diário agora</button>
+                <button className="btn-ghost" onClick={refreshBackups}><RefreshCw size={18}/>{loadingBackups ? 'Carregando...' : 'Ver backups salvos'}</button>
               </div>
+              {cloudBackups.length > 0 && <div className="mt-4 max-h-72 overflow-auto border border-brand-line dark:border-white/10">{cloudBackups.map(b => <div key={b.id} className="grid gap-2 border-b border-brand-line p-3 text-sm dark:border-white/10 md:grid-cols-[1fr,auto]"><div><b>{b.label}</b><p className="text-xs text-brand-steel dark:text-white/60">{new Date(b.created_at).toLocaleString('pt-BR')} • {b.data?.stock?.length || 0} itens • {b.data?.machines?.length || 0} máquinas</p></div><button className="btn-warning py-2" onClick={() => restoreCloudBackup(b)}><Cloud size={16}/>Restaurar</button></div>)}</div>}
             </div>
           </div>
 
