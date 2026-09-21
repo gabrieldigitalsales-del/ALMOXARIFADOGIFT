@@ -8,7 +8,7 @@ import Modal from'../components/Modal';
 import FormGrid,{Field}from'../components/FormGrid';
 import{useApp}from'../context/AppContext';
 import{categories}from'../data/seed';
-import{supabase,isSupabaseConfigured}from'../services/supabaseClient';
+import{isSupabaseConfigured}from'../services/supabaseClient';
 import{deleteStorageFile}from'../services/databaseService';
 import{currency,statusOf}from'../utils/costs';
 import{exportExcel,exportPDF}from'../utils/exporters';
@@ -52,13 +52,20 @@ export default function Stock(){
     reader.readAsDataURL(file);
     return;
    }
-   const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-   const itemKey=edit?.id||crypto.randomUUID();
-   const path=`itens/${itemKey}/${Date.now()}.${ext}`;
-   const{error}=await supabase.storage.from(PHOTO_BUCKET).upload(path,file,{cacheControl:'3600',upsert:true,contentType:file.type});
-   if(error)throw error;
-   const{data}=supabase.storage.from(PHOTO_BUCKET).getPublicUrl(path);
-   setEdit(v=>({...v,photoUrl:data.publicUrl,photoStoragePath:path}));
+   const auth=JSON.parse(localStorage.getItem('gift.auth.v4')||'null')||{};
+   if(!auth.token)throw new Error('Sessão expirada. Entre novamente.');
+   const form=new FormData();
+   form.append('token',auth.token);
+   form.append('action','upload');
+   form.append('file',file);
+   const response=await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/giftx-almox-item-photo`,{
+    method:'POST',
+    headers:{apikey:import.meta.env.VITE_SUPABASE_ANON_KEY},
+    body:form
+   });
+   const payload=await response.json().catch(()=>({}));
+   if(!response.ok||!payload.url)throw new Error(payload.error||'Erro ao enviar foto');
+   setEdit(v=>({...v,photoUrl:payload.url,photoStoragePath:payload.path}));
    notify('Foto enviada para o Supabase Storage');
   }catch(err){
    notify(err?.message||'Erro ao enviar foto para o Supabase Storage','error');
