@@ -2,9 +2,9 @@
 -- ALMOXARIFADO GIFT EXCELLENCE - SUPABASE SCHEMA CORRIGIDO
 -- Versao: UUID automatico + nomes unicos para nao conflitar
 --
--- IMPORTANTE:
--- Este script APAGA e RECRIA as tabelas do sistema.
--- Use quando quiser deixar o banco zerado e corrigido.
+-- ATENÇÃO MÁXIMA — NÃO EXECUTAR EM PRODUÇÃO.
+-- Este arquivo é SOMENTE para instalação do zero e APAGA/RECRIA tabelas.
+-- Para o banco atual, use migrations incrementais e nunca este arquivo.
 --
 -- Como usar:
 -- Supabase > SQL Editor > New query > cole tudo > Run
