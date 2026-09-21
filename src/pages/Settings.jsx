@@ -4,6 +4,7 @@ import PageHeader from '../components/PageHeader';
 import FormGrid, { Field } from '../components/FormGrid';
 import { useApp } from '../context/AppContext';
 import { tableNames } from '../services/databaseService';
+import { logout as logoutBackend } from '../services/authService';
 
 export default function Settings() {
   const {
@@ -14,6 +15,7 @@ export default function Settings() {
     restore,
     resetDemo,
     setAuth,
+    auth,
     dbStatus,
     isSupabaseConfigured,
     uppercaseStockItemNames,
@@ -92,10 +94,10 @@ export default function Settings() {
             <Field label="Usuário padrão" value={settings.user} onChange={v => setSettings({ ...settings, user: v })} />
             <Field label="Tema" value={settings.dark ? 'Escuro' : 'Claro'} options={['Claro', 'Escuro']} onChange={v => setSettings({ ...settings, dark: v === 'Escuro' })} />
             <Field label="Perfil" value="Administrador" options={['Administrador', 'Almoxarifado', 'Compras', 'Produção', 'Manutenção', 'Financeiro', 'Consulta']} onChange={() => {}} />
-            <Field label="Senha simples" value="asd123" disabled onChange={() => {}} />
+            <Field label="Senha" value="Protegida no Supabase" disabled onChange={() => {}} />
           </FormGrid>
           <button className="btn-primary mt-5" onClick={() => notify('Configurações salvas')}><Save size={18} />Salvar configurações</button>
-          <button className="btn-danger ml-2 mt-5" onClick={() => setAuth({ logged: false })}>Sair</button>
+          <button className="btn-danger ml-2 mt-5" onClick={async()=>{try{await logoutBackend(auth?.token)}finally{setAuth({logged:false})}}}>Sair</button>
         </div>
 
         <div className="card">
