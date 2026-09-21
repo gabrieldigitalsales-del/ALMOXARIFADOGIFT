@@ -4,6 +4,7 @@ import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Home, LogOut, M
 import { useApp } from '../context/AppContext';
 import { statusOf } from '../utils/costs';
 import { canAccessRoute, roleLabel, isBrunoLimited } from '../utils/permissions';
+import { logout as logoutBackend } from '../services/authService';
 
 const nav = [
   ['/', 'Dashboard', Home],
@@ -88,7 +89,7 @@ export default function Layout() {
   const { settings, setSettings, toast, totals, setAuth, dbStatus, auth } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navg = useNavigate();
-  const logout = () => { setMobileMenuOpen(false); setAuth({ logged: false, role: null, user: '' }); navg('/login'); };
+  const logout = async () => { setMobileMenuOpen(false); try{await logoutBackend(auth?.token)}catch{} setAuth({ logged: false, role: null, user: '', token: null }); navg('/login'); };
   const visibleNav = nav.filter(([to]) => canAccessRoute(auth, to));
   const brunoOnly = isBrunoLimited(auth);
 
