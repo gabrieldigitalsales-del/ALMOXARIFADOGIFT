@@ -1,142 +1,66 @@
 import { supabase, isSupabaseConfigured } from './supabaseClient';
 
 export const tableNames = {
-  stock: 'giftx_almox_siqueira_2026_stock_items',
-  machines: 'giftx_almox_siqueira_2026_machine_models',
-  bom: 'giftx_almox_siqueira_2026_machine_bom_lines',
-  suppliers: 'giftx_almox_siqueira_2026_suppliers',
-  movements: 'giftx_almox_siqueira_2026_stock_movements',
-  purchases: 'giftx_almox_siqueira_2026_purchase_orders',
-  ops: 'giftx_almox_siqueira_2026_production_orders',
-  maintenance: 'giftx_almox_siqueira_2026_maintenance_records',
-  warranties: 'giftx_almox_siqueira_2026_warranty_reminders',
-  soldMachines: 'giftx_almox_siqueira_2026_sold_machines'
+  stock:'giftx_almox_siqueira_2026_stock_items',machines:'giftx_almox_siqueira_2026_machine_models',bom:'giftx_almox_siqueira_2026_machine_bom_lines',suppliers:'giftx_almox_siqueira_2026_suppliers',movements:'giftx_almox_siqueira_2026_stock_movements',purchases:'giftx_almox_siqueira_2026_purchase_orders',ops:'giftx_almox_siqueira_2026_production_orders',maintenance:'giftx_almox_siqueira_2026_maintenance_records',warranties:'giftx_almox_siqueira_2026_warranty_reminders',soldMachines:'giftx_almox_siqueira_2026_sold_machines'
 };
+const allCollections=Object.keys(tableNames);
+const ensure=()=>{if(!isSupabaseConfigured||!supabase)throw new Error('Supabase não configurado')};
+const getAuth=()=>{try{return JSON.parse(localStorage.getItem('gift.auth.v4')||'null')||{}}catch{return{}}};
+const token=()=>{const t=getAuth()?.token;if(!t)throw new Error('Sessão expirada. Entre novamente.');return t};
+const isUuid=value=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value||''));
+const cleanData=row=>{const data={...(row||{})};delete data.id;delete data.created_at;delete data.updated_at;return data};
+const mapRow=row=>({id:row.id,...(row.data||{}),created_at:row.created_at,updated_at:row.updated_at});
 
-const ensure = () => {
-  if (!isSupabaseConfigured || !supabase) throw new Error('Supabase não configurado');
-};
-
-const isUuid = value => /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ''));
-
-const cleanData = row => {
-  const data = { ...(row || {}) };
-  delete data.id;
-  return data;
-};
-
-const payloadFor = row => {
-  const data = cleanData(row);
-  return isUuid(row?.id) ? { id: row.id, data } : { data };
-};
-
-const mapRow = row => ({ id: row.id, ...(row.data || {}) });
-const optionalCollections = new Set(['warranties','soldMachines']);
-
-export async function loadCollection(collection) {
+export async function loadCollection(collection){
   ensure();
-  const table = tableNames[collection];
-  const { data, error } = await supabase
-    .from(table)
-    .select('id,data,created_at,updated_at')
-    .order('created_at', { ascending: false });
-  if (error) {
-    if (optionalCollections.has(collection) && (error.code === '42P01' || String(error.message || '').includes('does not exist'))) return [];
-    throw error;
-  }
-  return (data || []).map(mapRow);
+  const{data,error}=await supabase.rpc('giftx_almox_read_collection',{p_token:token(),p_collection:collection});
+  if(error)throw error;
+  return(data||[]).map(mapRow);
 }
-
-export async function replaceCollection(collection, rows) {
+export async function replaceCollection(collection,rows){
   ensure();
-  const table = tableNames[collection];
-  const safeRows = Array.isArray(rows) ? rows : [];
-
-  // Primeiro tenta limpar a coleção para refletir remoções/reset.
-  // Depois usa UPSERT, não INSERT, para evitar erro de chave duplicada caso
-  // alguma limpeza falhe, rode em paralelo, ou o mesmo item já exista no banco.
-  const { error: deleteError } = await supabase
-    .from(table)
-    .delete()
-    .neq('id', '00000000-0000-0000-0000-000000000000');
-  if (deleteError) throw deleteError;
-
-  if (!safeRows.length) return [];
-
-  const payload = safeRows.map(payloadFor);
-  const { data, error } = await supabase
-    .from(table)
-    .upsert(payload, { onConflict: 'id' })
-    .select('id,data');
-  if (error) throw error;
-  return (data || []).map(mapRow);
+  const{error}=await supabase.rpc('giftx_almox_replace_collection',{p_token:token(),p_collection:collection,p_rows:Array.isArray(rows)?rows:[]});
+  if(error)throw error;
+  return true;
 }
-
-export async function upsertCollectionItem(collection, item) {
+export async function upsertCollectionItem(collection,item){
   ensure();
-  const table = tableNames[collection];
-  const payload = payloadFor(item);
-
-  const { data, error } = await supabase
-    .from(table)
-    .upsert(payload, { onConflict: 'id' })
-    .select('id,data')
-    .single();
-  if (error) throw error;
-  return mapRow(data);
+  const{data,error}=await supabase.rpc('giftx_almox_upsert_item',{p_token:token(),p_collection:collection,p_id:isUuid(item?.id)?item.id:null,p_data:cleanData(item)});
+  if(error)throw error;
+  const row=Array.isArray(data)?data[0]:data;
+  return row?mapRow(row):item;
 }
-
-export async function deleteCollectionItem(collection, id) {
+export async function deleteCollectionItem(collection,id){
   ensure();
-  const table = tableNames[collection];
-  const { error } = await supabase.from(table).delete().eq('id', id);
-  if (error) throw error;
+  const{error}=await supabase.rpc('giftx_almox_delete_item',{p_token:token(),p_collection:collection,p_id:id});
+  if(error)throw error;
 }
-
-export async function loadAllCollections() {
-  const keys = Object.keys(tableNames);
-  const entries = await Promise.all(keys.map(async key => [key, await loadCollection(key)]));
+export async function loadAllCollections(role='admin'){
+  const allowed=role==='garantia'?['warranties','machines','ops']:role==='almox'?['stock','movements']:allCollections;
+  const entries=await Promise.all(allowed.map(async key=>[key,await loadCollection(key)]));
   return Object.fromEntries(entries);
 }
-
-
-export async function listDailyCloudBackups(limit = 20) {
+export async function listDailyCloudBackups(limit=20){
   ensure();
-  const { data, error } = await supabase
-    .from('giftx_almox_siqueira_2026_daily_backups')
-    .select('id,label,backup_date,created_at,data')
-    .order('created_at', { ascending: false })
-    .limit(limit);
-  if (error) throw error;
-  return data || [];
+  const{data,error}=await supabase.rpc('giftx_almox_list_backups',{p_token:token(),p_limit:limit});
+  if(error)throw error;
+  return data||[];
 }
-
-export async function saveDailyCloudBackup(label, snapshot) {
+export async function saveDailyCloudBackup(label,snapshot){
   ensure();
-  const { data, error } = await supabase
-    .from('giftx_almox_siqueira_2026_daily_backups')
-    .insert({
-      label: label || 'backup-diario',
-      data: snapshot || {},
-      backup_date: new Date().toISOString().slice(0, 10)
-    })
-    .select('id,backup_date,created_at')
-    .single();
-  if (error) throw error;
+  const{data,error}=await supabase.rpc('giftx_almox_save_backup',{p_token:token(),p_label:label||'backup-diario',p_data:snapshot||{}});
+  if(error)throw error;
   return data;
 }
-
-export async function uppercaseStockNames() {
+export async function uppercaseStockNames(){
   ensure();
-  const { data, error } = await supabase.rpc('giftx_almox_siqueira_2026_uppercase_stock_names');
-  if (error) throw error;
-  return Array.isArray(data) ? data[0] : data;
+  const{data,error}=await supabase.rpc('giftx_almox_uppercase_stock_names_secure',{p_token:token()});
+  if(error)throw error;
+  return data||{};
 }
-
-
-export async function deleteStorageFile(bucket, path) {
+export async function deleteStorageFile(bucket,path){
   ensure();
-  if (!path) return;
-  const { error } = await supabase.storage.from(bucket).remove([path]);
-  if (error) throw error;
+  if(!path)return;
+  const response=await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/giftx-almox-item-photo`,{method:'POST',headers:{apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'},body:JSON.stringify({token:token(),action:'delete',path})});
+  if(!response.ok){const p=await response.json().catch(()=>({}));throw new Error(p.error||'Não foi possível apagar a foto')}
 }
