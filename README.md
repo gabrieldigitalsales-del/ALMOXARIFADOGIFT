@@ -84,3 +84,8 @@ A pasta `dist/` é gerada pelo build e não deve ser versionada.
 - SPA rewrite para `index.html`
 
 As dependências estão fixadas e o `package-lock.json` permanece versionado para referência do ambiente atual.
+
+
+## Deploy final consolidado
+
+Esta versão consolida o hardening de autenticação, permissões, backups, fotos e organização do repositório.
