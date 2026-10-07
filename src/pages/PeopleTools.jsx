@@ -9,9 +9,21 @@ import{COLLABORATORS}from'./Movements';
 const movementStamp=m=>m.createdAt||`${m.date||''}T${m.time||'00:00:00'}`;
 const sortMovements=rows=>[...rows].sort((a,b)=>movementStamp(b).localeCompare(movementStamp(a)));
 const normalize=v=>(v||'').toString().trim().toLowerCase();
-const collaboratorOf=m=>COLLABORATORS.includes(m.collaborator)?m.collaborator:COLLABORATORS.includes(m.reason)?m.reason:'';
-const itemKeyOf=m=>m.productId||`name:${normalize(m.item||'Item sem nome')}`;
-const typeBadge=t=>{const cls=t==='entrada'?'bg-green-100 text-green-700':t==='saída'?'bg-brand-yellow text-brand-black':t==='devolução'?'bg-blue-100 text-blue-700':t==='perda'?'bg-brand-red text-white':t==='item removido'?'bg-black text-white':'bg-brand-light text-brand-steel dark:bg-white/10 dark:text-white/80';const label=t==='devolução'?'Voltou para o estoque':t==='item removido'?'Item removido':t;return <span className={`badge ${cls}`}>{label}</span>};
+const cleanType=t=>normalize(t).normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const isOut=t=>['saida','saída','retirada','retirar'].includes(cleanType(t));
+const isReturn=t=>['devolucao','devolução','devolver','retorno'].includes(cleanType(t));
+const collaboratorOf=m=>{
+ const fields=[m?.collaborator,m?.responsible,m?.person,m?.worker,m?.reason];
+ for(const raw of fields){
+  const text=(raw||'').toString().trim();
+  if(!text)continue;
+  const found=COLLABORATORS.find(c=>normalize(text)===normalize(c)||normalize(text).startsWith(`${normalize(c)} •`)||normalize(text).startsWith(`${normalize(c)} -`)||normalize(text).startsWith(`${normalize(c)} /`));
+  if(found)return found;
+ }
+ return '';
+};
+const itemKeyOf=m=>m.productId||m.itemId||`name:${normalize(m.item||'Item sem nome')}`;
+const typeBadge=t=>{const cls=t==='entrada'?'bg-green-100 text-green-700':isOut(t)?'bg-brand-yellow text-brand-black':isReturn(t)?'bg-blue-100 text-blue-700':t==='perda'?'bg-brand-red text-white':t==='item removido'?'bg-black text-white':'bg-brand-light text-brand-steel dark:bg-white/10 dark:text-white/80';const label=isReturn(t)?'Voltou para o estoque':t==='item removido'?'Item removido':t;return <span className={`badge ${cls}`}>{label}</span>};
 const daysWithPerson=date=>{if(!date)return 'Sem data';const start=new Date(`${date}T00:00:00`);const now=new Date();const diff=Math.max(0,Math.floor((new Date(now.toISOString().slice(0,10))-start)/86400000));if(diff===0)return 'Com a pessoa desde hoje';if(diff===1)return 'Com a pessoa há 1 dia';return `Com a pessoa há ${diff} dias`};
 
 function buildHoldings(movements){
@@ -21,11 +33,11 @@ function buildHoldings(movements){
   if(!person)return;
   const key=itemKeyOf(m);
   const item=m.item||'Item sem nome';
-  const current=map[person].get(key)||{key,productId:m.productId||'',item,qty:0,lastDate:'',lastTime:''};
+  const current=map[person].get(key)||{key,productId:m.productId||m.itemId||'',item,qty:0,lastDate:'',lastTime:''};
   if(!current.item&&item)current.item=item;
-  if(!current.productId&&m.productId)current.productId=m.productId;
-  if(m.type==='saída')current.qty+=num(m.qty);
-  if(m.type==='devolução')current.qty-=num(m.qty);
+  if(!current.productId&&(m.productId||m.itemId))current.productId=m.productId||m.itemId;
+  if(isOut(m.type))current.qty+=num(m.qty);
+  if(isReturn(m.type))current.qty-=num(m.qty);
   if(m.date&&(`${m.date} ${m.time||''}`>=`${current.lastDate||''} ${current.lastTime||''}`)){current.lastDate=m.date;current.lastTime=m.time||''}
   map[person].set(key,current);
  });
@@ -39,20 +51,19 @@ export default function PeopleTools(){
  const holdings=useMemo(()=>buildHoldings(movements),[movements]);
  const totalPeople=COLLABORATORS.filter(p=>holdings[p]?.length).length;
  const totalItems=COLLABORATORS.reduce((a,p)=>a+(holdings[p]||[]).reduce((s,i)=>s+num(i.qty),0),0);
- const recent=sortMovements(movements.filter(m=>collaboratorOf(m)&&['saída','devolução'].includes(m.type))).slice(0,15);
+ const recent=sortMovements(movements.filter(m=>collaboratorOf(m)&&(isOut(m.type)||isReturn(m.type)))).slice(0,15);
  const recentCols=[{key:'date',label:'Data'},{key:'time',label:'Hora'},{key:'reason',label:'Colaborador',render:r=>collaboratorOf(r)||r.reason||'-'},{key:'type',label:'Tipo',render:r=>typeBadge(r.type)},{key:'item',label:'Item'},{key:'qty',label:'Qtd.'}];
  const findProduct=item=>{
   if(item?.productId){const byId=stock.find(s=>s.id===item.productId);if(byId)return byId;}
   return stock.find(s=>(s.name||'')===item?.item)||stock.find(s=>normalize(s.name)===normalize(item?.item));
  };
  const currentHolding=(person,key)=>(holdings[person]||[]).find(i=>i.key===key)||null;
- const directReturn=(person,item)=>{
-  const lockKey=`${person}:${item.key}`;
-  if(returningKey)return notify?.('Aguarde a devolução anterior finalizar','error');
-  const atual=currentHolding(person,item.key);
+ const doReturnDirect=item=>{
+  if(returningKey)return;
+  const atual=currentHolding(selected,item.key);
   const maxAtual=num(atual?.qty||0);
   if(maxAtual<=0)return notify?.('Este item já não consta mais com o colaborador','error');
-  const raw=window.prompt(`Quantidade para devolver de ${item.item}\nMáximo com ${person}: ${maxAtual}`,String(maxAtual));
+  const raw=window.prompt(`Quantidade para devolver de ${item.item}\nMáximo: ${maxAtual}`,String(maxAtual));
   if(raw===null)return;
   const q=num(raw);
   if(q<=0)return notify?.('Quantidade inválida','error');
@@ -60,12 +71,9 @@ export default function PeopleTools(){
   const product=findProduct(item);
   if(!product)return notify?.('Item não encontrado no estoque','error');
   if(!window.confirm(`Confirmar devolução de ${q} unidade(s) de ${item.item} para o estoque?`))return;
-  setReturningKey(lockKey);
-  try{
-   quickMove({productId:product.id,type:'devolução',qty:q,reason:person,collaborator:person});
-  }finally{
-   setTimeout(()=>setReturningKey(''),1500);
-  }
+  setReturningKey(item.key);
+  quickMove({productId:product.id,type:'devolução',qty:q,reason:selected,collaborator:selected});
+  setTimeout(()=>setReturningKey(''),1200);
  };
 
  if(selected){
@@ -94,7 +102,7 @@ export default function PeopleTools(){
         <span className="badge bg-brand-red text-white">{i.qty}</span>
        </div>
        <p className="text-xs font-semibold text-brand-turquoise">{daysWithPerson(i.lastDate)}</p>
-       <button className="btn-ghost w-full justify-center" disabled={!!returningKey} onClick={()=>directReturn(selected,i)}><RotateCcw size={16}/>{returningKey===`${selected}:${i.key}`?'Devolvendo...':'Devolver'}</button>
+       <button className="btn-ghost w-full justify-center" disabled={!!returningKey} onClick={()=>doReturnDirect(i)}><RotateCcw size={16}/>{returningKey===i.key?'Devolvendo...':'Devolver'}</button>
       </div>)}
      </div>:<div className="grid place-items-center border border-dashed border-brand-line p-8 text-center text-sm text-brand-steel dark:border-white/10 dark:text-white/60">
       <PackageCheck className="mb-2" size={28}/>
