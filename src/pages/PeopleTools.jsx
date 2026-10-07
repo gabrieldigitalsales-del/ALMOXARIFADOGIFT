@@ -2,6 +2,8 @@ import{useMemo,useState}from'react';
 import{ArrowLeft,Clock3,History,PackageCheck,RotateCcw,UserRound}from'lucide-react';
 import PageHeader from'../components/PageHeader';
 import DataTable from'../components/DataTable';
+import Modal from'../components/Modal';
+import FormGrid,{Field}from'../components/FormGrid';
 import{useApp}from'../context/AppContext';
 import{num}from'../utils/costs';
 import{COLLABORATORS}from'./Movements';
@@ -48,6 +50,7 @@ export default function PeopleTools(){
  const{movements,stock,quickMove,notify}=useApp();
  const[selected,setSelected]=useState(null);
  const[returningKey,setReturningKey]=useState('');
+ const[returnItem,setReturnItem]=useState(null);
  const holdings=useMemo(()=>buildHoldings(movements),[movements]);
  const totalPeople=COLLABORATORS.filter(p=>holdings[p]?.length).length;
  const totalItems=COLLABORATORS.reduce((a,p)=>a+(holdings[p]||[]).reduce((s,i)=>s+num(i.qty),0),0);
@@ -58,21 +61,25 @@ export default function PeopleTools(){
   return stock.find(s=>(s.name||'')===item?.item)||stock.find(s=>normalize(s.name)===normalize(item?.item));
  };
  const currentHolding=(person,key)=>(holdings[person]||[]).find(i=>i.key===key)||null;
- const doReturnDirect=item=>{
-  if(returningKey)return;
+ const openReturn=item=>{
   const atual=currentHolding(selected,item.key);
   const maxAtual=num(atual?.qty||0);
   if(maxAtual<=0)return notify?.('Este item já não consta mais com o colaborador','error');
-  const raw=window.prompt(`Quantidade para devolver de ${item.item}\nMáximo: ${maxAtual}`,String(maxAtual));
-  if(raw===null)return;
-  const q=num(raw);
+  setReturnItem({...item,person:selected,qty:maxAtual,maxQty:maxAtual});
+ };
+ const confirmReturn=()=>{
+  if(returningKey||!returnItem)return;
+  const atual=currentHolding(returnItem.person,returnItem.key);
+  const maxAtual=num(atual?.qty||0);
+  const q=num(returnItem.qty);
+  if(maxAtual<=0){setReturnItem(null);return notify?.('Este item já não consta mais com o colaborador','error');}
   if(q<=0)return notify?.('Quantidade inválida','error');
   if(q>maxAtual)return notify?.(`Quantidade maior que o saldo atual do colaborador. Máximo: ${maxAtual}`,'error');
-  const product=findProduct(item);
+  const product=findProduct(returnItem);
   if(!product)return notify?.('Item não encontrado no estoque','error');
-  if(!window.confirm(`Confirmar devolução de ${q} unidade(s) de ${item.item} para o estoque?`))return;
-  setReturningKey(item.key);
-  quickMove({productId:product.id,type:'devolução',qty:q,reason:selected,collaborator:selected});
+  setReturningKey(returnItem.key);
+  quickMove({productId:product.id,type:'devolução',qty:q,reason:returnItem.person,collaborator:returnItem.person});
+  setReturnItem(null);
   setTimeout(()=>setReturningKey(''),1200);
  };
 
@@ -102,7 +109,7 @@ export default function PeopleTools(){
         <span className="badge bg-brand-red text-white">{i.qty}</span>
        </div>
        <p className="text-xs font-semibold text-brand-turquoise">{daysWithPerson(i.lastDate)}</p>
-       <button className="btn-ghost w-full justify-center" disabled={!!returningKey} onClick={()=>doReturnDirect(i)}><RotateCcw size={16}/>{returningKey===i.key?'Devolvendo...':'Devolver'}</button>
+       <button className="btn-ghost w-full justify-center" disabled={!!returningKey} onClick={()=>openReturn(i)}><RotateCcw size={16}/>{returningKey===i.key?'Devolvendo...':'Devolver'}</button>
       </div>)}
      </div>:<div className="grid place-items-center border border-dashed border-brand-line p-8 text-center text-sm text-brand-steel dark:border-white/10 dark:text-white/60">
       <PackageCheck className="mb-2" size={28}/>
@@ -115,6 +122,24 @@ export default function PeopleTools(){
      <DataTable rows={history} columns={historyCols}/>
     </div>
    </div>
+
+   <Modal open={!!returnItem} title="Confirmar devolução" dirty={!!returnItem} onClose={()=>!returningKey&&setReturnItem(null)}>
+    <div className="mb-4 border border-brand-line p-4 dark:border-white/10">
+     <p className="text-sm text-brand-steel dark:text-white/60">Colaborador</p>
+     <b>{returnItem?.person||'-'}</b>
+     <p className="mt-3 text-sm text-brand-steel dark:text-white/60">Item</p>
+     <b>{returnItem?.item||'-'}</b>
+     <p className="mt-3 text-sm text-brand-steel dark:text-white/60">Saldo atual com o colaborador</p>
+     <b>{currentHolding(returnItem?.person,returnItem?.key)?.qty||returnItem?.maxQty||0}</b>
+    </div>
+    <FormGrid>
+     <Field label="Quantidade para devolver" type="number" min="1" value={returnItem?.qty||1} onChange={v=>setReturnItem({...returnItem,qty:v})}/>
+    </FormGrid>
+    <div className="mt-5 flex flex-wrap gap-2">
+     <button className="btn-primary" disabled={!!returningKey} onClick={confirmReturn}><RotateCcw size={18}/>{returningKey?'Devolvendo...':'Confirmar devolução'}</button>
+     <button className="btn-ghost" disabled={!!returningKey} onClick={()=>setReturnItem(null)}>Cancelar</button>
+    </div>
+   </Modal>
   </>
  }
 
