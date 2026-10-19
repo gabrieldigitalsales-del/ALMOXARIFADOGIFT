@@ -7,7 +7,7 @@ import FormGrid,{Field}from'../components/FormGrid';
 import{useApp}from'../context/AppContext';
 import{availableOf,num}from'../utils/costs';
 
-export const COLLABORATORS=['Vinicius','Luciano','Bruno','Gabriel','Sidney','Hanyel','Robson','Julia','Carla'];
+export const COLLABORATORS=['Vinicius','Luciano','Bruno','Gabriel','Silvio','Sérgio','Hanyel','Robson','Julia','Carla'];
 const today=()=>new Date().toISOString().slice(0,10);
 const movementStamp=m=>m.createdAt||`${m.date||''}T${m.time||'00:00:00'}`;
 const sortMovements=rows=>[...rows].sort((a,b)=>movementStamp(b).localeCompare(movementStamp(a)));
