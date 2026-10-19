@@ -6,7 +6,7 @@ import{Field}from'../components/FormGrid';
 import{useApp}from'../context/AppContext';
 import{availableOf,statusOf}from'../utils/costs';
 
-const colaboradores=['Vinicius','Luciano','Bruno','Gabriel','Sidney','Hanyel','Robson','Julia','Carla'];
+const colaboradores=['Vinicius','Luciano','Bruno','Gabriel','Silvio','Sérgio','Hanyel','Robson','Julia','Carla'];
 
 export default function QuickMovement(){
  const{stock,quickMove,notify,movements}=useApp();const[params,setParams]=useSearchParams();const[itemId,setItemId]=useState(params.get('item')||'');const[query,setQuery]=useState('');const[type,setType]=useState('saída');const[qty,setQty]=useState(1);const[worker,setWorker]=useState('');const[use,setUse]=useState('');const[scanning,setScanning]=useState(false);
