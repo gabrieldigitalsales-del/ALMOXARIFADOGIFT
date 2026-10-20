@@ -108,7 +108,7 @@ export default function Layout() {
         </div>
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
           {visibleNav.map(([to, label, Icon]) => (
-            <NavLink key={to} to={to} end={to === '/'} onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => `flex items-center gap-3 rounded-none px-4 py-3 text-sm font-semibold transition ${isActive ? 'bg-brand-turquoise text-brand-black shadow-industrial' : 'hover:bg-brand-light dark:hover:bg-white/10'}`}>
+            <NavLink key={to} to={to} end={to === '/'} onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => `flex items-center gap-3 rounded-none px-4 py-3 text-sm font-semibold transition ${isActive ? 'bg-brand-turquoise text-white shadow-sm' : 'hover:bg-brand-light dark:hover:bg-white/10'}`}>
               <Icon size={18} />{label}
             </NavLink>
           ))}
@@ -129,13 +129,13 @@ export default function Layout() {
       )}
 
       <section className="lg:pl-72">
-        <header className="sticky top-0 z-10 flex h-20 items-center justify-between border-b border-brand-line bg-white/85 px-4 glass dark:border-white/10 dark:bg-[#101010]/85 lg:px-8">
+        <header className="sticky top-0 z-10 flex min-h-20 flex-wrap items-center justify-between gap-3 border-b border-brand-line bg-white/85 px-4 py-3 glass dark:border-white/10 dark:bg-[#101010]/85 sm:flex-nowrap lg:px-8">
           <div className="flex items-center gap-3">
             <button className="btn-ghost p-2 lg:hidden" onClick={() => setMobileMenuOpen(true)} aria-label="Abrir menu" title="Abrir menu"><Menu size={20} /></button>
             <img src="/logo-gift.png" className="h-12 w-20 object-contain lg:hidden" />
             <div>
-              <h2 className="text-lg font-semibold tracking-tight lg:text-2xl">GIFT CONTROL • GIFT EXCELLENCE</h2>
-              <p className="text-xs text-brand-steel dark:text-white/60">{brunoOnly?'Acesso Bruno: somente garantias':auth?.role==='almox'?'Acesso almoxarifado: estoque, movimentações e colaboradores':'Gestão integrada: comercial, serviços, logística, estoque, produção e compras'} • {dbStatus}</p>
+              <h2 className="text-sm font-semibold tracking-tight sm:text-lg lg:text-2xl">GIFT CONTROL • GIFT EXCELLENCE</h2>
+              <p className="hidden text-xs text-brand-steel dark:text-white/60 sm:block">{brunoOnly?'Acesso Bruno: somente garantias':auth?.role==='almox'?'Acesso almoxarifado: estoque, movimentações e colaboradores':'Gestão integrada: comercial, serviços, logística, estoque, produção e compras'} • {dbStatus}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -144,9 +144,9 @@ export default function Layout() {
             <button onClick={logout} className="btn-ghost hidden md:flex"><LogOut size={18} />Sair</button>
           </div>
         </header>
-        <div className="p-4 lg:p-8"><Outlet /></div>
+        <div className="min-w-0 p-3 sm:p-4 lg:p-8"><Outlet /></div>
       </section>
-      {toast && <div className={`fixed bottom-6 right-6 z-50 rounded-none px-5 py-3 font-semibold text-white shadow-industrial ${toast.type === 'error' ? 'bg-red-700' : 'bg-brand-turquoise text-brand-black'}`}>{toast.message}</div>}
+      {toast && <div role="status" aria-live="polite" className={`fixed bottom-4 left-4 right-4 z-50 rounded-none border border-white/10 px-4 py-3 text-sm font-semibold text-white shadow-industrial sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-lg sm:px-5 ${toast.type === 'error' ? 'bg-red-700' : 'bg-brand-turquoise text-brand-black'}`}>{toast.message}</div>}
     </main>
   );
 }
