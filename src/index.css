@@ -4,7 +4,50 @@
 .btn{@apply inline-flex items-center justify-center gap-2 rounded-none px-4 py-2 font-semibold transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed}.btn-primary{@apply btn bg-brand-red text-white hover:bg-red-700}.btn-warning{@apply btn bg-brand-red text-white hover:bg-red-700}.btn-danger{@apply btn bg-brand-red text-white hover:bg-red-700}.btn-ghost{@apply btn border border-brand-line bg-white/80 hover:bg-black/5 dark:border-white/10 dark:bg-white/10 dark:hover:bg-white/15}.input{@apply w-full rounded-none border border-brand-line bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-brand-red/40 dark:border-white/10 dark:bg-white/10}.card{@apply rounded-none border border-brand-line bg-white p-5 shadow-sm dark:border-white/10 dark:bg-brand-graphite}.card-premium{@apply rounded-none border border-brand-line bg-white p-4 shadow-sm dark:border-white/10 dark:bg-brand-graphite}.badge{@apply inline-flex min-w-[96px] items-center justify-center whitespace-nowrap rounded-none px-3 py-1.5 text-[11px] font-semibold uppercase tracking-normal leading-none}th{@apply bg-brand-black px-3 py-3 text-left text-xs uppercase tracking-wider text-white whitespace-nowrap}td{@apply border-b border-brand-line px-3 py-3 text-sm align-middle dark:border-white/10}.industrial-grid{background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:22px 22px}
 
 /* Dark theme: contraste sem quebrar badges/botoes */
-.dark,.dark body{color:#f7f7f7!important}.dark main,.dark section,.dark header,.dark aside{background-color:#151515}.dark .card,.dark .card-premium{background:#242424!important;color:#f7f7f7!important;border-color:rgba(255,255,255,.13)!important}.dark td{color:#f1f1f1!important;background:transparent!important}.dark td span:not(.badge),.dark td small,.dark td p,.dark td b,.dark td div{color:inherit}.dark th{background:#111!important;color:#fff!important;border-color:rgba(255,255,255,.13)!important}.dark input,.dark select,.dark textarea,.dark .input{background:#343434!important;color:#fff!important;border-color:rgba(255,255,255,.17)!important}.dark input::placeholder,.dark textarea::placeholder{color:rgba(255,255,255,.58)!important}.dark option{background:#2a2a2a!important;color:#fff!important}.dark .text-brand-black{color:#fff!important}.dark .text-brand-steel{color:rgba(255,255,255,.72)!important}.dark .border-brand-line{border-color:rgba(255,255,255,.13)!important}.dark .bg-white:not(.badge):not(.btn-primary):not(.btn-warning):not(.btn-danger){background-color:#242424!important}.dark .bg-brand-light:not(.badge){background-color:rgba(255,255,255,.07)!important}.dark .hover\:bg-black\/5:hover{background-color:rgba(255,255,255,.08)!important}.dark .badge.bg-green-100,.dark .badge.bg-blue-100{color:#04140a!important}.dark .badge.bg-brand-yellow{color:#151515!important}.dark .badge.bg-brand-red,.dark .badge.bg-black{color:#fff!important}
+.dark,.dark body{color:#f7f7f7!important}.dark main,.dark section,.dark header,.dark aside{background-color:#151515}.dark .card,.dark .card-premium{background:#242424!important;color:#f7f7f7!important;border-color:rgba(255,255,255,.13)!important}.dark td{color:#f1f1f1!important;background:transparent!important}.dark td span:not(.badge),.dark td small,.dark td p,.dark td b,.dark td div{color:inherit}.dark th{background:#111!important;color:#fff!important;border-color:rgba(255,255,255,.13)!important}.dark input,.dark select,.dark textarea,.dark .input{background:#343434!important;color:#fff!important;border-color:rgba(255,255,255,.17)!important}.dark input::placeholder,.dark textarea::placeholder{color:rgba(255,255,255,.58)!important}.dark option{background:#2a2a2a!important;color:#fff!important}.dark .text-brand-black{color:#fff!important}.dark .text-brand-steel{color:rgba(255,255,255,.72)!important}.dark .border-brand-line{border-color:rgba(255,255,255,.13)!important}.dark .hover\:bg-black\/5:hover{background-color:rgba(255,255,255,.08)!important}.dark .badge.bg-green-100,.dark .badge.bg-blue-100{color:#04140a!important}.dark .badge.bg-brand-yellow{color:#151515!important}.dark .badge.bg-brand-red,.dark .badge.bg-black{color:#fff!important}
+
+
+/* GIFT DESIGN SYSTEM v1 - apresentacao apenas, sem alterar logica */
+/* Superficies, espaco, contraste e comportamento responsivo */
+:root{color-scheme:light;--ui-surface:#ffffff;--ui-surface-subtle:#fafafa;--ui-text:#202124;--ui-muted:#5d626b;--ui-border:#dedfe2;--ui-focus:#d92d30;--ui-hover:rgba(21,21,21,.035)}
+.dark{color-scheme:dark;--ui-surface:#242424;--ui-surface-subtle:#2b2b2b;--ui-text:#f6f6f6;--ui-muted:#c6c8cc;--ui-border:#4c4c4c;--ui-focus:#ff6365;--ui-hover:rgba(255,255,255,.06)}
+button,a,input,select,textarea{transition:background-color .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease}
+button{touch-action:manipulation}
+button:not(:disabled){cursor:pointer}
+:where(button,a,input,select,textarea,[role="button"]):focus-visible{outline:2px solid var(--ui-focus);outline-offset:2px}
+:where(button,a,input,select,textarea):disabled{opacity:.55;cursor:not-allowed}
+:where(.card,.card-premium,.input,.btn,.btn-ghost,.btn-primary,.btn-danger,.btn-warning,table,select,textarea){border-radius:0!important}
+.card,.card-premium{border-color:var(--ui-border);box-shadow:0 2px 14px rgba(0,0,0,.035)}
+.dark .card,.dark .card-premium{box-shadow:0 4px 18px rgba(0,0,0,.2)}
+:where(.input,input:not([type="checkbox"]):not([type="radio"]),select,textarea){min-height:38px}
+.dark .btn-ghost{color:#f4f4f4;border-color:var(--ui-border)}
+.dark .btn-ghost:hover{background:rgba(255,255,255,.09)}
+.dark :where(.text-gray-500,.text-gray-600,.text-slate-500){color:var(--ui-muted)}
+table{border-collapse:separate;border-spacing:0;max-width:100%}
+thead th{position:relative;line-height:1.4}
+tbody tr{transition:background-color .12s ease}
+tbody tr:hover{background:var(--ui-hover)}
+tbody td{line-height:1.45}
+.dark tbody tr:hover{background:rgba(255,255,255,.055)}
+.dark td .text-brand-black{color:#f7f7f7!important}
+.dark :where(input,select,textarea):focus{border-color:var(--ui-focus)!important}
+.dark .bg-white\/85{background-color:rgba(16,16,16,.92)!important}
+.dark .bg-white\/80{background-color:rgba(36,36,36,.9)!important}
+.overflow-x-auto{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.overflow-y-auto{-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
+@media(max-width:640px){
+ .card,.card-premium{padding:14px}
+ th,td{padding:10px 12px}
+ .btn{min-height:40px}
+ .overflow-x-auto{scrollbar-width:thin}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+@media print{
+ :root{color-scheme:light}
+ .dark{color-scheme:light}
+}
 
 /* Ajuste global solicitado: app em 90% para evitar estouro de bordas e melhorar leitura */
 html {
