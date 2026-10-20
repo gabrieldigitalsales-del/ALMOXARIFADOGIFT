@@ -53,6 +53,13 @@ tbody td{line-height:1.45}
 html {
   zoom: 0.9;
 }
+/* Em celulares, preservar tamanho natural para evitar toque e texto pequenos. */
+@media (max-width: 640px) {
+  html { zoom: 1; }
+  body, #root { min-width: 0; max-width: 100%; }
+  .dark { min-width: 0; }
+}
+
 
 @supports not (zoom: 1) {
   #root {
@@ -60,6 +67,12 @@ html {
     transform-origin: top left;
     width: 111.111%;
     min-height: 111.111vh;
+  }
+}
+
+@supports not (zoom: 1) {
+  @media(max-width:640px) {
+    #root { transform:none; width:100%; min-height:100vh; }
   }
 }
 
