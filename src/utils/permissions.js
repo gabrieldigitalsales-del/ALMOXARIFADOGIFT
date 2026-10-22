@@ -6,7 +6,7 @@ export const isAdmin=auth=>auth?.logged===true&&auth?.role===ADMIN_ROLE;
 export const isAlmox=auth=>auth?.role===ALMOX_ROLE;
 export const isBrunoLimited=auth=>auth?.role===BRUNO_ROLE;
 
-const almoxRoutes=new Set(['/','/estoque','/produtos','/compras','/movimentacao-rapida','/movimentacoes','/colaboradores']);
+const almoxRoutes=new Set(['/','/estoque','/produtos','/movimentacao-rapida','/movimentacoes','/colaboradores']);
 const brunoRoutes=new Set(['/garantias']);
 
 export const defaultRouteForAuth=auth=>{
