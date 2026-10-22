@@ -1,1 +1,2 @@
-import ServiceOrderModule from '../modules/ServiceOrderModule'; import '../modules/ServiceOrderModule.css'; export default function ServiceOrders(){return <ServiceOrderModule/>}
+import BusinessDocuments from '../modules/BusinessDocuments';
+export default function ServiceOrders(){return <div className="space-y-5"><header className="border-l-4 border-red-600 bg-white p-5 shadow-sm dark:bg-neutral-900"><p className="text-xs font-bold uppercase tracking-widest text-red-600">Gift Excellence / Serviços</p><h1 className="mt-1 text-2xl font-black uppercase">Ordens de Serviço</h1><p className="mt-1 text-sm text-gray-500">Documentos personalizados, sem modelos antigos.</p></header><BusinessDocuments kind="os"/></div>}

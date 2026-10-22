@@ -1,3 +1,4 @@
+import {askConfirm} from '../utils/appDialogs';
 import {useMemo,useState} from 'react';
 import {CheckCircle,Factory,Plus,Search,Trash2} from 'lucide-react';
 import PageHeader from '../components/PageHeader';
@@ -41,7 +42,7 @@ export default function SoldMachines(){
   setSelectedOp('');
   notify('Máquina vendida registrada no histórico');
  };
- const remove=r=>{if(confirm(`Remover do histórico a série ${r.serialNumber}?`)){setSoldMachines(v=>v.filter(x=>x.id!==r.id));notify('Registro removido')}};
+ const remove=async r=>{if(await askConfirm(`Remover do histórico a série ${r.serialNumber}?`)){setSoldMachines(v=>v.filter(x=>x.id!==r.id));notify('Registro removido')}};
 
  return <>
   <PageHeader title="Máquinas Vendidas" subtitle="Controle por número de série, sem precisar de planilha. Selecione a máquina, informe a série e salve no histórico." actions={<button className="btn-primary" onClick={save}><Plus size={18}/>Registrar venda</button>}/>

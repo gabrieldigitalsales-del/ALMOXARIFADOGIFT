@@ -1,3 +1,4 @@
+import {askConfirm} from '../utils/appDialogs';
 import { useMemo, useRef, useState } from 'react';
 import {
   CheckCircle2, ClipboardCheck, Copy, FileDown, History, PackageCheck,
@@ -37,6 +38,7 @@ export default function Purchases() {
   const [view, setView] = useState(null);
   const [receive, setReceive] = useState(null);
   const [query, setQuery] = useState('');
+  const [stockSearch, setStockSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('Todos');
   const fileRef = useRef(null);
 
@@ -54,8 +56,15 @@ export default function Purchases() {
     history: [{ id: rid(), date: new Date().toISOString(), user: settings.user || 'Usuário', action }, ...(order.history || [])]
   });
 
+  const matches = useMemo(() => {
+    const q = stockSearch.toLocaleLowerCase('pt-BR').trim();
+    if (q.length < 2) return [];
+    return stock.filter(p => [p.name, p.code, p.category, p.supplier].some(v => String(v || '').toLocaleLowerCase('pt-BR').includes(q))).slice(0, 8);
+  }, [stock, stockSearch]);
+
   const save = () => {
     if (!edit.supplier) return notify('Informe o fornecedor', 'error');
+    if ((edit.items || []).some(i => !Number.isFinite(Number(i.unitCost)) || Number(i.unitCost) < 0)) return notify('Valor de item inválido', 'error');
     if (!(edit.items || []).length || edit.items.some(i => !i.description || num(i.qty) <= 0)) return notify('Preencha corretamente os itens', 'error');
     const record = addHistory({ ...edit, value: total(edit), updatedAt: new Date().toISOString() }, edit.id ? 'Pedido alterado' : 'Pedido criado');
     setPurchases(list => edit.id
@@ -78,8 +87,8 @@ export default function Purchases() {
     notify('Ordem duplicada');
   };
 
-  const remove = order => {
-    if (!confirm(`Excluir ${order.number}?`)) return;
+  const remove = async order=> {
+    if (!await askConfirm(`Excluir ${order.number}?`)) return;
     setPurchases(list => list.filter(p => p.id !== order.id));
     setView(null);
     notify('Ordem excluída');
@@ -91,12 +100,24 @@ export default function Purchases() {
   });
 
   const confirmReceipt = () => {
+    const current = purchases.find(p => p.id === receive.id);
+    if (!current || JSON.stringify(current.items.map(i => i.receivedQty || 0)) !== JSON.stringify(receive.items.map(i => i.receivedQty || 0))) {
+      notify('O pedido foi atualizado. Feche e reabra o recebimento antes de continuar.', 'error');
+      setReceive(null);
+      return;
+    }
+    if (!['Aprovado', 'Pedido enviado', 'Recebido parcialmente'].includes(current.status)) {
+      notify('Somente pedidos aprovados podem entrar no estoque.', 'error');
+      return;
+    }
+    if (receive.receiptItems.some(i => Number(i.receiveNow) < 0 || !Number.isFinite(Number(i.receiveNow)))) return notify('Quantidade de recebimento inválida', 'error');
+    if (receive.receiptItems.some(i => Number(i.receiveNow) > 0 && !i.productId)) return notify('Vincule todos os itens recebidos ao cadastro do estoque antes de confirmar.', 'error');
     let moved = 0;
     const updatedItems = receive.receiptItems.map(item => {
       const remaining = Math.max(0, num(item.qty) - num(item.receivedQty));
       const amount = Math.min(remaining, Math.max(0, num(item.receiveNow)));
       if (amount > 0 && item.productId) {
-        quickMove({ productId: item.productId, type: 'entrada', qty: amount, reason: `Recebimento ${receive.number}` });
+        quickMove({ productId: item.productId, type: 'entrada', qty: amount, reason: `Recebimento ${receive.number}`, unitCost: num(item.unitCost), movementKey: `${receive.id}:${item.productId}:${num(item.receivedQty)}:${amount}` });
         moved += amount;
       }
       return { ...item, receivedQty: num(item.receivedQty) + amount, receiveNow: undefined };
@@ -188,7 +209,7 @@ export default function Purchases() {
         <td>{p.supplier}</td><td>{p.requester || '-'}</td><td>{p.requestDate || '-'}</td><td>{p.deliveryDate || '-'}</td>
         <td><span className={`badge ${statusClass(p.status)}`}>{p.status}</span></td>
         <td>{receivedTotal(p)}/{orderedTotal(p)}</td><td className="font-semibold">{currency(total(p))}</td>
-        <td><div className="flex gap-1"><button className="btn-ghost p-2" title="Editar" onClick={() => setEdit(p)}><ClipboardCheck size={16}/></button><button className="btn-ghost p-2" title="PDF" onClick={() => pdf(p)}><FileDown size={16}/></button><button className="btn-ghost p-2" title="Receber" disabled={p.status === 'Recebido' || ['Cancelado','Recusado'].includes(p.status)} onClick={() => startReceipt(p)}><PackageCheck size={16}/></button></div></td>
+        <td><div className="flex gap-1"><button className="btn-ghost p-2" title="Editar" onClick={() => setEdit(p)}><ClipboardCheck size={16}/></button><button className="btn-ghost p-2" title="PDF" onClick={() => pdf(p)}><FileDown size={16}/></button><button className="btn-ghost p-2" title="Receber" disabled={!['Aprovado', 'Pedido enviado', 'Recebido parcialmente'].includes(p.status)} onClick={() => startReceipt(p)}><PackageCheck size={16}/></button></div></td>
       </tr>)}</tbody></table>
     </div>
 
@@ -203,6 +224,15 @@ export default function Purchases() {
         <label className="md:col-span-2"><span className="mb-1 block text-sm font-semibold">Condição de pagamento</span><input className="input" value={edit?.paymentTerms || ''} onChange={e => setEdit({ ...edit, paymentTerms: e.target.value })}/></label>
       </div>
 
+      <section className="mt-5 border border-brand-red/30 bg-brand-red/5 p-4" aria-label="Consulta inteligente ao estoque">
+        <div className="mb-3"><b>Consulta inteligente ao Almoxarifado</b><p className="text-xs text-brand-steel">Procure pelo código, nome ou fornecedor antes de cadastrar uma nova compra. Esta pesquisa usa os itens reais do estoque conectado.</p></div>
+        <input className="input" placeholder="Pesquisar peça, código ou material no estoque" value={stockSearch} onChange={e => setStockSearch(e.target.value)} />
+        {stockSearch.trim().length >= 2 && <div className="mt-3 space-y-2" aria-live="polite">{matches.length ? matches.map(p => {
+          const old = purchases.flatMap(o => (o.items || []).filter(i => i.productId === p.id).map(i => ({ ...i, supplier: o.supplier, date: o.requestDate })) ).sort((a,b) => String(b.date||'').localeCompare(String(a.date||'')))[0];
+          const available = Math.max(0, num(p.qty) - num(p.reserved));
+          return <div key={p.id} className="flex flex-wrap items-center justify-between gap-3 border border-brand-line bg-white p-3 dark:bg-brand-black dark:border-white/10"><div><b>{p.name}</b><div className="text-xs text-brand-steel">{p.code || 'Sem código'} · Disponível: {available} {p.unit || 'un.'} · Reservado: {num(p.reserved)} · Custo médio: {currency(p.avgCost || p.unitCost || 0)}</div>{old && <div className="text-xs text-brand-steel">Última cotação/pedido: {currency(old.unitCost)} · {old.supplier} · {old.date || 'Sem data'}</div>}</div><button className="btn-ghost" type="button" onClick={() => {setEdit(cur => ({...cur,items:[...(cur.items||[]),{...emptyItem(),productId:p.id,description:p.name,unitCost:old?.unitCost ?? p.avgCost ?? p.unitCost ?? 0}]}));setStockSearch('');}}>Adicionar à ordem</button></div>;
+        }) : <p className="text-xs text-brand-steel">Nenhum item correspondente no estoque. Cadastre o produto pelo módulo Estoque antes de recebê-lo.</p>}</div>}
+      </section>
       <div className="mt-5 border border-brand-line p-4 dark:border-white/10">
         <div className="mb-3 flex items-center justify-between"><div><b>Itens da ordem</b><p className="text-xs text-brand-steel">Selecione um item do estoque ou informe um produto/serviço livre.</p></div><button className="btn-ghost" onClick={() => setEdit({ ...edit, items: [...edit.items, emptyItem()] })}><Plus size={16}/>Adicionar item</button></div>
         <div className="space-y-3">{edit?.items?.map((item, idx) => <div key={idx} className="grid gap-2 border-b border-brand-line pb-3 dark:border-white/10 lg:grid-cols-[220px_1fr_100px_140px_46px]">

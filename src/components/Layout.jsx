@@ -1,3 +1,4 @@
+import { menuVisible } from '../utils/menuVisibility';
 import { useMemo, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { Bell, Boxes, ClipboardList, Cog, Factory, FileBarChart, Home, LogOut, Menu, PackagePlus, ShoppingCart, Truck, Moon, Sun, AlertTriangle, X, ShieldCheck, FileText, ReceiptText, UsersRound, Wrench, Zap, QrCode } from 'lucide-react';
@@ -12,10 +13,10 @@ const nav = [
   ['/ordens-servico', 'Ordens de Serviço', ReceiptText],
   ['/fretes', 'Cotações de Frete', Truck],
   ['/estoque', 'Estoque', Boxes],
+  ['/compras', 'Compras Inteligentes', ShoppingCart],
   ['/movimentacao-rapida', 'Movimentação Rápida', QrCode],
   ['/movimentacoes', 'Movimentações', PackagePlus],
   ['/colaboradores', 'Colaboradores', UsersRound],
-  ['/compras', 'Ordens de Compra', ShoppingCart],
   ['/maquinas', 'Máquinas', Factory],
   ['/montagem', 'Montar Máquina', Factory],
   ['/bom', 'BOM / Estrutura', ClipboardList],
@@ -90,7 +91,7 @@ export default function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navg = useNavigate();
   const logout = async () => { setMobileMenuOpen(false); try{await logoutBackend(auth?.token)}catch{} setAuth({ logged: false, role: null, user: '', token: null }); navg('/login'); };
-  const visibleNav = nav.filter(([to]) => canAccessRoute(auth, to));
+  const visibleNav = nav.filter(([to]) => canAccessRoute(auth, to) && menuVisible(settings,to));
   const brunoOnly = isBrunoLimited(auth);
 
   return (

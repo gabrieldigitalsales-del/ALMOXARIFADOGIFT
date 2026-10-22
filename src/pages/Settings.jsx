@@ -1,3 +1,6 @@
+import LearnedRulesSettings from '../components/LearnedRulesSettings';
+import { DEFAULT_COMPANY, readCompany, writeCompany } from '../utils/companyProfile';
+import { MENU_ITEMS, menuVisible } from '../utils/menuVisibility';
 import { Activity, AlertTriangle, CalendarClock, Database, Download, RotateCcw, Save, ShieldCheck, Type, Upload, Cloud, RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import PageHeader from '../components/PageHeader';
@@ -27,6 +30,7 @@ export default function Settings() {
     loadCloudBackups,
     restoreCloudBackup
   } = useApp();
+  const [companyProfile,setCompanyProfile] = useState(readCompany);
   const [cloudBackups, setCloudBackups] = useState([]);
   const [loadingBackups, setLoadingBackups] = useState(false);
   const refreshBackups = async () => {
@@ -81,6 +85,20 @@ export default function Settings() {
   return (
     <>
       <PageHeader title="Configurações" subtitle="Tema, Supabase, segurança, backup e manutenção" />
+      <LearnedRulesSettings notify={notify}/>
+      <section className="card mb-6 border-l-4 border-l-red-600">
+        <div className="mb-5"><p className="text-xs font-bold uppercase tracking-widest text-red-600">Emissão de documentos</p><h2 className="mt-1 text-xl font-bold">Dados da Gift Excellence</h2><p className="mt-1 text-sm text-gray-500">Preenchidos automaticamente em Ordens de Serviço e Orçamentos. Você pode editar quando necessário.</p></div>
+        <div className="grid gap-3 sm:grid-cols-2">{[
+          ['legalName','Razão social'],['tradeName','Nome fantasia'],['cnpj','CNPJ'],['stateRegistration','Inscrição Estadual (MG)'],
+          ['address','Endereço'],['district','Bairro'],['city','Cidade'],['state','UF'],['zipCode','CEP'],['phone','Telefone'],['whatsapp','WhatsApp'],['email','E-mail'],['website','Site'],['instagram','Instagram'],['contact','Responsável']
+        ].map(([key,label])=><label key={key} className="text-sm font-medium">{label}<input className="mt-1 w-full border border-gray-300 bg-white px-3 py-2 text-gray-900 dark:border-white/20" value={companyProfile[key]||''} onChange={e=>setCompanyProfile(p=>({...p,[key]:e.target.value}))}/></label>)}</div>
+        <div className="mt-4 flex flex-wrap gap-2"><button className="btn-primary" onClick={()=>{writeCompany(companyProfile);notify('Dados da empresa salvos localmente')}}><Save size={16}/> Salvar dados da empresa</button><button className="btn-ghost border" onClick={()=>setCompanyProfile({...DEFAULT_COMPANY})}>Restaurar os dados fiscais fornecidos</button></div>
+      </section>
+      <section className="card mb-6 border-l-4 border-l-red-600">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3"><div><h3 className="text-xl font-bold">Abas visíveis no menu</h3><p className="text-sm text-brand-steel dark:text-white/60">Marque o que deseja mostrar. As telas ocultas não são excluídas e continuam acessíveis por endereço e permissões.</p></div><span className="border px-3 py-2 text-xs font-semibold">PERSONALIZAÇÃO LOCAL</span></div>
+        <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">{MENU_ITEMS.map(([path,label])=><label key={path} className="flex cursor-pointer items-center gap-3 border border-brand-line p-3 text-sm font-medium dark:border-white/10"><input type="checkbox" className="h-4 w-4 accent-red-600" checked={menuVisible(settings,path)} disabled={path==='/configuracoes'} onChange={e=>setSettings({...settings,menuVisibility:{...(settings.menuVisibility||{}),[path]:e.target.checked}})} /><span>{label}</span></label>)}</div>
+        <div className="mt-4 flex flex-wrap items-center gap-3"><button className="btn-ghost border" onClick={()=>setSettings({...settings,menuVisibility:{'/ordens-servico':false}})}>Restaurar abas padrão</button><span className="text-xs text-brand-steel">Ordem de Serviço começa desmarcada. Configurações fica sempre visível.</span></div>
+      </section>
       <div className="grid gap-6 xl:grid-cols-2">
         <div className="card">
           <div className="mb-6 flex items-center gap-4">
@@ -105,7 +123,7 @@ export default function Settings() {
             <Database size={22} />
             <div>
               <h3 className="text-xl font-semibold">Banco de dados Supabase</h3>
-              <p className="text-sm text-brand-steel dark:text-white/60">Status: <b>{dbStatus}</b>. {isSupabaseConfigured ? 'Salvando no Supabase.' : 'Sem variáveis .env; usando modo local.'}</p>
+              <p className="text-sm text-brand-steel dark:text-white/60">Status: <b>{dbStatus}</b>. </p>
             </div>
           </div>
 

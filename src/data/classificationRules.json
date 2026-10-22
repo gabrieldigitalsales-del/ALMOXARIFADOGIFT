@@ -1,0 +1,905 @@
+{
+  "version": "1.1.0",
+  "fallback": {
+    "label": "Não identificado",
+    "prefix": "ITEM",
+    "category": "Diversos",
+    "subcategory": "Diversos",
+    "application": "Estoque geral",
+    "unit": "un",
+    "confidence": "baixa",
+    "review": true
+  },
+  "rules": [
+    {
+      "id": "disco-corte",
+      "priority": 110,
+      "label": "Disco de corte",
+      "prefix": "DIS",
+      "category": "Consumíveis",
+      "subcategory": "Discos",
+      "application": "Consumível",
+      "unit": "un",
+      "terms": [
+        "DISCO DE CORTE",
+        "DISCO CORTE",
+        "DISCO PARA CORTE",
+        "DISCO CORTE ABRASIVO"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "disco-desbaste",
+      "priority": 109,
+      "label": "Disco de desbaste",
+      "prefix": "DIS",
+      "category": "Consumíveis",
+      "subcategory": "Discos",
+      "application": "Consumível",
+      "unit": "un",
+      "terms": [
+        "DISCO DE DESBASTE",
+        "DISCO DESBASTE"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "disco-abrasivo",
+      "priority": 108,
+      "label": "Disco abrasivo",
+      "prefix": "DIS",
+      "category": "Consumíveis",
+      "subcategory": "Discos",
+      "application": "Consumível",
+      "unit": "un",
+      "terms": [
+        "DISCO ABRASIVO",
+        "DISCO FLAP",
+        "DISCO DE LIXA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "broca",
+      "priority": 102,
+      "label": "Brocas",
+      "prefix": "BRO",
+      "category": "Consumíveis",
+      "subcategory": "Brocas",
+      "application": "Consumível",
+      "unit": "un",
+      "terms": [
+        "BROCA",
+        "BROCAS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "estopa",
+      "priority": 102,
+      "label": "Estopas",
+      "prefix": "EST",
+      "category": "Consumíveis",
+      "subcategory": "Estopas",
+      "application": "Consumível",
+      "unit": "un",
+      "terms": [
+        "ESTOPA",
+        "ESTOPAS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "lixa",
+      "priority": 102,
+      "label": "Lixas",
+      "prefix": "LIX",
+      "category": "Consumíveis",
+      "subcategory": "Lixas",
+      "application": "Consumível",
+      "unit": "un",
+      "terms": [
+        "LIXA",
+        "LIXAS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "peneira",
+      "priority": 105,
+      "label": "Peneira / tela",
+      "prefix": "PEN",
+      "category": "Máquinas",
+      "subcategory": "Peneiras",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "PENEIRA",
+        "PENEIRAS",
+        "ARO PLASTICO PPV",
+        "ARO PLASTICO PARA PENEIRA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "correia",
+      "priority": 100,
+      "label": "Correia transportadora",
+      "prefix": "COR",
+      "category": "Esteiras",
+      "subcategory": "Correias transportadoras",
+      "application": "Produção de máquinas",
+      "unit": "m",
+      "terms": [
+        "CORREIA TRANSPORTADORA",
+        "CORREIA",
+        "ESTEIRA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "fixador-parafuso",
+      "priority": 95,
+      "label": "Parafusos",
+      "prefix": "FIX",
+      "category": "Fixadores",
+      "subcategory": "Parafusos",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "PARAFUSO",
+        "PARAFUSOS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "fixador-porca",
+      "priority": 95,
+      "label": "Porcas",
+      "prefix": "FIX",
+      "category": "Fixadores",
+      "subcategory": "Porcas",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "PORCA",
+        "PORCAS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "rolamento",
+      "priority": 95,
+      "label": "Rolamentos",
+      "prefix": "ROL",
+      "category": "Transmissão Mecânica",
+      "subcategory": "Rolamentos",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "ROLAMENTO",
+        "ROLAMENTOS",
+        "MANCAL"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "contator",
+      "priority": 95,
+      "label": "Contator elétrico",
+      "prefix": "ELE",
+      "category": "Elétrica",
+      "subcategory": "Disjuntores",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "CONTATOR",
+        "CONTATORES"
+      ],
+      "confidence": "media",
+      "review": true
+    },
+    {
+      "id": "motor",
+      "priority": 95,
+      "label": "Motor elétrico",
+      "prefix": "ELE",
+      "category": "Elétrica",
+      "subcategory": "Motores",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "MOTOR"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "metalon",
+      "priority": 90,
+      "label": "Metalon / perfil",
+      "prefix": "MET",
+      "category": "Matéria-prima",
+      "subcategory": "Perfis",
+      "application": "Produção de máquinas",
+      "unit": "barra",
+      "terms": [
+        "METALON",
+        "PERFIL METALICO"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "chapa",
+      "priority": 90,
+      "label": "Chapas",
+      "prefix": "CHA",
+      "category": "Matéria-prima",
+      "subcategory": "Chapas",
+      "application": "Produção de máquinas",
+      "unit": "chapa",
+      "terms": [
+        "CHAPA",
+        "CHAPA METALICA",
+        "CHAPA INOX"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "thinner",
+      "priority": 94,
+      "label": "Thinner",
+      "prefix": "PIN",
+      "category": "Pintura",
+      "subcategory": "Thinner",
+      "application": "Consumível",
+      "unit": "l",
+      "terms": [
+        "THINNER"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "tinta",
+      "priority": 88,
+      "label": "Tintas",
+      "prefix": "PIN",
+      "category": "Pintura",
+      "subcategory": "Tintas",
+      "application": "Consumível",
+      "unit": "l",
+      "terms": [
+        "TINTA",
+        "ESMALTE",
+        "VERNIZ"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "solda",
+      "priority": 92,
+      "label": "Consumíveis de solda",
+      "prefix": "SOL",
+      "category": "Soldagem",
+      "subcategory": "Consumíveis de solda",
+      "application": "Consumível",
+      "unit": "un",
+      "terms": [
+        "ELETRODO",
+        "ARAME MIG",
+        "ARAME PARA SOLDA",
+        "SOLDA"
+      ],
+      "confidence": "media",
+      "review": true
+    },
+    {
+      "id": "luva",
+      "priority": 90,
+      "label": "Luvas de proteção",
+      "prefix": "EPI",
+      "category": "EPIs",
+      "subcategory": "Luvas",
+      "application": "EPI",
+      "unit": "un",
+      "terms": [
+        "LUVA",
+        "LUVAS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "ferramenta",
+      "priority": 85,
+      "label": "Ferramenta manual",
+      "prefix": "FER",
+      "category": "Ferramentas",
+      "subcategory": "Manuais",
+      "application": "Ferramenta",
+      "unit": "un",
+      "terms": [
+        "CHAVE DE FENDA",
+        "CHAVE PHILLIPS",
+        "ALICATE",
+        "MARTELO",
+        "TRENA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "oleo",
+      "priority": 85,
+      "label": "Lubrificante",
+      "prefix": "MAN",
+      "category": "Manutenção",
+      "subcategory": "Lubrificantes",
+      "application": "Manutenção",
+      "unit": "un",
+      "terms": [
+        "LUBRIFICANTE",
+        "GRAXA",
+        "OLEO"
+      ],
+      "confidence": "media",
+      "review": true
+    },
+    {
+      "id": "esmerilhadeira",
+      "priority": 106,
+      "label": "Ferramenta elétrica — esmerilhadeira",
+      "prefix": "FER",
+      "category": "Ferramentas",
+      "subcategory": "Elétricas",
+      "application": "Ferramenta",
+      "unit": "un",
+      "terms": [
+        "ESMERILHADEIRA ANGULAR",
+        "ESMERILHADEIRA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "cantoneira",
+      "priority": 116,
+      "label": "Cantoneira metálica",
+      "prefix": "CAN",
+      "category": "Matéria-prima",
+      "subcategory": "Cantoneiras",
+      "application": "Produção de máquinas",
+      "unit": "barra",
+      "terms": [
+        "CANTONEIRA",
+        "CANTONEIRAS",
+        "PERFIL L",
+        "PERFIL EM L"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "barra-chata",
+      "priority": 106,
+      "label": "Barra chata",
+      "prefix": "BAR",
+      "category": "Matéria-prima",
+      "subcategory": "Perfis",
+      "application": "Produção de máquinas",
+      "unit": "barra",
+      "terms": [
+        "BARRA CHATA",
+        "FERRO CHATO",
+        "BARRA REDONDA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "tubo",
+      "priority": 106,
+      "label": "Tubo industrial",
+      "prefix": "TUB",
+      "category": "Matéria-prima",
+      "subcategory": "Tubos",
+      "application": "Produção de máquinas",
+      "unit": "barra",
+      "terms": [
+        "TUBO REDONDO",
+        "TUBO QUADRADO",
+        "TUBO RETANGULAR",
+        "TUBO DE ACO",
+        "TUBO INOX"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "chapa-inox",
+      "priority": 112,
+      "label": "Chapa inox",
+      "prefix": "INO",
+      "category": "Matéria-prima",
+      "subcategory": "Chapas",
+      "application": "Produção de máquinas",
+      "unit": "chapa",
+      "terms": [
+        "CHAPA INOX",
+        "CHAPA DE ACO INOX"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "mola",
+      "priority": 108,
+      "label": "Mola",
+      "prefix": "MOL",
+      "category": "Vibração",
+      "subcategory": "Molas",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "MOLA",
+        "MOLAS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "motovibrador",
+      "priority": 115,
+      "label": "Motovibrador",
+      "prefix": "VIB",
+      "category": "Vibração",
+      "subcategory": "Motovibradores",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "MOTOVIBRADOR",
+        "MOTO VIBRADOR"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "coxim",
+      "priority": 108,
+      "label": "Coxim",
+      "prefix": "COX",
+      "category": "Vibração",
+      "subcategory": "Coxins",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "COXIM",
+        "COXINS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "sensor",
+      "priority": 110,
+      "label": "Sensor",
+      "prefix": "SEN",
+      "category": "Elétrica",
+      "subcategory": "Sensores",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "SENSOR",
+        "SENSORES"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "cabo",
+      "priority": 100,
+      "label": "Cabo elétrico",
+      "prefix": "CAB",
+      "category": "Elétrica",
+      "subcategory": "Cabos",
+      "application": "Produção de máquinas",
+      "unit": "m",
+      "terms": [
+        "CABO ELETRICO",
+        "CABO FLEXIVEL",
+        "FIO ELETRICO"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "disjuntor",
+      "priority": 110,
+      "label": "Disjuntor",
+      "prefix": "DISJ",
+      "category": "Elétrica",
+      "subcategory": "Disjuntores",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "DISJUNTOR",
+        "DISJUNTORES"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "cilindro-pneumatico",
+      "priority": 113,
+      "label": "Cilindro pneumático",
+      "prefix": "PNE",
+      "category": "Pneumática",
+      "subcategory": "Cilindros",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "CILINDRO PNEUMATICO"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "valvula-pneumatica",
+      "priority": 108,
+      "label": "Válvula pneumática",
+      "prefix": "VAL",
+      "category": "Pneumática",
+      "subcategory": "Válvulas",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "VALVULA PNEUMATICA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "mangueira-pneumatica",
+      "priority": 109,
+      "label": "Mangueira pneumática",
+      "prefix": "MAN",
+      "category": "Pneumática",
+      "subcategory": "Mangueiras",
+      "application": "Produção de máquinas",
+      "unit": "m",
+      "terms": [
+        "MANGUEIRA PNEUMATICA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "bomba-hidraulica",
+      "priority": 110,
+      "label": "Bomba hidráulica",
+      "prefix": "HID",
+      "category": "Hidráulica",
+      "subcategory": "Bombas",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "BOMBA HIDRAULICA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "flange",
+      "priority": 108,
+      "label": "Flange usinado",
+      "prefix": "FLA",
+      "category": "Usinagem",
+      "subcategory": "Flanges",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "FLANGE",
+        "FLANGES"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "eixo",
+      "priority": 105,
+      "label": "Eixo",
+      "prefix": "EIX",
+      "category": "Usinagem",
+      "subcategory": "Eixos",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "EIXO",
+        "EIXOS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "polia",
+      "priority": 108,
+      "label": "Polia",
+      "prefix": "POL",
+      "category": "Usinagem",
+      "subcategory": "Polias",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "POLIA",
+        "POLIAS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "bucha",
+      "priority": 103,
+      "label": "Bucha",
+      "prefix": "BUC",
+      "category": "Usinagem",
+      "subcategory": "Buchas",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "BUCHA",
+        "BUCHAS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "corrente",
+      "priority": 105,
+      "label": "Corrente de transmissão",
+      "prefix": "CORR",
+      "category": "Transmissão Mecânica",
+      "subcategory": "Correntes",
+      "application": "Produção de máquinas",
+      "unit": "m",
+      "terms": [
+        "CORRENTE DE TRANSMISSAO",
+        "CORRENTE INDUSTRIAL"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "redutor",
+      "priority": 108,
+      "label": "Redutor",
+      "prefix": "RED",
+      "category": "Transmissão Mecânica",
+      "subcategory": "Redutores",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "REDUTOR",
+        "MOTORREDUTOR"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "rolete",
+      "priority": 112,
+      "label": "Rolete de esteira",
+      "prefix": "ROL",
+      "category": "Esteiras",
+      "subcategory": "Roletes",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "ROLETE",
+        "ROLETES"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "tambor",
+      "priority": 110,
+      "label": "Tambor de esteira",
+      "prefix": "TAM",
+      "category": "Esteiras",
+      "subcategory": "Tambores",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "TAMBOR DE ESTEIRA",
+        "TAMBOR MOTRIZ"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "pino",
+      "priority": 102,
+      "label": "Pino fixador",
+      "prefix": "PIN",
+      "category": "Fixadores",
+      "subcategory": "Rebites",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "PINO",
+        "PINOS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "rebite",
+      "priority": 109,
+      "label": "Rebite",
+      "prefix": "REB",
+      "category": "Fixadores",
+      "subcategory": "Rebites",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "REBITE",
+        "REBITES"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "arruela",
+      "priority": 109,
+      "label": "Arruela",
+      "prefix": "ARR",
+      "category": "Fixadores",
+      "subcategory": "Arruelas",
+      "application": "Produção de máquinas",
+      "unit": "un",
+      "terms": [
+        "ARRUELA",
+        "ARRUELAS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "tela-inox",
+      "priority": 108,
+      "label": "Tela inox para peneira",
+      "prefix": "TEL",
+      "category": "Máquinas",
+      "subcategory": "Peneiras",
+      "application": "Produção de máquinas",
+      "unit": "m",
+      "terms": [
+        "TELA INOX",
+        "TELA INOXIDAVEL",
+        "TELA PARA PENEIRA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "primer",
+      "priority": 110,
+      "label": "Primer",
+      "prefix": "PRI",
+      "category": "Pintura",
+      "subcategory": "Primer",
+      "application": "Consumível",
+      "unit": "l",
+      "terms": [
+        "PRIMER"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "disco-lixa",
+      "priority": 110,
+      "label": "Disco de lixa",
+      "prefix": "DIS",
+      "category": "Consumíveis",
+      "subcategory": "Discos",
+      "application": "Consumível",
+      "unit": "un",
+      "terms": [
+        "DISCO DE LIXA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "eletrodo",
+      "priority": 111,
+      "label": "Eletrodo",
+      "prefix": "ELE",
+      "category": "Soldagem",
+      "subcategory": "Eletrodos",
+      "application": "Consumível",
+      "unit": "un",
+      "terms": [
+        "ELETRODO",
+        "ELETRODOS"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "arame-mig",
+      "priority": 110,
+      "label": "Arame MIG",
+      "prefix": "MIG",
+      "category": "Soldagem",
+      "subcategory": "Arames MIG",
+      "application": "Consumível",
+      "unit": "kg",
+      "terms": [
+        "ARAME MIG",
+        "ARAME DE SOLDA MIG"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "mascara-epi",
+      "priority": 110,
+      "label": "Máscara EPI",
+      "prefix": "EPI",
+      "category": "EPIs",
+      "subcategory": "Protetor auricular",
+      "application": "EPI",
+      "unit": "un",
+      "terms": [
+        "MASCARA DE PROTECAO",
+        "RESPIRADOR PFF2"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "protetor-auricular",
+      "priority": 110,
+      "label": "Protetor auricular",
+      "prefix": "EPI",
+      "category": "EPIs",
+      "subcategory": "Protetor auricular",
+      "application": "EPI",
+      "unit": "un",
+      "terms": [
+        "PROTETOR AURICULAR",
+        "ABAFADOR DE RUIDO"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "chave-ferramenta",
+      "priority": 104,
+      "label": "Chave manual",
+      "prefix": "FER",
+      "category": "Ferramentas",
+      "subcategory": "Manuais",
+      "application": "Ferramenta",
+      "unit": "un",
+      "terms": [
+        "CHAVE DE FENDA",
+        "CHAVE PHILLIPS",
+        "CHAVE ALLEN",
+        "CHAVE COMBINADA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "furadeira",
+      "priority": 110,
+      "label": "Furadeira elétrica",
+      "prefix": "FUR",
+      "category": "Ferramentas",
+      "subcategory": "Elétricas",
+      "application": "Ferramenta",
+      "unit": "un",
+      "terms": [
+        "FURADEIRA",
+        "PARAFUSADEIRA"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "paquimetro",
+      "priority": 110,
+      "label": "Instrumento de medição",
+      "prefix": "MED",
+      "category": "Ferramentas",
+      "subcategory": "Medição",
+      "application": "Ferramenta",
+      "unit": "un",
+      "terms": [
+        "PAQUIMETRO",
+        "MICROMETRO"
+      ],
+      "confidence": "alta"
+    },
+    {
+      "id": "graxa",
+      "priority": 110,
+      "label": "Graxa",
+      "prefix": "GRA",
+      "category": "Manutenção",
+      "subcategory": "Lubrificantes",
+      "application": "Manutenção",
+      "unit": "kg",
+      "terms": [
+        "GRAXA",
+        "GRAXA LUBRIFICANTE"
+      ],
+      "confidence": "alta"
+    }
+  ]
+}

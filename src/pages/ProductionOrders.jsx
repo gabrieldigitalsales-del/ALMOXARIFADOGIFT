@@ -1,3 +1,4 @@
+import {askConfirm} from '../utils/appDialogs';
 import {useMemo,useState} from 'react';
 import {AlertTriangle,CalendarDays,CheckCircle,ClipboardList,Eye,PackageCheck,Plus,Trash2} from 'lucide-react';
 import PageHeader from '../components/PageHeader';
@@ -53,7 +54,7 @@ export default function ProductionOrders(){
   setOps(os=>clean.id?os.map(o=>o.id===clean.id?clean:o):[{...clean,id:rid('op'),number:`OP-${String(os.length+1).padStart(4,'0')}`,realCost:0,createdAt:today()},...os]);
   setEdit(null);notify('OP salva');
  };
- const remove=r=>{if(confirm(`Remover ${r.number}? Se ela tiver materiais reservados, a reserva será liberada.`))deleteOP(r.id)};
+ const remove=async r=>{if(await askConfirm(`Remover ${r.number}? Se ela tiver materiais reservados, a reserva será liberada.`))deleteOP(r.id)};
  const runReserve=r=>{const ok=reserveOP(r.id);if(ok)setView(null)};
  const runFinish=r=>finishOP(r.id);
 

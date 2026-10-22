@@ -15,7 +15,8 @@ export const categories={
  Ferramentas:['Manuais','Elétricas','Medição','Gabaritos'],
  EPIs:['Luvas','Óculos','Protetor auricular','Capacetes'],
  Manutenção:['Lubrificantes','Peças reposição','Correções emergenciais'],
- Máquinas:['Peneiras','Alimentadores','Esteiras','Dosadores','Seladoras']
+ Máquinas:['Peneiras','Alimentadores','Esteiras','Dosadores','Seladoras'],
+ Diversos:['Diversos']
 };
 export const sectors=['Estrutura','Elétrica','Vibração','Pintura','Soldagem','Fixadores','Usinagem','Esteiras','Consumíveis','Manutenção'];
 export const stockSeed=[];

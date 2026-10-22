@@ -1,3 +1,4 @@
+import {askConfirm} from '../utils/appDialogs';
 import React, { useEffect, useMemo, useState } from 'react';
 import { deleteModuleRow, loadModuleRows, moduleTables, saveModuleRow } from '../services/moduleDataService';
 import { jsPDF } from 'jspdf';
@@ -160,7 +161,7 @@ export default function QuoteModule() {
   };
 
   const deleteHistory = async (id) => {
-    if (!confirm('Excluir este orçamento do histórico?')) return;
+    if (!(await askConfirm('Excluir este orçamento do histórico?'))) return;
     try {
       await deleteModuleRow(moduleTables.quotes, id);
       setHistory(list => list.filter(i => i.id !== id));

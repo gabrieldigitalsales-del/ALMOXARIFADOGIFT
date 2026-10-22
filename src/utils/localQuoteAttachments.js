@@ -1,0 +1,7 @@
+// Attachment bytes are retained in IndexedDB, separately from localStorage quote metadata.
+const DB='gift-project-quote-attachments';
+const STORE='files';
+const openDb=()=>new Promise((resolve,reject)=>{if(!('indexedDB' in window))return reject(Error('Este navegador não disponibiliza IndexedDB'));const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE)};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});
+export async function saveQuoteAttachment(projectId,file){const db=await openDb();try{await new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(file,projectId);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}finally{db.close()}}
+export async function readQuoteAttachment(projectId){const db=await openDb();try{return await new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readonly');const request=tx.objectStore(STORE).get(projectId);request.onsuccess=()=>resolve(request.result||null);request.onerror=()=>reject(request.error)})}finally{db.close()}}
+export async function deleteQuoteAttachment(projectId){const db=await openDb();try{await new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).delete(projectId);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}finally{db.close()}}

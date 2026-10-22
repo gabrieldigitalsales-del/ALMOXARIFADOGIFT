@@ -1,3 +1,4 @@
+import {askConfirm} from '../utils/appDialogs';
 import {useMemo,useState} from 'react';
 import {CalendarDays,CheckCircle,Copy,ExternalLink,MessageCircle,Plus,ShieldCheck,Trash2} from 'lucide-react';
 import PageHeader from '../components/PageHeader';
@@ -76,7 +77,7 @@ export default function WarrantyReminders(){
   setWarranties(ws=>clean.id?ws.map(w=>w.id===clean.id?clean:w):[{...clean,id:rid('gar'),createdAt:new Date().toISOString()},...ws]);
   setEdit(null);notify('Garantia salva');
  };
- const remove=r=>{if(confirm(`Remover garantia de ${r.customerName}?`)){setWarranties(ws=>ws.filter(w=>w.id!==r.id));notify('Garantia removida')}};
+ const remove=async r=>{if(await askConfirm(`Remover garantia de ${r.customerName}?`)){setWarranties(ws=>ws.filter(w=>w.id!==r.id));notify('Garantia removida')}};
  const markSent=r=>{setWarranties(ws=>ws.map(w=>w.id===r.id?{...w,status:'Mensagem enviada',reminderSentAt:new Date().toISOString()}:w));notify('Marcado como enviado')};
  const copyMessage=async r=>{await navigator.clipboard?.writeText(r.message||defaultMessage(r));notify('Mensagem copiada')};
 
