@@ -2,7 +2,7 @@ export const ADMIN_ROLE='admin';
 export const ALMOX_ROLE='almox';
 export const BRUNO_ROLE='garantia';
 
-export const isAdmin=auth=>auth?.role===ADMIN_ROLE||(!auth?.role&&auth?.logged);
+export const isAdmin=auth=>auth?.logged===true&&auth?.role===ADMIN_ROLE;
 export const isAlmox=auth=>auth?.role===ALMOX_ROLE;
 export const isBrunoLimited=auth=>auth?.role===BRUNO_ROLE;
 
