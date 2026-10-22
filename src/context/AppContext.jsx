@@ -4,6 +4,7 @@ import {findDuplicateItem} from '../utils/productIdentity';
 import{bomSeed,machinesSeed,maintenanceSeed,movementsSeed,opsSeed,purchasesSeed,stockSeed,suppliersSeed}from'../data/seed';
 import{useLocalStorage}from'../hooks/useLocalStorage';
 import{isSupabaseConfigured}from'../services/supabaseClient';
+import{validateSession}from'../services/authService';
 import{deleteCollectionItem,loadAllCollections,loadCollection,replaceCollection,upsertCollectionItem,uppercaseStockNames,saveDailyCloudBackup,listDailyCloudBackups}from'../services/databaseService';
 import{availableOf,calcMachineCost,num,statusOf,today}from'../utils/costs';
 import{downloadJson}from'../utils/exporters';
@@ -49,7 +50,7 @@ export function AppProvider({children}){
  settersRef.current={stock:setStockRaw,machines:setMachinesRaw,bom:setBomRaw,suppliers:setSuppliersRaw,movements:setMovementsRaw,purchases:setPurchasesRaw,ops:setOpsRaw,maintenance:setMaintenanceRaw,warranties:setWarrantiesRaw,soldMachines:setSoldMachinesRaw};
  statesRef.current={stock:stockRaw,machines:machinesRaw,bom:bomRaw,suppliers:suppliersRaw,movements:movementsRaw,purchases:purchasesRaw,ops:opsRaw,maintenance:maintenanceRaw,warranties:warrantiesRaw,soldMachines:soldMachinesRaw};
 
- useEffect(()=>{let active=true;if(!isSupabaseConfigured||!auth?.logged||!auth?.token){loadedRef.current=false;setDbStatus(isSupabaseConfigured?'Aguardando login':'Modo local');return}setDbStatus('Conectando ao Supabase');loadAllCollections(auth.role).then(data=>{if(!active)return;loadedRef.current=false;collections.forEach(key=>{const rows=Object.prototype.hasOwnProperty.call(data,key)?(data[key]||[]):[];settersRef.current[key](rows);statesRef.current[key]=rows});loadedRef.current=true;setDbStatus('Supabase conectado')}).catch(e=>{loadedRef.current=true;showDbError(e)});return()=>{active=false}},[auth?.logged,auth?.token,auth?.role]);
+ useEffect(()=>{let active=true;loadedRef.current=false;if(!isSupabaseConfigured||!auth?.logged||!auth?.token){setDbStatus(isSupabaseConfigured?'Aguardando login':'Modo local');return}setDbStatus('Validando sessão');(async()=>{try{const session=await validateSession(auth.token);if(!active)return;if(!session||!['admin','almox','garantia'].includes(session.role)||session.role!==auth.role){setAuth({logged:false,role:null,user:'',token:null});setDbStatus('Sessão inválida. Entre novamente.');return}setDbStatus('Conectando ao Supabase');const data=await loadAllCollections(session.role);if(!active)return;collections.forEach(key=>{const rows=Object.prototype.hasOwnProperty.call(data,key)?(data[key]||[]):[];settersRef.current[key](rows);statesRef.current[key]=rows});loadedRef.current=true;setDbStatus('Supabase conectado')}catch(e){if(!active)return;loadedRef.current=false;setAuth({logged:false,role:null,user:'',token:null});setDbStatus('Erro ao validar sessão');console.error('Validação de sessão',e)}})();return()=>{active=false}},[auth?.logged,auth?.token,auth?.role]);
 
  useEffect(()=>{if(!auth?.logged)return;const timer=setTimeout(()=>{runDailyBackupIfNeeded().catch(e=>console.error('Backup diario automatico',e))},1800);return()=>clearTimeout(timer)},[auth?.logged,backupSettings?.dailyEnabled,backupSettings?.lastDailyBackupDate,stockRaw.length,machinesRaw.length,bomRaw.length]);
 
