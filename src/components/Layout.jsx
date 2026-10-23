@@ -13,7 +13,7 @@ const nav = [
   ['/ordens-servico', 'Ordens de Serviço', ReceiptText],
   ['/fretes', 'Cotações de Frete', Truck],
   ['/estoque', 'Estoque', Boxes],
-  ['/compras', 'Compras Inteligentes', ShoppingCart],
+  ['/compras', 'Compras', ShoppingCart],
   ['/movimentacao-rapida', 'Movimentação Rápida', QrCode],
   ['/movimentacoes', 'Movimentações', PackagePlus],
   ['/colaboradores', 'Colaboradores', UsersRound],
