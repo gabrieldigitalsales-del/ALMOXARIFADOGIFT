@@ -15,7 +15,7 @@ export async function logout(token){
 export async function validateSession(token){
   if(!supabase||!token)return null;
   const{data,error}=await supabase.rpc('giftx_almox_validate_session',{p_token:token});
-  if(error)return null;
+  if(error)throw new Error('Falha de comunicação com a autenticação: '+(error.message||'tente novamente'));
   return data||null;
 }
 export const authService={login,logout,validateSession};
