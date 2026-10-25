@@ -37,25 +37,18 @@ export async function deleteCollectionItem(collection,id){
 }
 export async function loadAllCollections(role='admin'){
   const allowed=role==='garantia'?['warranties','machines','ops']:role==='almox'?['stock','movements']:allCollections;
-  const readWithRetry=async key=>{
-    let lastError;
-    for(let attempt=0;attempt<3;attempt++){
-      try{return await loadCollection(key)}catch(error){
-        lastError=error;
-        if(attempt<2)await new Promise(resolve=>setTimeout(resolve,600*(attempt+1)));
-      }
-    }
-    throw lastError;
-  };
-  const results=[];
-  for(const key of allowed){
-    try{results.push({status:'fulfilled',value:await readWithRetry(key)})}
-    catch(error){results.push({status:'rejected',reason:error})}
-  }
   const loaded={};
   const failures=[];
-  results.forEach((result,index)=>{const key=allowed[index];if(result.status==='fulfilled')loaded[key]=result.value;else failures.push({key,error:result.reason});});
-  if(failures.length){console.error('Falhas ao carregar coleções do Supabase',failures);if(!Object.keys(loaded).length||(['admin','almox'].includes(role)&&!Object.prototype.hasOwnProperty.call(loaded,'stock'))|| (role==='garantia'&&!Object.prototype.hasOwnProperty.call(loaded,'warranties')))throw new Error('Falha na leitura do Supabase ('+failures.map(f=>f.key).join(', ')+'): '+String(failures[0]?.error?.message||'erro de comunicação')+(failures[0]?.error?.code?' ['+failures[0].error.code+']':''));}
+  const read=async key=>{
+    let last;
+    for(let i=0;i<2;i++){try{return await loadCollection(key)}catch(e){last=e;if(i===0)await new Promise(r=>setTimeout(r,500));}}
+    throw last;
+  };
+  for(const key of allowed){
+    try{loaded[key]=await read(key)}
+    catch(error){failures.push({key,error});console.error('Falha ao carregar '+key,error)}
+  }
+  if(failures.length)console.warn('Coleções ainda indisponíveis:',failures.map(f=>f.key).join(', '));
   return loaded;
 }
 export async function listDailyCloudBackups(limit=20){
