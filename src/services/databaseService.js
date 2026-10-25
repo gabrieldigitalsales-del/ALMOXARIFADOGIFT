@@ -37,8 +37,12 @@ export async function deleteCollectionItem(collection,id){
 }
 export async function loadAllCollections(role='admin'){
   const allowed=role==='garantia'?['warranties','machines','ops']:role==='almox'?['stock','movements']:allCollections;
-  const entries=await Promise.all(allowed.map(async key=>[key,await loadCollection(key)]));
-  return Object.fromEntries(entries);
+  const results=await Promise.allSettled(allowed.map(key=>loadCollection(key)));
+  const loaded={};
+  const failures=[];
+  results.forEach((result,index)=>{const key=allowed[index];if(result.status==='fulfilled')loaded[key]=result.value;else failures.push({key,error:result.reason});});
+  if(failures.length){console.error('Falhas ao carregar coleções do Supabase',failures);if(!Object.keys(loaded).length||(['admin','almox'].includes(role)&&!Object.prototype.hasOwnProperty.call(loaded,'stock'))|| (role==='garantia'&&!Object.prototype.hasOwnProperty.call(loaded,'warranties')))throw new Error('Não foi possível carregar os dados essenciais: '+failures.map(f=>f.key).join(', '));}
+  return loaded;
 }
 export async function listDailyCloudBackups(limit=20){
   ensure();
