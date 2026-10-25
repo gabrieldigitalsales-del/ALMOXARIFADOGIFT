@@ -41,7 +41,7 @@ export async function loadAllCollections(role='admin'){
   const loaded={};
   const failures=[];
   results.forEach((result,index)=>{const key=allowed[index];if(result.status==='fulfilled')loaded[key]=result.value;else failures.push({key,error:result.reason});});
-  if(failures.length){console.error('Falhas ao carregar coleções do Supabase',failures);if(!Object.keys(loaded).length||(['admin','almox'].includes(role)&&!Object.prototype.hasOwnProperty.call(loaded,'stock'))|| (role==='garantia'&&!Object.prototype.hasOwnProperty.call(loaded,'warranties')))throw new Error('Não foi possível carregar os dados essenciais: '+failures.map(f=>f.key).join(', '));}
+  if(failures.length){console.error('Falhas ao carregar coleções do Supabase',failures);if(!Object.keys(loaded).length||(['admin','almox'].includes(role)&&!Object.prototype.hasOwnProperty.call(loaded,'stock'))|| (role==='garantia'&&!Object.prototype.hasOwnProperty.call(loaded,'warranties')))throw new Error('Falha na leitura do Supabase ('+failures.map(f=>f.key).join(', ')+'): '+String(failures[0]?.error?.message||'erro de comunicação')+(failures[0]?.error?.code?' ['+failures[0].error.code+']':''));}
   return loaded;
 }
 export async function listDailyCloudBackups(limit=20){
