@@ -37,7 +37,21 @@ export async function deleteCollectionItem(collection,id){
 }
 export async function loadAllCollections(role='admin'){
   const allowed=role==='garantia'?['warranties','machines','ops']:role==='almox'?['stock','movements']:allCollections;
-  const results=await Promise.allSettled(allowed.map(key=>loadCollection(key)));
+  const readWithRetry=async key=>{
+    let lastError;
+    for(let attempt=0;attempt<3;attempt++){
+      try{return await loadCollection(key)}catch(error){
+        lastError=error;
+        if(attempt<2)await new Promise(resolve=>setTimeout(resolve,600*(attempt+1)));
+      }
+    }
+    throw lastError;
+  };
+  const results=[];
+  for(const key of allowed){
+    try{results.push({status:'fulfilled',value:await readWithRetry(key)})}
+    catch(error){results.push({status:'rejected',reason:error})}
+  }
   const loaded={};
   const failures=[];
   results.forEach((result,index)=>{const key=allowed[index];if(result.status==='fulfilled')loaded[key]=result.value;else failures.push({key,error:result.reason});});
