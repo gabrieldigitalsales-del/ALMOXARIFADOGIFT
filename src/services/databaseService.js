@@ -5,7 +5,7 @@ export const tableNames = {
 };
 const allCollections=Object.keys(tableNames);
 const ensure=()=>{if(!isSupabaseConfigured||!supabase)throw new Error('Supabase não configurado')};
-const getAuth=()=>{try{return JSON.parse(localStorage.getItem('gift.auth.v4')||'null')||{}}catch{return{}}};
+const getAuth=()=>{try{return JSON.parse(localStorage.getItem('gift-sandbox-local-v1:gift.auth.v4')||'null')||{}}catch{return{}}};
 const token=()=>{const t=getAuth()?.token;if(!t)throw new Error('Sessão expirada. Entre novamente.');return t};
 const isUuid=value=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value||''));
 const cleanData=row=>{const data={...(row||{})};delete data.id;delete data.created_at;delete data.updated_at;return data};
