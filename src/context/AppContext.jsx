@@ -64,14 +64,34 @@ export function AppProvider({children}){
    loadedRef.current=auth.role==='garantia'?Object.prototype.hasOwnProperty.call(data,'warranties'):Object.prototype.hasOwnProperty.call(data,'stock');setDbStatus(loadedRef.current?'Supabase conectado':'Acesso limitado - Supabase indisponível');
   }catch(error){console.warn('Reconexão do Supabase pendente',error)}finally{busy=false}
  };
- const timer=setInterval(reconnect,12000);
+ const timer=setInterval(reconnect,45000);
  reconnect();
  return()=>{active=false;clearInterval(timer)};
  },[auth?.logged,auth?.token,auth?.role,dbStatus]);
  
  useEffect(()=>{if(!auth?.logged||!loadedRef.current||dbStatus!=='Supabase conectado')return;const timer=setTimeout(()=>{runDailyBackupIfNeeded().catch(e=>console.error('Backup diario automatico',e))},1800);return()=>clearTimeout(timer)},[auth?.logged,dbStatus,backupSettings?.dailyEnabled,backupSettings?.lastDailyBackupDate,stockRaw.length,machinesRaw.length,bomRaw.length]);
 
- useEffect(()=>{if(!isSupabaseConfigured||!auth?.logged||!auth?.token||!['admin','almox'].includes(auth?.role))return;let active=true;const refresh=async()=>{if(!loadedRef.current)return;try{const [nextStock,nextMovements]=await Promise.all([loadCollection('stock'),loadCollection('movements')]);if(!active)return;settersRef.current.stock(nextStock||[]);settersRef.current.movements(nextMovements||[]);statesRef.current.stock=nextStock||[];statesRef.current.movements=nextMovements||[]}catch(e){console.error('Auto refresh Supabase',e)}};const timer=setInterval(refresh,5000);return()=>{active=false;clearInterval(timer)}},[auth?.logged,auth?.token,auth?.role]);
+ useEffect(()=>{if(!isSupabaseConfigured||!auth?.logged||!auth?.token||!['admin','almox'].includes(auth?.role))return;
+ let active=true;let busy=false;
+ const refresh=async()=>{
+  if(!active||busy||!loadedRef.current)return;
+  busy=true;
+  try{
+   const stockRows=await loadCollection('stock');
+   if(!active)return;
+   settersRef.current.stock(stockRows);statesRef.current.stock=stockRows;
+   if(loadedCollectionsRef.current.has('movements')){
+    const movementRows=await loadCollection('movements');
+    if(!active)return;
+    settersRef.current.movements(movementRows);statesRef.current.movements=movementRows;
+   }
+  }catch(e){console.error('Atualização Supabase pendente',e)}
+  finally{busy=false}
+ };
+ const timer=setInterval(refresh,30000);
+ return()=>{active=false;clearInterval(timer)};
+ },[auth?.logged,auth?.token,auth?.role]);
+
 
  const visible=x=>x?.archived!==true&&x?.archived!=='true';const stock=stockRaw.filter(visible),machines=machinesRaw.filter(visible),bom=bomRaw.filter(visible),suppliers=suppliersRaw,movements=movementsRaw.filter(visible),purchases=purchasesRaw,ops=opsRaw,maintenance=maintenanceRaw,warranties=warrantiesRaw,soldMachines=soldMachinesRaw;
  const addMovement=m=>{const mv={id:rid('mv'),date:today(),time:nowTime(),createdAt:new Date().toISOString(),user:settings.user,...m};setMovements(v=>[mv,...v]);if(isSupabaseConfigured&&loadedRef.current)upsertCollectionItem('movements',mv).catch(showDbError)};
