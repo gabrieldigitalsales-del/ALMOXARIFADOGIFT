@@ -7,6 +7,7 @@ import PageHeader from '../components/PageHeader';
 import FormGrid, { Field } from '../components/FormGrid';
 import { useApp } from '../context/AppContext';
 import { tableNames } from '../services/databaseService';
+import { supabase } from '../services/supabaseClient';
 import { logout as logoutBackend } from '../services/authService';
 
 export default function Settings() {
@@ -42,6 +43,22 @@ export default function Settings() {
   };
   useEffect(() => { refreshBackups(); }, [isSupabaseConfigured]);
 
+  const downloadPreResetBackup = async () => {
+    try {
+      if(auth?.role !== 'admin'||!auth?.token||!supabase)throw Error('Acesso administrativo necessário.');
+      const {data,error}=await supabase.rpc('giftx_almox_download_reset_backup_20261109',{p_token:auth.token});
+      if(error)throw error;
+      if(!data||data.stock?.length!==365||data.movements?.length!==226)throw Error('Backup incompleto; download cancelado.');
+      const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+      const href=URL.createObjectURL(blob);
+      const link=document.createElement('a');
+      link.href=href;link.download='GIFT_BACKUP_ESTOQUE_MOVIMENTACOES_2026-11-09.json';
+      document.body.appendChild(link);link.click();link.remove();
+      setTimeout(()=>URL.revokeObjectURL(href),5000);
+      notify('Backup histórico completo baixado');
+    }catch(e){notify('Falha ao baixar backup: '+(e?.message||'tente novamente'),'error')}
+  };
+  
   const importFile = e => {
     const f = e.target.files?.[0];
     if (!f) return;
@@ -200,6 +217,7 @@ export default function Settings() {
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
+            <button className="btn-primary" onClick={downloadPreResetBackup} disabled={auth?.role!=='admin'}><Download size={18} />Baixar backup anterior à limpeza (09/11/2026)</button>
             <button className="btn-primary" onClick={backup}><Download size={18} />Exportar backup JSON</button>
             <label className="btn-ghost cursor-pointer"><Upload size={18} />Importar backup<input type="file" accept="application/json" className="hidden" onChange={importFile} /></label>
             <button className="btn-danger" onClick={resetDemo}><RotateCcw size={18} />Zerar dados protegido</button>
