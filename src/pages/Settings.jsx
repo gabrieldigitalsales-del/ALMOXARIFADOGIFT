@@ -45,7 +45,7 @@ export default function Settings() {
 
   const downloadPreResetBackup = async () => {
     try {
-      if(auth?.role !== 'admin'||!auth?.token||!supabase)throw Error('Acesso administrativo necessário.');
+      if(!['admin','almox'].includes(auth?.role)||!auth?.token||!supabase)throw Error('Acesso autorizado necessário.');
       const {data,error}=await supabase.rpc('giftx_almox_download_reset_backup_20261109',{p_token:auth.token});
       if(error)throw error;
       if(!data||data.stock?.length!==365||data.movements?.length!==226)throw Error('Backup incompleto; download cancelado.');
@@ -217,7 +217,7 @@ export default function Settings() {
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
-            <button className="btn-primary" onClick={downloadPreResetBackup} disabled={auth?.role!=='admin'}><Download size={18} />Baixar backup anterior à limpeza (09/11/2026)</button>
+            <button className="btn-primary" onClick={downloadPreResetBackup} disabled={!['admin','almox'].includes(auth?.role)}><Download size={18} />Baixar backup anterior à limpeza (09/11/2026)</button>
             <button className="btn-primary" onClick={backup}><Download size={18} />Exportar backup JSON</button>
             <label className="btn-ghost cursor-pointer"><Upload size={18} />Importar backup<input type="file" accept="application/json" className="hidden" onChange={importFile} /></label>
             <button className="btn-danger" onClick={resetDemo}><RotateCcw size={18} />Zerar dados protegido</button>
