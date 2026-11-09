@@ -11,6 +11,7 @@ import{useApp}from'../context/AppContext';
 import{categories}from'../data/seed';
 import{isSupabaseConfigured}from'../services/supabaseClient';
 import{deleteStorageFile}from'../services/databaseService';
+import { supabase } from '../services/supabaseClient';
 import{currency,statusOf}from'../utils/costs';
 import{exportExcel,exportPDF}from'../utils/exporters';
 import{classifyItem,applyItemClassification}from'../utils/itemClassifier';
@@ -22,7 +23,7 @@ const sortMovements=rows=>[...rows].sort((a,b)=>movementStamp(b).localeCompare(m
 const typeBadge=t=>{const cls=t==='entrada'?'bg-green-100 text-green-700':t==='saída'?'bg-brand-yellow text-brand-black':t==='devolução'?'bg-blue-100 text-blue-700':t==='perda'?'bg-brand-red text-white':t==='item removido'?'bg-black text-white':'bg-brand-light text-brand-steel dark:bg-white/10 dark:text-white/80';const label=t==='devolução'?'Voltou para o estoque':t==='item removido'?'Item removido':t;return <span className={`badge ${cls}`}>{label}</span>};
 
 export default function Stock(){
- const{stock,upsertStock,deleteStock,quickMove,notify,createPurchaseSuggestion,movements}=useApp();
+ const{stock,upsertStock,deleteStock,quickMove,notify,createPurchaseSuggestion,movements,auth}=useApp();
  const location=useLocation();
  const[query,setQuery]=useState('');const selectedFromNotification=new URLSearchParams(location.search).get('item');
  const[cat,setCat]=useState('Todos');const[status,setStatus]=useState('Todos');const[onlyNoLocation,setOnlyNoLocation]=useState(false);
@@ -33,6 +34,18 @@ export default function Stock(){
  useEffect(()=>{if(edit&&!edit.id)setTimeout(()=>nameRef.current?.focus(),80)},[!!edit,edit?.id]);
  useEffect(()=>{if(!labelBatch)return;const list=selectedItems.length?selectedItems:rows;Promise.all(list.slice(0,250).map(async item=>[item.id,await QRCode.toDataURL(`${location.origin}/movimentacao-rapida?item=${item.id}`)])).then(entries=>setLabelQrs(Object.fromEntries(entries))).catch(()=>{});},[labelBatch,selectedItems.length,rows.length]);
  useEffect(()=>{const itemId=new URLSearchParams(location.search).get('item');if(!itemId)return;const found=stock.find(i=>i.id===itemId);if(!found)return;setCat('Todos');setStatus('Todos');setQuery(found.name||found.code||'');setView(null);setTimeout(()=>window.scrollTo({top:0,behavior:'smooth'}),80)},[location.search,stock]);
+ const downloadPreResetBackup=async()=>{
+  try{
+   if(!['admin','almox'].includes(auth?.role)||!auth?.token||!supabase)throw Error('Sessão sem permissão para baixar backup.');
+   const {data,error}=await supabase.rpc('giftx_almox_download_reset_backup_20261109',{p_token:auth.token});
+   if(error)throw error;
+   if(data?.stock?.length!==365||data?.movements?.length!==226)throw Error('Backup incompleto.');
+   const href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+   const a=document.createElement('a');a.href=href;a.download='GIFT_BACKUP_ESTOQUE_MOVIMENTACOES_2026-11-09.json';
+   document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),5000);
+   notify('Backup histórico baixado');
+  }catch(error){notify('Falha ao baixar backup: '+(error?.message||'tente novamente'),'error')}
+ };
  const openNewItem=()=>{setLearnRule(false);setEdit({...blank})};
  const save=()=>{const smart=classifyItem(edit?.name||'',stock,edit?.id);const previous=stock.find(i=>i.id===edit?.id);const oldQty=Number(previous?.qty||0);const newQty=Number(edit?.qty||0);const increase=previous&&newQty>oldQty;const incomingCost=Number(edit?.unitCost);if(increase&&(!Number.isFinite(incomingCost)||incomingCost<0)){notify('Informe o custo unitário da nova entrada para atualizar o custo médio','error');return}const currentAvg=Number(previous?.avgCost??previous?.unitCost??0);const weighted=increase?((oldQty*currentAvg+(newQty-oldQty)*incomingCost)/newQty):(edit.avgCost??edit.unitCost);if(learnRule&&edit?.name?.trim()){try{upsertLearnedRule({term:edit.name,mode:'exact',category:edit.category,subcategory:edit.subcategory,unit:edit.unit,application:edit.application});}catch(e){notify(e.message,'error');return}}const saved=upsertStock({...edit,code:edit?.code||smart.code,category:edit?.category||smart.category,subcategory:edit?.subcategory||smart.subcategory,unit:edit?.unit||smart.unit,avgCost:weighted,application:edit.application||smart.application||'Produção de máquinas'});if(saved===false)return;setEdit(null);notify('Item salvo')};
  const handleEditKey=e=>{if(e.key==='Enter'&&!e.shiftKey){const tag=e.target?.tagName?.toLowerCase();if(tag==='textarea')return;e.preventDefault();save()}};
@@ -87,7 +100,7 @@ export default function Stock(){
   {key:'actions2',label:'Operações',render:r=><div className="flex items-center justify-center gap-1"><button className="btn-ghost !p-2" title="Entrada/Saída" aria-label="Entrada ou saída" onClick={()=>setMove({productId:r.id,type:'entrada',qty:1,reason:''})}><ArrowDownUp size={15}/></button><button className="btn-ghost !p-2" title="Sugerir compra" aria-label="Sugerir compra" onClick={()=>createPurchaseSuggestion(r)}><ShoppingCart size={15}/></button><button className="btn-ghost !p-2" title="QR Code" aria-label="Gerar QR Code" onClick={()=>genQr(r)}><QrCode size={15}/></button></div>}
  ];
  return <>
-  <PageHeader title="Estoque" subtitle="Cadastro único de itens, produtos, materiais, localização, QR Code e rastreabilidade" actions={<><button onClick={()=>exportPDF('Estoque',rows)} className="btn-ghost"><FileDown size={18}/>PDF</button><button onClick={()=>exportExcel('Estoque',rows)} className="btn-ghost"><FileDown size={18}/>Excel</button><button onClick={()=>{setLabelMode(v=>!v);setSelected([])}} className={labelMode?'btn-primary':'btn-warning'}><CheckSquare size={18}/>{labelMode?'Fechar seleção':'Selecionar etiquetas'}</button>{labelMode&&<button onClick={()=>setLabelBatch(true)} className="btn-warning"><Printer size={18}/>Gerar etiquetas {selected.length?`(${selected.length})`:''}</button>}<button onClick={openNewItem} className="btn-primary"><Plus size={18}/>Adicionar</button></>}/>
+  <PageHeader title="Estoque" subtitle="Cadastro único de itens, produtos, materiais, localização, QR Code e rastreabilidade" actions={<><button onClick={downloadPreResetBackup} className="btn-ghost"><FileDown size={18}/>Backup anterior (09/11)</button><button onClick={()=>exportPDF('Estoque',rows)} className="btn-ghost"><FileDown size={18}/>PDF</button><button onClick={()=>exportExcel('Estoque',rows)} className="btn-ghost"><FileDown size={18}/>Excel</button><button onClick={()=>{setLabelMode(v=>!v);setSelected([])}} className={labelMode?'btn-primary':'btn-warning'}><CheckSquare size={18}/>{labelMode?'Fechar seleção':'Selecionar etiquetas'}</button>{labelMode&&<button onClick={()=>setLabelBatch(true)} className="btn-warning"><Printer size={18}/>Gerar etiquetas {selected.length?`(${selected.length})`:''}</button>}<button onClick={openNewItem} className="btn-primary"><Plus size={18}/>Adicionar</button></>}/>
   <div className="card mb-4 grid gap-3 md:grid-cols-5"><label className="flex items-center gap-3 md:col-span-2"><Search size={18}/><input className="flex-1 bg-transparent outline-none" placeholder="Buscar por código, item/produto, fornecedor, localização ou uso..." value={query} onChange={e=>setQuery(e.target.value)}/></label><select className="input" value={cat} onChange={e=>setCat(e.target.value)}><option>Todos</option>{Object.keys(categories).map(c=><option key={c}>{c}</option>)}</select><select className="input" value={status} onChange={e=>setStatus(e.target.value)}><option>Todos</option><option>OK</option><option>Estoque baixo</option><option>Em falta</option></select><label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" checked={onlyNoLocation} onChange={e=>setOnlyNoLocation(e.target.checked)}/>Sem localização</label></div>
   {selectedFromNotification&&rows[0]&&<div className="mb-4 border border-brand-turquoise bg-brand-turquoise/10 p-3 text-sm font-semibold text-brand-black dark:text-white">Item aberto pela notificação: {rows[0].name}</div>}
   <div className="stock-compact-table"><DataTable columns={cols} rows={rows}  onEdit={r=>{setLearnRule(false);setEdit(r)}} onDelete={r=>deleteStock(r.id)}/></div>
